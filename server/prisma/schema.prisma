@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Patient {
+  id           String        @id @default(uuid())
+  name         String
+  cpf          String
+  email        String
+  password     String
+  color        String
+  birthdate    DateTime
+  motherName   String
+  fatherName   String
+  bloodType    String
+  zipCode      String
+  city         String
+  uf           String
+  neighborhood String
+  street       String
+  complement   String
+  number       Int
+  cell         String
+  createdAt    DateTime      @default(now())
+  Appointment  Appointment[]
+  Reports      Reports[]
+
+  @@map("patients")
+}
+
+model Doctor {
+  id            String           @id @default(uuid())
+  name          String
+  CRM           String
+  expertise     String
+  phone         String
+  Appointment   Appointment[]
+  DoctorReports DoctorsReports[]
+
+  @@map("doctors")
+}
+
+model Reports {
+  id         String  @id @default(uuid())
+  document   String
+  patient    Patient @relation(fields: [patient_id], references: [id])
+  patient_id String
+
+  DoctorReports DoctorsReports[]
+
+  @@map("reports")
+}
+
+model DoctorsReports {
+  id        String @id @default(uuid())
+  doctor    Doctor @relation(fields: [doctor_id], references: [id])
+  doctor_id String
+
+  report    Reports @relation(fields: [report_id], references: [id])
+  report_id String
+
+  @@map("doctorsReports")
+}
+
+model Appointment {
+  id   String   @id @default(uuid())
+  date DateTime
+  hour String
+
+  doctor    Doctor @relation(fields: [doctor_id], references: [id])
+  doctor_id String
+
+  patient    Patient @relation(fields: [patient_id], references: [id])
+  patient_id String
+
+  @@map("appointments")
+}
