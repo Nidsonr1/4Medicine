@@ -1,9 +1,6 @@
-import express from "express";
+import { app } from './app'
+import { env } from './env'
 
-const server = express();
-
-server.use(express.json());
-
-server.listen(3333, () => {
-  console.log(`🚀 Server is running in port 3333`);
+app.listen(env.PORT, () => {
+  console.log(`🚀 Server is running in port ${env.PORT}`);
 });
