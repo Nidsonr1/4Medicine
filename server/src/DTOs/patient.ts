@@ -17,3 +17,23 @@ export interface RegisterPatientRequest {
   number: number,
   cell: string,
 }
+
+export interface UpdatePatientRequest {
+  name: string,
+  cpf: string,
+  email: string,
+  password: string,
+  color: string,
+  birthdate: string,
+  motherName: string,
+  fatherName: string,
+  bloodType: string,
+  zipCode: string,
+  city: string,
+  uf: string,
+  neighborhood: string,
+  street: string,
+  complement: string,
+  number: number,
+  cell: string,
+}
