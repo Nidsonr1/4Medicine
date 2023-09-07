@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
-import { RegisterPatientUseCase } from '../../use-cases/patient/register-patient';
+import { RegisterPatientUseCase } from '../../../use-cases/patient/register-patient';
 import { container } from 'tsyringe';
+import { PatientAlreadyExist } from '@errors/patient-errors';
 
 export class RegisterPatientController {
 	async handle (request: Request, response: Response) {
@@ -11,7 +12,7 @@ export class RegisterPatientController {
 			name: z.string(),
 			cpf: z.string(),
 			email: z.string(),
-			password: z.string(),
+			password: z.string().min(6),
 			color: z.string(),
 			birthdate: z.string(),
 			motherName: z.string(),
@@ -27,17 +28,22 @@ export class RegisterPatientController {
 			cell: z.string(),
 		});
     
-		const patient = registerSchemaBody.parse(request.body);
-  
+		const patient  = registerSchemaBody.safeParse(request.body);
+
+		if (patient.success === false) {
+			return response.status(400).json( patient.error.issues );
+		}
+		
 		try {
-			await registerPatient.execute(patient);
+			await registerPatient.execute(patient.data);
       
 			return response.status(201).send();
 		} catch (error) {
-			if (error instanceof Error) {
-				return response.status(409).send();
+			if (error instanceof PatientAlreadyExist) {
+				return response.status(409).send({
+					message: error.message
+				});
 			}
 		}
-  
 	}
 }
