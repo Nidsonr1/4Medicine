@@ -37,6 +37,7 @@ model Doctor {
   id            String           @id @default(uuid())
   name          String
   CRM           String
+  password      String
   expertise     String
   phone         String
   Appointment   Appointment[]
