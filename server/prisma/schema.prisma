@@ -41,7 +41,9 @@ model Doctor {
   phone         String
   Appointment   Appointment[]
   DoctorReports DoctorsReports[]
-  Agreement     Agreement[]
+
+  agreement   Agreement @relation(fields: [agreementId], references: [id])
+  agreementId String
 
   @@map("doctors")
 }
@@ -50,8 +52,7 @@ model Agreement {
   id   String @id @default(uuid())
   name String
 
-  doctor    Doctor @relation(fields: [doctor_id], references: [id])
-  doctor_id String
+  Doctor Doctor[]
 }
 
 model Reports {
