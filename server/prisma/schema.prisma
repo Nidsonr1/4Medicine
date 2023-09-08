@@ -40,20 +40,11 @@ model Doctor {
   password      String
   expertise     String
   phone         String
+  agreement     String
   Appointment   Appointment[]
   DoctorReports DoctorsReports[]
 
-  agreement   Agreement @relation(fields: [agreementId], references: [id])
-  agreementId String
-
   @@map("doctors")
-}
-
-model Agreement {
-  id   String @id @default(uuid())
-  name String
-
-  Doctor Doctor[]
 }
 
 model Reports {
@@ -68,8 +59,8 @@ model Reports {
 }
 
 model DoctorsReports {
-  id        String @id @default(uuid())
-  doctor    Doctor @relation(fields: [doctor_id], references: [id])
+  id        String  @id @default(uuid())
+  doctor    Doctor? @relation(fields: [doctor_id], references: [id])
   doctor_id String
 
   report    Reports @relation(fields: [report_id], references: [id])
@@ -83,10 +74,10 @@ model Appointment {
   date DateTime
   hour String
 
-  doctor    Doctor @relation(fields: [doctor_id], references: [id])
+  doctor    Doctor? @relation(fields: [doctor_id], references: [id])
   doctor_id String
 
-  patient    Patient @relation(fields: [patient_id], references: [id])
+  patient    Patient? @relation(fields: [patient_id], references: [id])
   patient_id String
 
   @@map("appointments")

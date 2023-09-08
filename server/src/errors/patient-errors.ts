@@ -10,8 +10,3 @@ export class PatientAlreadyExist extends Error {
 	}
 }
 
-export class Unauthenticated extends Error {
-	constructor() {
-		super('Token Missing');
-	}
-}
