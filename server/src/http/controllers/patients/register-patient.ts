@@ -15,6 +15,7 @@ export class RegisterPatientController {
 			password: z.string().min(6),
 			color: z.string(),
 			birthdate: z.string(),
+			civilStatus: z.string(),
 			motherName: z.string(),
 			fatherName: z.string(),
 			bloodType: z.string(),

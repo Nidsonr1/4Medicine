@@ -1,8 +1,14 @@
-import { Patient, Prisma } from '@prisma/client';
+import { Patient } from '@prisma/client';
 import { PatientRepository } from '../patient-repository';
 import { prisma } from '../../lib/prisma';
+import { RegisterPatientRequest, UpdatePatientRequest } from '@DTO/patient';
 
 export class PrismaPatientRepository implements PatientRepository {
+	async create(data: RegisterPatientRequest): Promise<void> {
+		await prisma.patient.create({
+			data
+		}); 
+	}
 	async findByEmail(email: string): Promise<Patient | null> {
 		const patient = await prisma.patient.findFirst({
 			where: {
@@ -30,14 +36,8 @@ export class PrismaPatientRepository implements PatientRepository {
 
 		return patient;
 	}
-  
-	async create(data: Prisma.PatientCreateInput): Promise<void> {
-		await prisma.patient.create({
-			data
-		});
-	}
 
-	async update(data: Prisma.PatientUpdateInput, id: string): Promise<Patient> {
+	async update(data: UpdatePatientRequest, id: string): Promise<Patient> {
 		const patient = await prisma.patient.update({
 			where: {
 				id

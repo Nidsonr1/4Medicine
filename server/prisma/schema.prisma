@@ -15,6 +15,7 @@ model Patient {
   password     String
   color        String
   birthdate    String
+  civilStatus  String
   motherName   String
   fatherName   String
   bloodType    String

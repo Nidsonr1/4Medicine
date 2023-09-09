@@ -5,11 +5,7 @@ import { PatientNotFound } from '@errors/patient-errors';
 import { PatientRepository } from '@repositories/patient-repository';
 import { sign } from 'jsonwebtoken';
 import { env } from 'env';
-
-interface LoginPatientRequest {
-  email: string;
-  password: string;
-}
+import { LoginPatientRequest } from '@DTO/patient';
 
 @injectable()
 export class LoginPatient {
@@ -27,6 +23,7 @@ export class LoginPatient {
 
 		const passwordCompare = await compare(password, patient.password);
 
+		// To-Do: Alter "Patient not Found" to "Credential Invalid"
 		if (!passwordCompare) {
 			throw new PatientNotFound();
 		}
