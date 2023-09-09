@@ -3,12 +3,11 @@ import { env } from 'env';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 
-
 interface IPayload {
-  sub: string;
+  sub: string
 }
 
-export async function EnsureAuthenticatePatient(
+export async function EnsureAuthenticateDoctor(
 	request: Request,
 	response: Response,
 	next: NextFunction
@@ -16,15 +15,14 @@ export async function EnsureAuthenticatePatient(
 	try {
 		const authHeader = request.headers.authorization;
 
-		if (!authHeader) {
+		if(!authHeader) {
 			throw new Unauthenticated();
 		}
 
 		const [, token] = authHeader.split(' ');
-
 		const { sub } = verify(token, env.PATIENTKEY) as IPayload;
 
-		request.patientId = sub;
+		request.doctorId = sub;
 
 		return next();
 	} catch (error) {
