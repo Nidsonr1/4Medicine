@@ -1,9 +1,8 @@
-import { Doctor, Prisma } from '@prisma/client';
+import { Doctor } from '@prisma/client';
 
 import { prisma } from '@lib/prisma';
 import { DoctorRepository } from '@repositories/doctor-repository';
-
-
+import { RegisterDoctorRequest, UpdateDoctorRequest } from '@DTO/doctor';
 
 export class PrismaDoctorRepository implements DoctorRepository {
 	async findById(id: string): Promise<Doctor | null> {
@@ -15,7 +14,18 @@ export class PrismaDoctorRepository implements DoctorRepository {
 
 		return doctor;
 	}
-	async create(data: Prisma.DoctorCreateInput): Promise<Doctor> {
+
+	async findByCRM(crm: string): Promise<Doctor | null> {
+		const doctor = await prisma.doctor.findFirst({
+			where: {
+				CRM: crm
+			}
+		});
+
+		return doctor;
+	}
+
+	async create(data: RegisterDoctorRequest): Promise<Doctor> {
 		const doctor = await prisma.doctor.create({
 			data
 		});
@@ -23,11 +33,12 @@ export class PrismaDoctorRepository implements DoctorRepository {
 		return doctor;
 	}
 
-	async findByCRM(crm: string): Promise<Doctor | null> {
-		const doctor = await prisma.doctor.findFirst({
+	async update(data: UpdateDoctorRequest, doctorId: string): Promise<Doctor> {
+		const doctor = await prisma.doctor.update({
 			where: {
-				CRM: crm
-			}
+				id: doctorId
+			},
+			data
 		});
 
 		return doctor;

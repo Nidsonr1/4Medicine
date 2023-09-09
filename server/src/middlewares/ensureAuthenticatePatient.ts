@@ -13,15 +13,15 @@ export async function EnsureAuthenticatePatient(
 	response: Response,
 	next: NextFunction
 ) {
-	const authHeader = request.headers.authorization;
-
-	if (!authHeader) {
-		throw new Unauthenticated();
-	}
-
-	const [, token] = authHeader.split(' ');
-
 	try {
+		const authHeader = request.headers.authorization;
+
+		if (!authHeader) {
+			throw new Unauthenticated();
+		}
+
+		const [, token] = authHeader.split(' ');
+
 		const { sub } = verify(token, env.PATIENTKEY) as IPayload;
 
 		request.patientId = sub;

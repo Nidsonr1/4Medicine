@@ -6,3 +6,9 @@ export interface RegisterDoctorRequest {
   phone: string,
   agreement: string
 }
+
+
+export interface UpdateDoctorRequest {
+  phone: string;
+  agreement: string;
+}
