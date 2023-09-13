@@ -1,3 +1,4 @@
+import { returnDoctorsInfo } from '@DTO/doctor';
 import { DoctorNotFound } from '@errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { inject, injectable } from 'tsyringe';
@@ -10,13 +11,20 @@ export class InfoDoctor {
     private doctorRepository: DoctorRepository
 	) {}
 
-	async execute(id: string) {
+	async execute(id: string): Promise<returnDoctorsInfo> {
 		const doctor = await this.doctorRepository.findById(id);
 
 		if (!doctor) {
 			throw new DoctorNotFound();
 		}
 
-		return doctor;
+		return {
+			id: doctor.id,
+			name: doctor.name,
+			CRM: doctor.CRM,
+			expertise: doctor.expertise,
+			phone: doctor.phone,
+			agreement: doctor.agreement
+		};
 	}
 }

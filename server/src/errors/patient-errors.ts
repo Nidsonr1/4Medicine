@@ -10,3 +10,8 @@ export class PatientAlreadyExist extends Error {
 	}
 }
 
+export class InvalidCredentials extends Error {
+	constructor() {
+		super('E-mail or password invalid!');
+	}
+}

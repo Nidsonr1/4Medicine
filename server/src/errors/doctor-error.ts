@@ -15,3 +15,9 @@ export class Unauthenticated extends Error {
 		super('Token Missing');
 	}
 }
+
+export class InvalidCredentials extends Error {
+	constructor() {
+		super('CRM or password invalid!');
+	}
+}

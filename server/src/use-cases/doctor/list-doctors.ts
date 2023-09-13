@@ -9,7 +9,7 @@ export class ListDoctors {
 	) {}
 
 	async execute(search: string) {
-		const doctors = await this.doctorRepository.listByAgreement(search);
+		const doctors = await this.doctorRepository.listByAgreementOrName(search);
 
 		const result = doctors.map((doctor) => {
 			return {

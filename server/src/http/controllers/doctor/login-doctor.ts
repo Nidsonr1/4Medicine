@@ -1,10 +1,8 @@
-import { InvalidCredentials } from '@errors/general-errors';
+import { InvalidCredentials } from '@errors/doctor-error';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { LoginDoctor } from 'use-cases/doctor/login-doctor';
 import { z } from 'zod';
-
-
 
 export class LoginDoctorController {
 	async handle(request: Request, response: Response) {

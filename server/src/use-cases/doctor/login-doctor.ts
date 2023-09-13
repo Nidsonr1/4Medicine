@@ -1,4 +1,4 @@
-import { InvalidCredentials } from '@errors/general-errors';
+import { InvalidCredentials } from '@errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { compare } from 'bcrypt';
 import { env } from 'env';

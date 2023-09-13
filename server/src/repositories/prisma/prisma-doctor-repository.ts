@@ -44,17 +44,34 @@ export class PrismaDoctorRepository implements DoctorRepository {
 		return doctor;
 	}
 
-	async listByAgreement(search: string): Promise<Doctor[]>{
+	async listByAgreementOrName(search?: string): Promise<Doctor[]>{
 		const doctors = await prisma.doctor.findMany({
 			where: {
-				agreement: {
-					contains: search,
-					mode: 'insensitive'
-				},
+				OR: [
+					{
+						agreement: {
+							contains: search,
+							mode: 'insensitive'
+						}
+					},
+					{
+						
+						name: {
+							contains: search,
+							mode: 'insensitive'
+						}
+					}
+				]
 			}
 		});
 
-		return doctors;
+		const result = search 
+			?
+			doctors 
+			:
+			await prisma.doctor.findMany();
+
+		return result;
 	}
 
 }
