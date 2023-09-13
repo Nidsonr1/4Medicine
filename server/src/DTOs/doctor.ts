@@ -20,3 +20,14 @@ export interface returnDoctorsInfo {
 	phone: string,
 	agreement: string
 }
+
+export interface LoginDoctorRequest {
+  CRM: string;
+  password: string
+}
+
+export interface LoginDoctorResponse {
+  name: string,
+  CRM: string,
+  token: string
+}

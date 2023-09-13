@@ -8,7 +8,7 @@ export class LoginDoctorController {
 	async handle(request: Request, response: Response) {
 		const loginDoctorUseCase = container.resolve(LoginDoctor);
 		const loginDoctorSchema = z.object({
-			crm: z.string(),
+			CRM: z.string(),
 			password: z.string().min(6)
 		});
 

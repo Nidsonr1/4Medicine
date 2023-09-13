@@ -1,3 +1,4 @@
+import { LoginDoctorRequest, LoginDoctorResponse } from '@DTO/doctor';
 import { InvalidCredentials } from '@errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { compare } from 'bcrypt';
@@ -5,10 +6,7 @@ import { env } from 'env';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
-interface LoginDoctorRequest {
-  crm: string;
-  password: string
-}
+
 
 @injectable()
 export class LoginDoctor {
@@ -18,8 +16,8 @@ export class LoginDoctor {
     private doctorRepository: DoctorRepository
 	) {}
 
-	async execute({crm, password}: LoginDoctorRequest) {
-		const doctor = await this.doctorRepository.findByCRM(crm);
+	async execute({CRM, password}: LoginDoctorRequest): Promise<LoginDoctorResponse> {
+		const doctor = await this.doctorRepository.findByCRM(CRM);
 
 		if (!doctor) {
 			throw new InvalidCredentials();
@@ -31,14 +29,14 @@ export class LoginDoctor {
 			throw new InvalidCredentials();
 		}
 
-		const token = sign({ crm }, env.PATIENTKEY, {
+		const token = sign({ CRM }, env.PATIENTKEY, {
 			subject: doctor.id,
 			expiresIn: '1d'
 		});
 
 		return {
 			name: doctor.name,
-			crm,
+			CRM,
 			token
 		};
 	}

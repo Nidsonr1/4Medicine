@@ -15,10 +15,10 @@ export class PrismaDoctorRepository implements DoctorRepository {
 		return doctor;
 	}
 
-	async findByCRM(crm: string): Promise<Doctor | null> {
+	async findByCRM(CRM: string): Promise<Doctor | null> {
 		const doctor = await prisma.doctor.findFirst({
 			where: {
-				CRM: crm
+				CRM
 			}
 		});
 
@@ -57,6 +57,12 @@ export class PrismaDoctorRepository implements DoctorRepository {
 					{
 						
 						name: {
+							contains: search,
+							mode: 'insensitive'
+						}
+					},
+					{
+						expertise: {
 							contains: search,
 							mode: 'insensitive'
 						}
