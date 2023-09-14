@@ -10,7 +10,8 @@ export class UpdateDoctorController {
 
 		const updateSchema = z.object({
 			phone: z.string(),
-			agreement: z.string()
+			agreement: z.string(),
+			cell: z.string().optional()
 		});
 
 		const { doctorId } = request;

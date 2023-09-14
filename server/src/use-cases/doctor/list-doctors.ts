@@ -18,8 +18,9 @@ export class ListDoctors {
 				CRM: doctor.CRM,
 				expertise: doctor.expertise,
 				phone: doctor.phone,
-				agreement: doctor.agreement
-			};
+				agreement: doctor.agreement,
+				cell: doctor.cell
+			}; 
 		});
 
 		return result;

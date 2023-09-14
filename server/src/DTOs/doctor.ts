@@ -10,7 +10,7 @@ export interface RegisterDoctorRequest {
 
 export interface UpdateDoctorRequest {
   phone: string;
-  cell: string;
+  cell?: string;
   agreement: string;
 }
 
@@ -21,7 +21,7 @@ export interface returnDoctorsInfo {
 	expertise: string,
 	phone: string,
 	agreement: string,
-  cell?: string 
+  cell?: string | null
 }
 
 export interface LoginDoctorRequest {

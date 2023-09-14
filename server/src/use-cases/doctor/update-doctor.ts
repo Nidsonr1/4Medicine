@@ -27,7 +27,8 @@ export class UpdateDoctor {
 			CRM: doctor.CRM,
 			expertise: doctor.expertise,
 			agreement: doctor.agreement,
-			phone: doctor.phone
+			phone: doctor.phone,
+			cell: doctor.cell
 		};
 	}
 }

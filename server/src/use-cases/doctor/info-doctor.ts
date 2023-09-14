@@ -24,7 +24,8 @@ export class InfoDoctor {
 			CRM: doctor.CRM,
 			expertise: doctor.expertise,
 			phone: doctor.phone,
-			agreement: doctor.agreement
+			agreement: doctor.agreement,
+			cell: doctor.cell
 		};
 	}
 }
