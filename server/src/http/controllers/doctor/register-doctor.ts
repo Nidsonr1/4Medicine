@@ -14,9 +14,9 @@ export class RegisterDoctorController {
 			password: z.string().min(6),
 			expertise: z.string(),
 			phone: z.string(),
+			cell: z.string().optional(),
 			agreement: z.string()
 		});
-
 		const doctor = registerDoctorSchema.safeParse(request.body);
 
 		if(doctor.success === false) {

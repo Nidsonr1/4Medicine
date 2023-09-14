@@ -41,6 +41,7 @@ model Doctor {
   password      String
   expertise     String
   phone         String
+  cell          String?          @default("null")
   agreement     String
   Appointment   Appointment[]
   DoctorReports DoctorsReports[]
@@ -71,9 +72,12 @@ model DoctorsReports {
 }
 
 model Appointment {
-  id   String   @id @default(uuid())
-  date DateTime
-  hour String
+  id          String   @id @default(uuid())
+  title       String
+  start_date  DateTime
+  end_date    DateTime
+  description String
+  link        String
 
   doctor    Doctor? @relation(fields: [doctor_id], references: [id])
   doctor_id String

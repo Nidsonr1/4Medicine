@@ -4,11 +4,13 @@ export interface RegisterDoctorRequest {
   password: string,
   expertise: string,
   phone: string,
+  cell?: string
   agreement: string
 }
 
 export interface UpdateDoctorRequest {
   phone: string;
+  cell: string;
   agreement: string;
 }
 
@@ -18,7 +20,8 @@ export interface returnDoctorsInfo {
 	CRM: string,
 	expertise: string,
 	phone: string,
-	agreement: string
+	agreement: string,
+  cell?: string 
 }
 
 export interface LoginDoctorRequest {

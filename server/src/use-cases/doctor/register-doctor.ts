@@ -27,7 +27,8 @@ export class RegisterDoctor {
 			password: passwordHash,
 			expertise: data.expertise,
 			phone: data.phone,
-			agreement: data.agreement
+			agreement: data.agreement,
+			cell: data.cell
 		});
 	}
 }
