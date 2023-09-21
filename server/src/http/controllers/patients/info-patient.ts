@@ -16,7 +16,7 @@ export class InfoPatientController {
 			return response.json({ patient });
 		} catch (error) {
 			if (error instanceof PatientNotFound) {
-				return response.status(404).send({
+				return response.status(404).json({
 					message: error.message
 				});
 			}

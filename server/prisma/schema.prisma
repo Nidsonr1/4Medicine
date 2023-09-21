@@ -76,7 +76,7 @@ model Appointment {
   title       String
   start_date  DateTime
   end_date    DateTime
-  description String
+  description String?
   link        String
 
   doctor    Doctor? @relation(fields: [doctor_id], references: [id])

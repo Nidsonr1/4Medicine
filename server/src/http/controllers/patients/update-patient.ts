@@ -34,10 +34,10 @@ export class UpdatePatientController {
 		try {
 			const result = await updatePatient.execute(patient.data, patientId);
 
-			return response.status(202).send(result);
+			return response.status(202).json(result);
 		} catch (error) {
 			if (error instanceof PatientNotFound) {
-				return response.status(404).send(error.message);
+				return response.status(404).json(error.message);
 			}
 		}
 	}

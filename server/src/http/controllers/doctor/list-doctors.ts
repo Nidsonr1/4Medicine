@@ -14,9 +14,9 @@ export class ListDoctorsController {
 			const result = await listDoctorsUseCase.execute(search as string);
 
 
-			return response.status(200).send(result);
+			return response.status(200).json(result);
 		} catch (error) {
-			return response.status(500).send();
+			return response.status(500).json();
 		}
 	}
 }
