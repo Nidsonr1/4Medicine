@@ -35,40 +35,33 @@ model Patient {
 }
 
 model Doctor {
-  id            String           @id @default(uuid())
-  name          String
-  CRM           String
-  password      String
-  expertise     String
-  phone         String
-  cell          String?          @default("null")
-  agreement     String
-  Appointment   Appointment[]
-  DoctorReports DoctorsReports[]
+  id          String        @id @default(uuid())
+  name        String
+  CRM         String
+  password    String
+  expertise   String
+  phone       String
+  cell        String?       @default("null")
+  agreement   String
+  Appointment Appointment[]
+  Reports     Reports[]
 
   @@map("doctors")
 }
 
 model Reports {
-  id         String  @id @default(uuid())
+  id         String   @id @default(uuid())
   document   String
+  sharedBy   String[]
+  created_at DateTime @default(now())
+
   patient    Patient @relation(fields: [patient_id], references: [id])
   patient_id String
 
-  DoctorReports DoctorsReports[]
-
-  @@map("reports")
-}
-
-model DoctorsReports {
-  id        String  @id @default(uuid())
-  doctor    Doctor? @relation(fields: [doctor_id], references: [id])
+  doctor    Doctor @relation(fields: [doctor_id], references: [id])
   doctor_id String
 
-  report    Reports @relation(fields: [report_id], references: [id])
-  report_id String
-
-  @@map("doctorsReports")
+  @@map("reports")
 }
 
 model Appointment {
