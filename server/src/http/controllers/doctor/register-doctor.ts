@@ -26,10 +26,10 @@ export class RegisterDoctorController {
 		try {
 			await registerDoctoruseCase.execute(doctor.data);
 
-			return response.status(201).send();
+			return response.status(201).json();
 		} catch (error) {
 			if (error instanceof DoctorAlreadyExist) {
-				return response.status(409).send({
+				return response.status(409).json({
 					message: error.message
 				});
 			}

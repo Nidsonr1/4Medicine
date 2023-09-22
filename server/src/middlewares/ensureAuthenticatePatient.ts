@@ -29,7 +29,7 @@ export async function EnsureAuthenticatePatient(
 		return next();
 	} catch (error) {
 		if (error instanceof Unauthenticated) {
-			return response.status(401).send({
+			return response.status(401).json({
 				message: error.message
 			});
 		}
