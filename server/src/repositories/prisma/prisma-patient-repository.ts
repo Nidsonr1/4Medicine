@@ -47,4 +47,27 @@ export class PrismaPatientRepository implements PatientRepository {
 
 		return patient;
 	}
+
+	async list(search?: string): Promise<Patient[] | null> {
+		const patients = await prisma.patient.findMany({
+			where: {
+				OR: [
+					{
+						name: {
+							contains: search,
+							mode: 'insensitive'
+						}
+					}
+				]
+			}
+		});
+
+		const result =  search
+			? 
+			patients
+			:
+			await prisma.patient.findMany();
+
+		return result;
+	}
 }

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { InfoDoctorController } from 'http/controllers/doctor/info-doctor';
 import { ListDoctorsController } from 'http/controllers/doctor/list-doctors';
+import { ListPatientsController } from 'http/controllers/doctor/list-patients';
 import { ListReportByDoctorController } from 'http/controllers/doctor/list-report';
 import { LoginDoctorController } from 'http/controllers/doctor/login-doctor';
 import { RegisterDoctorController } from 'http/controllers/doctor/register-doctor';
@@ -16,6 +17,7 @@ const infoDoctorController = new InfoDoctorController();
 const loginDoctorController = new LoginDoctorController();
 const updateDoctorController = new UpdateDoctorController();
 const listReportsByDoctorController = new ListReportByDoctorController(); 
+const listPatientsController = new ListPatientsController();
 
 doctorRoutes.post('/create', registerDoctorController.handle);
 doctorRoutes.post('/login', loginDoctorController.handle);
@@ -41,4 +43,10 @@ doctorRoutes.get(
 	'/reports', 
 	EnsureAuthenticateDoctor, 
 	listReportsByDoctorController.handle
+);
+
+doctorRoutes.get(
+	'/patients',
+	EnsureAuthenticateDoctor,
+	listPatientsController.handle
 );

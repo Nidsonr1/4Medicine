@@ -19,6 +19,7 @@ export class InfoPatient {
 		}
 
 		return {
+			id: patient.id,
 			name: patient.name,
 			cpf: patient.cpf,
 			email: patient.email,

@@ -18,27 +18,28 @@ export class UpdatePatient {
 			throw new PatientNotFound();
 		}
 
-		const result = await this.patientRepository.update(data, patientId);
+		const patientEdited = await this.patientRepository.update(data, patientId);
 
 		return {
-			name: result.name,
-			cpf: result.cpf,
-			email: result.email,
-			civilStatus: result.civilStatus,
-			color: result.color,
-			birthdate: result.birthdate,
-			motherName: result.motherName,
-			fatherName: result.fatherName,
-			bloodType: result.bloodType,
+			id: patientEdited.id,
+			name: patientEdited.name,
+			cpf: patientEdited.cpf,
+			email: patientEdited.email,
+			civilStatus: patientEdited.civilStatus,
+			color: patientEdited.color,
+			birthdate: patientEdited.birthdate,
+			motherName: patientEdited.motherName,
+			fatherName: patientEdited.fatherName,
+			bloodType: patientEdited.bloodType,
 			address: {
-				zipCode: result.zipCode,
-				city: result.city,
-				uf: result.uf,
-				neighborhood: result.neighborhood,
-				street: result.street,
-				complement: result.complement,
-				number: result.number,
-				cell: result.cell,
+				zipCode: patientEdited.zipCode,
+				city: patientEdited.city,
+				uf: patientEdited.uf,
+				neighborhood: patientEdited.neighborhood,
+				street: patientEdited.street,
+				complement: patientEdited.complement,
+				number: patientEdited.number,
+				cell: patientEdited.cell,
 			}
 		};
 	}

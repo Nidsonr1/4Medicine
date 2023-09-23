@@ -7,4 +7,5 @@ export interface PatientRepository {
   findByEmail(email: string): Promise<Patient | null>
   create(data: RegisterPatientRequest): Promise<void>;
   update(data: UpdatePatientRequest, id: string): Promise<Patient>;
+  list(search?: string):  Promise<Patient[] | null>
 }

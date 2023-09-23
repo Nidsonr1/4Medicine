@@ -5,7 +5,6 @@ import './shared/container';
 import { routes } from './http/routes';
 import { env } from 'env';
 import { ZodError } from 'zod';
-import { Unauthenticated } from '@errors/general-errors';
 
 export const app = express();
 
