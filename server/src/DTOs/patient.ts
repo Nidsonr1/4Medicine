@@ -3,12 +3,9 @@ export interface RegisterPatientRequest {
   cpf: string;
   email: string;
   password: string;
-  color: string;
-  birthdate: string;
-  civilStatus: string;
-  motherName: string;
-  fatherName: string;
-  bloodType: string;
+  gender: string;
+  cell: string;
+  dateOfBirth: string;
   zipCode: string;
   city: string;
   uf: string;
@@ -16,7 +13,6 @@ export interface RegisterPatientRequest {
   street: string;
   complement: string;
   number: number;
-  cell: string;
 }
 
 export interface UpdatePatientRequest {

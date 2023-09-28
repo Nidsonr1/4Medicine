@@ -8,30 +8,36 @@ datasource db {
 }
 
 model Patient {
-  id           String        @id @default(uuid())
-  name         String
-  cpf          String
-  email        String
-  password     String
-  color        String
-  birthdate    String
-  civilStatus  String
-  motherName   String
-  fatherName   String
-  bloodType    String
-  zipCode      String
-  city         String
-  uf           String
-  neighborhood String
-  street       String
-  complement   String
-  number       Int
-  cell         String
-  createdAt    DateTime      @default(now())
-  Appointment  Appointment[]
-  Reports      Reports[]
+  id                String              @id @default(uuid())
+  name              String
+  cpf               String
+  email             String
+  password          String
+  gender            String
+  cell              String
+  dateOfBirth       String
+  zipCode           String
+  city              String
+  uf                String
+  neighborhood      String
+  street            String
+  complement        String
+  number            Int
+  createdAt         DateTime            @default(now())
+  Appointment       Appointment[]
+  Reports           Reports[]
+  PatientHealthInfo PatientHealthInfo[]
 
   @@map("patients")
+}
+
+model PatientHealthInfo {
+  id        String   @id @default(uuid())
+  condition String[]
+  allergies String[]
+
+  patient    Patient @relation(fields: [patient_id], references: [id])
+  patient_id String
 }
 
 model Doctor {
