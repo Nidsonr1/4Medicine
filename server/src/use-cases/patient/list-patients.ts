@@ -2,6 +2,7 @@ import { ReturnPatient } from '@DTO/patient';
 import { DoctorNotFound } from '@errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
+import { hideSensitiveData } from 'services/hideSensitiveData';
 import { inject, injectable } from 'tsyringe';
 
 
@@ -28,12 +29,17 @@ export class ListPatientsUseCase {
 
 		const patients = await this.patientRepository.list(search);
 
+		
+
 		const result = patients?.map((patient) => {
+
+			const sensitiveData = hideSensitiveData(patient.email, patient.cpf);
+			
 			return {
 				id: patient.id,
 				name: patient.name,
-				cpf: patient.cpf,
-				email: patient.email,
+				cpf: sensitiveData.cpf,
+				email: sensitiveData.email,
 				civilStatus: patient.civilStatus,
 				color: patient.color,
 				birthdate: patient.birthdate,
