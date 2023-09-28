@@ -15,6 +15,7 @@ model Patient {
   password     String
   color        String
   birthdate    String
+  civilStatus  String
   motherName   String
   fatherName   String
   bloodType    String
@@ -34,48 +35,47 @@ model Patient {
 }
 
 model Doctor {
-  id            String           @id @default(uuid())
-  name          String
-  CRM           String
-  expertise     String
-  phone         String
-  Appointment   Appointment[]
-  DoctorReports DoctorsReports[]
+  id          String        @id @default(uuid())
+  name        String
+  CRM         String
+  password    String
+  expertise   String
+  phone       String
+  cell        String?       @default("null")
+  agreement   String
+  Appointment Appointment[]
+  Reports     Reports[]
 
   @@map("doctors")
 }
 
 model Reports {
-  id         String  @id @default(uuid())
+  id         String   @id @default(uuid())
   document   String
+  sharedBy   String[]
+  created_at DateTime @default(now())
+
   patient    Patient @relation(fields: [patient_id], references: [id])
   patient_id String
 
-  DoctorReports DoctorsReports[]
+  doctor    Doctor @relation(fields: [doctor_id], references: [id])
+  doctor_id String
 
   @@map("reports")
 }
 
-model DoctorsReports {
-  id        String @id @default(uuid())
-  doctor    Doctor @relation(fields: [doctor_id], references: [id])
-  doctor_id String
-
-  report    Reports @relation(fields: [report_id], references: [id])
-  report_id String
-
-  @@map("doctorsReports")
-}
-
 model Appointment {
-  id   String   @id @default(uuid())
-  date DateTime
-  hour String
+  id          String   @id @default(uuid())
+  title       String
+  start_date  DateTime
+  end_date    DateTime
+  description String?
+  link        String
 
-  doctor    Doctor @relation(fields: [doctor_id], references: [id])
+  doctor    Doctor? @relation(fields: [doctor_id], references: [id])
   doctor_id String
 
-  patient    Patient @relation(fields: [patient_id], references: [id])
+  patient    Patient? @relation(fields: [patient_id], references: [id])
   patient_id String
 
   @@map("appointments")

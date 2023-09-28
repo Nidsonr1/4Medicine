@@ -10,8 +10,8 @@ export class PatientAlreadyExist extends Error {
 	}
 }
 
-export class Unauthenticated extends Error {
+export class InvalidCredentials extends Error {
 	constructor() {
-		super('Token Missing');
+		super('E-mail or password invalid!');
 	}
 }

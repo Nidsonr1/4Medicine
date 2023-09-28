@@ -13,13 +13,7 @@ export class UpdatePatientController {
 
 		const updateSchemaBody = z.object({
 			name: z.string(),
-			cpf: z.string(),
 			email: z.string(),
-			password: z.string().min(6),
-			color: z.string(),
-			birthdate: z.string(),
-			motherName: z.string(),
-			fatherName: z.string(),
 			bloodType: z.string(),
 			zipCode: z.string(),
 			city: z.string(),
@@ -28,7 +22,7 @@ export class UpdatePatientController {
 			street: z.string(),
 			complement: z.string(),
 			number: z.coerce.number(),
-			cell: z.string()
+			cell: z.string(),
 		});
 
 		const patient = updateSchemaBody.safeParse(request.body);
@@ -40,10 +34,10 @@ export class UpdatePatientController {
 		try {
 			const result = await updatePatient.execute(patient.data, patientId);
 
-			return response.status(202).send(result);
+			return response.status(202).json(result);
 		} catch (error) {
 			if (error instanceof PatientNotFound) {
-				return response.status(404).send(error.message);
+				return response.status(404).json(error.message);
 			}
 		}
 	}

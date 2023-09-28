@@ -1,15 +1,11 @@
 import { inject, injectable } from 'tsyringe';
 import { compare } from 'bcrypt';
 
-import { PatientNotFound } from '@errors/patient-errors';
+import { InvalidCredentials } from '@errors/patient-errors';
 import { PatientRepository } from '@repositories/patient-repository';
 import { sign } from 'jsonwebtoken';
 import { env } from 'env';
-
-interface LoginPatientRequest {
-  email: string;
-  password: string;
-}
+import { LoginPatientRequest } from '@DTO/patient';
 
 @injectable()
 export class LoginPatient {
@@ -22,13 +18,14 @@ export class LoginPatient {
 		const patient = await this.patientRepository.findByEmail(email);
 
 		if (!patient) {
-			throw new PatientNotFound();
+			throw new InvalidCredentials();
 		}
 
 		const passwordCompare = await compare(password, patient.password);
 
+		
 		if (!passwordCompare) {
-			throw new PatientNotFound();
+			throw new InvalidCredentials();
 		}
 
 		const token = sign({ email }, env.PATIENTKEY, {

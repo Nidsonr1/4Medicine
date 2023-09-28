@@ -1,4 +1,4 @@
-import { Unauthenticated } from '@errors/patient-errors';
+import { Unauthenticated } from '@errors/general-errors';
 import { env } from 'env';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
@@ -13,15 +13,15 @@ export async function EnsureAuthenticatePatient(
 	response: Response,
 	next: NextFunction
 ) {
-	const authHeader = request.headers.authorization;
-
-	if (!authHeader) {
-		throw new Unauthenticated();
-	}
-
-	const [, token] = authHeader.split(' ');
-
 	try {
+		const authHeader = request.headers.authorization;
+
+		if (!authHeader) {
+			throw new Unauthenticated();
+		}
+
+		const [, token] = authHeader.split(' ');
+
 		const { sub } = verify(token, env.PATIENTKEY) as IPayload;
 
 		request.patientId = sub;
@@ -29,7 +29,7 @@ export async function EnsureAuthenticatePatient(
 		return next();
 	} catch (error) {
 		if (error instanceof Unauthenticated) {
-			return response.status(401).send({
+			return response.status(401).json({
 				message: error.message
 			});
 		}

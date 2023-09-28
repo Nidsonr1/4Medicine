@@ -1,4 +1,4 @@
-import { PatientNotFound } from '@errors/patient-errors';
+import { InvalidCredentials } from '@errors/patient-errors';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { LoginPatient } from 'use-cases/patient/login-patient';
@@ -24,8 +24,8 @@ export class LoginPatientController {
 
 			return response.json(result);
 		} catch (error) {
-			if (error instanceof PatientNotFound) {
-				return response.status(404).send({
+			if (error instanceof InvalidCredentials) {
+				return response.status(404).json({
 					message: error.message
 				});
 			}

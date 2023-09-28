@@ -15,6 +15,7 @@ export class RegisterPatientController {
 			password: z.string().min(6),
 			color: z.string(),
 			birthdate: z.string(),
+			civilStatus: z.string(),
 			motherName: z.string(),
 			fatherName: z.string(),
 			bloodType: z.string(),
@@ -37,10 +38,10 @@ export class RegisterPatientController {
 		try {
 			await registerPatient.execute(patient.data);
       
-			return response.status(201).send();
+			return response.status(201).json();
 		} catch (error) {
 			if (error instanceof PatientAlreadyExist) {
-				return response.status(409).send({
+				return response.status(409).json({
 					message: error.message
 				});
 			}

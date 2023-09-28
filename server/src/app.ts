@@ -1,20 +1,20 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import 'reflect-metadata';
 
 import './shared/container';
 import { routes } from './http/routes';
 import { env } from 'env';
 import { ZodError } from 'zod';
+import { Unauthenticated } from '@errors/general-errors';
 
 export const app = express();
 
 app.use(express.json());
-app.use(routes);
-
 app.use((
 	error: Error,
 	_: Request,
 	response: Response,
+	next: NextFunction
 ) => {
 	if (error instanceof ZodError) {
 		return response.status(400).json({
@@ -28,4 +28,7 @@ app.use((
 	}
 
 	return response.status(500).json({ message: 'Internal Server Error' });
+
 });
+
+app.use(routes);

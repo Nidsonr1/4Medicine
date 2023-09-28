@@ -29,6 +29,7 @@ export class RegisterPatientUseCase {
 			password: passwordHash,
 			color: data.color,
 			birthdate: data.birthdate,
+			civilStatus: data.civilStatus,
 			motherName: data.motherName,
 			fatherName: data.fatherName,
 			bloodType: data.bloodType,
