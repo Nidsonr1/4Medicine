@@ -18,7 +18,6 @@ export interface RegisterPatientRequest {
 export interface UpdatePatientRequest {
   name: string;
   email: string;
-  bloodType: string;
   zipCode: string;
   city: string;
   uf: string;
@@ -35,12 +34,7 @@ export interface ReturnPatient {
   name: string;
   cpf: string;
   email: string;
-  civilStatus: string;
-  color: string;
-  birthdate: string;
-  motherName: string;
-  fatherName: string;
-  bloodType: string;
+  dateOfBirth: string;
   address: {
     zipCode: string;
     city: string;

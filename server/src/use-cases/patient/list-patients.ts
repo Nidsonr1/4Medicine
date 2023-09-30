@@ -40,12 +40,9 @@ export class ListPatientsUseCase {
 				name: patient.name,
 				cpf: sensitiveData.cpf,
 				email: sensitiveData.email,
-				civilStatus: patient.civilStatus,
-				color: patient.color,
-				birthdate: patient.birthdate,
-				motherName: patient.motherName,
-				fatherName: patient.fatherName,
-				bloodType: patient.bloodType,
+				gender: patient.gender,				
+				cell: patient.cell,
+				dateOfBirth: patient.dateOfBirth,
 				address: {
 					zipCode: patient.zipCode,
 					city: patient.city,
@@ -54,7 +51,6 @@ export class ListPatientsUseCase {
 					street: patient.street,
 					complement: patient.complement,
 					number: patient.number,
-					cell: patient.cell,
 				}
 			};
 		});

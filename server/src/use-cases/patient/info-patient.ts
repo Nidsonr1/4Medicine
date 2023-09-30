@@ -23,12 +23,7 @@ export class InfoPatient {
 			name: patient.name,
 			cpf: patient.cpf,
 			email: patient.email,
-			civilStatus: patient.civilStatus,
-			color: patient.color,
-			birthdate: patient.birthdate,
-			motherName: patient.motherName,
-			fatherName: patient.fatherName,
-			bloodType: patient.bloodType,
+			dateOfBirth: patient.dateOfBirth,
 			address: {
 				zipCode: patient.zipCode,
 				city: patient.city,

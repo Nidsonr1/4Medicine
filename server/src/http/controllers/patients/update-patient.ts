@@ -14,7 +14,6 @@ export class UpdatePatientController {
 		const updateSchemaBody = z.object({
 			name: z.string(),
 			email: z.string(),
-			bloodType: z.string(),
 			zipCode: z.string(),
 			city: z.string(),
 			uf: z.string(),
