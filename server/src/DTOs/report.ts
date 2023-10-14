@@ -1,7 +1,8 @@
 export interface RegisterReportRequest {
   patientId: string;
   document: string;
-  sharedBy?: string[]
+  sharedBy?: string[];
+  doctorId: string;
 }
 
 export interface PrismaRegisterReport {
