@@ -4,16 +4,16 @@ import { Appointment } from '@prisma/client';
 import { AppointmentRepository } from '@repositories/appointment-repository';
 
 export class PrismaAppointmentRepository implements AppointmentRepository {
-	async listByCustomer(patientId: string, doctorId: string): Promise<Appointment[] | null> {
+	async listByCustomer(customerId: string): Promise<Appointment[] | null> {
 		const appointments = await prisma.appointment.findMany({
 			where: {
 				OR: [
-					{ doctor_id: doctorId },
-					{ patient_id: patientId }
+					{ doctor_id: customerId },
+					{ patient_id: customerId }
 				]
 			}
 		});
-
+		
 		return appointments;
 	}
 	async create(data: PrismaCreateAppointment): Promise<void> {
@@ -57,7 +57,7 @@ export class PrismaAppointmentRepository implements AppointmentRepository {
 				]
 			}
 		});
-		console.log(appointments);
+		
 		return appointments;
 	}
   

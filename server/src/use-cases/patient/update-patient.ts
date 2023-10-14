@@ -1,7 +1,7 @@
 import { ReturnPatient, UpdatePatientRequest } from '@DTO/patient';
 import { PatientNotFound } from '@errors/patient-errors';
 import { PatientRepository } from '@repositories/patient-repository';
-import { hideSensitiveData } from 'services/hideSensitiveData';
+import { hideSensitiveData } from 'lib/hideSensitiveData';
 import { inject, injectable } from 'tsyringe';
 
 

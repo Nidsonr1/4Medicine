@@ -38,12 +38,7 @@ export class PrismaReportRepository implements ReportRepository {
 					select: {
 						id: true,
 						name: true,
-						civilStatus: true,
-						color: true,
-						birthdate: true,
-						motherName: true,
-						fatherName: true,
-						bloodType: true,
+						dateOfBirth: true,
 						zipCode: true,
 						city: true,
 						uf: true,

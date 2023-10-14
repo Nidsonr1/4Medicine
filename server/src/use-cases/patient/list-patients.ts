@@ -2,7 +2,7 @@ import { ReturnPatient } from '@DTO/patient';
 import { DoctorNotFound } from '@errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
-import { hideSensitiveData } from 'services/hideSensitiveData';
+import { hideSensitiveData } from 'lib/hideSensitiveData';
 import { inject, injectable } from 'tsyringe';
 
 

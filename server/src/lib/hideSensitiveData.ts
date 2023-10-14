@@ -1,5 +1,3 @@
-
-
 export function hideSensitiveData(email: string, cpf: string) {
 	const [initialCPF, , slpitCPF] = cpf.split('.');
 	const [, digitCPF] = slpitCPF.split('-');
