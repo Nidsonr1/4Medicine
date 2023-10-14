@@ -10,7 +10,7 @@ export class RegisterDoctorController {
 
 		const registerDoctorSchema = z.object({
 			name: z.string(),
-			CRM: z.string(),
+			CRM: z.string().min(11).max(11),
 			password: z.string().min(6),
 			expertise: z.string(),
 			phone: z.string(),

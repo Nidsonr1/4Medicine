@@ -12,7 +12,7 @@ export class RegisterPatientController {
 			name: z.string(),
 			cpf: z.string(),
 			email: z.string(),
-			password: z.string(),
+			password: z.string().min(8),
 			gender: z.string(),
 			cell: z.string(),
 			dateOfBirth: z.string(),
