@@ -3,8 +3,6 @@ import { container } from 'tsyringe';
 import { RegisterExamsUseCase } from 'use-cases/exams/register-exams';
 import { z } from 'zod';
 
-
-
 export class RegisterExamController {
 	async handle(request: Request, response: Response) {
 		const registerExam = container.resolve(RegisterExamsUseCase);
@@ -24,14 +22,14 @@ export class RegisterExamController {
 			});
 		}
 
-		const registerExamRequest = {
+		const newExam = {
 			document: exam.data.document,
 			doctorId: exam.data.doctorId,
 			patientId
 		};
 
 		try {
-			await registerExam.execute(registerExamRequest);
+			await registerExam.execute(newExam);
 
 			return response.status(201).send();
 		} catch (error) {

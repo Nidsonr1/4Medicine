@@ -24,8 +24,14 @@ export class RegisterReportController {
 			});
 		}
 
+		const newReport = {
+			document: report.data.document,
+			patientId: report.data.patientId,
+			doctorId
+		};
+
 		try {
-			await registerReport.execute(report.data, doctorId);
+			await registerReport.execute(newReport);
 
 			return response.status(201).send();
 		} catch (error) {

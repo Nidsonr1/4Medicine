@@ -32,13 +32,13 @@ export class RegisterAppointmentUseCase {
 		private appointmentRepository: AppointmentRepository
 	) {}
 
-	async execute(data: RegisterAppointmentRequest, patientId: string) {
+	async execute(data: RegisterAppointmentRequest) {
 		const [
 			doctorExist,
 			patientExist
 		] = await Promise.all([
 			this.doctorRepository.findById(data.doctorId),
-			this.patietnRepository.findById(patientId),
+			this.patietnRepository.findById(data.patientId),
 		]);
 
 		if (!patientExist) {
@@ -55,7 +55,7 @@ export class RegisterAppointmentUseCase {
 		const overlappingAppointment = await this.appointmentRepository.findByDate({
 			startDate,
 			endDate,
-			patientId,
+			patientId: data.patientId,
 			doctorId: data.doctorId
 		});
 
@@ -69,7 +69,7 @@ export class RegisterAppointmentUseCase {
 			startDate,
 			endDate,
 			doctor_id: data.doctorId,
-			patient_id: patientId,
+			patient_id: data.patientId,
 			link: 'http://meet.com'
 		};
 

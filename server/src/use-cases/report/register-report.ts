@@ -8,13 +8,6 @@ import { PatientRepository } from '@repositories/patient-repository';
 import { ReportRepository } from '@repositories/report-repository';
 
 
-/**
- * [X] - Verificar a existência do paciente e médico
- * [X] - Caso não exista retornar os erros
- * [] - Ajustar para receber laudo via upload
- * [X] - Criar o laudo
- */
-
 @injectable()
 export class RegisterReportUseCase {
 	constructor(
@@ -29,12 +22,12 @@ export class RegisterReportUseCase {
 	) {}
 
 
-	async execute(data: RegisterReportRequest, doctorId: string) {
+	async execute(data: RegisterReportRequest) {
 		const [
 			doctorExist,
 			patientExist
 		] = await Promise.all([
-			this.doctorRepository.findById(doctorId),
+			this.doctorRepository.findById(data.doctorId),
 			this.patientRepository.findById(data.patientId)
 		]);
 
@@ -46,13 +39,15 @@ export class RegisterReportUseCase {
 			throw new PatientNotFound();
 		}
 
-		const newReport = {
-			doctor_id: doctorId,
+		/**
+		 * To-Do
+		 * [] - Criar upload para o arquivo do Laudo
+		 */
+		await this.reportRepository.create({
+			doctor_id: data.doctorId,
 			patient_id: data.patientId,
 			document: data.document,
 			sharedBy: data.sharedBy
-		};
-
-		await this.reportRepository.create(newReport);
+		});
 	}
 }

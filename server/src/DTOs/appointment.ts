@@ -4,6 +4,7 @@ export interface RegisterAppointmentRequest {
   startDate: string;
   endDate: string;
   doctorId: string;
+  patientId: string;
 }
 
 export interface PrismaCreateAppointment {

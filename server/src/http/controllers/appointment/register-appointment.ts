@@ -26,8 +26,17 @@ export class RegisterAppointmentController {
 			return response.status(400).json( appointment.error );
 		}
 
+		const newAppointment = {
+			title: appointment.data.title,
+			startDate: appointment.data.startDate,
+			endDate: appointment.data.endDate,
+			description: appointment.data.description,
+			doctorId: appointment.data.doctorId,
+			patientId
+		};
+		
 		try {
-			const result = await registerAppointment.execute(appointment.data, patientId);
+			const result = await registerAppointment.execute(newAppointment);
 
 			return response.json(result);
 		} catch (error) {
