@@ -11,3 +11,9 @@ export interface RegisterExamRequest {
   doctorId: string;
   sharedBy?: string[];
 }
+
+export interface ListExams {
+  customerId: string,
+  order: string,
+  search?: string
+}

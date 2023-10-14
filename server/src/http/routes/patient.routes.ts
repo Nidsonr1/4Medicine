@@ -7,6 +7,7 @@ import { EnsureAuthenticatePatient } from 'middlewares/ensureAuthenticatePatient
 import { UpdatePatientController } from 'http/controllers/patients/update-patient';
 import { ListReportsByPatientController } from 'http/controllers/patients/list-reports';
 import { ListAppointmentPatientController } from 'http/controllers/patients/list-appointment';
+import { ListExamsPatientController } from 'http/controllers/patients/list-exams';
 
 export const patientRoutes = Router();
 
@@ -16,6 +17,7 @@ const loginPatientcontroller = new LoginPatientController();
 const updatePatientController = new UpdatePatientController();
 const listReportsByPatientController = new ListReportsByPatientController();
 const listAppointmentController = new ListAppointmentPatientController();
+const listExamsController = new ListExamsPatientController();
 
 patientRoutes.post('/create', registerPatientController.handle);
 patientRoutes.get(
@@ -38,4 +40,9 @@ patientRoutes.get(
 	'/appointments',
 	EnsureAuthenticatePatient,
 	listAppointmentController.handle
+);
+patientRoutes.get(
+	'/exams',
+	EnsureAuthenticatePatient,
+	listExamsController.handle
 );
