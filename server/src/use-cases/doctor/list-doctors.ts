@@ -8,10 +8,10 @@ export class ListDoctors {
     private doctorRepository: DoctorRepository
 	) {}
 
-	async execute(search: string) {
-		const doctors = await this.doctorRepository.listByAgreementOrName(search);
-
-		const result = doctors.map((doctor) => {
+	async execute(search?: string | undefined) {
+		const doctors = await this.doctorRepository.list(search);
+		
+		const result = doctors?.map((doctor) => {
 			return {
 				id: doctor.id,
 				name: doctor.name,
@@ -22,8 +22,7 @@ export class ListDoctors {
 				cell: doctor.cell
 			}; 
 		});
-
+		
 		return result;
-
 	}
 }

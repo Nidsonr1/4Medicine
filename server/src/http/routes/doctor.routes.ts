@@ -27,8 +27,6 @@ doctorRoutes.post('/create', registerDoctorController.handle);
 doctorRoutes.post('/login', loginDoctorController.handle);
 doctorRoutes.get(
 	'/list', 
-	EnsureAuthenticatePatient, 
-	EnsureAuthenticateDoctor, 
 	listDoctorsController.handle
 );
 doctorRoutes.get(

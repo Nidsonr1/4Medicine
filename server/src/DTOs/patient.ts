@@ -11,7 +11,7 @@ export interface RegisterPatientRequest {
   uf: string;
   neighborhood: string;
   street: string;
-  complement: string;
+  complement?: string | undefined;
   number: number;
 }
 

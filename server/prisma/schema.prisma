@@ -8,22 +8,23 @@ datasource db {
 }
 
 model Patient {
-  id                String              @id @default(uuid())
-  name              String
-  cpf               String
-  email             String
-  password          String
-  gender            String
-  cell              String
-  dateOfBirth       String
-  zipCode           String
-  city              String
-  uf                String
-  neighborhood      String
-  street            String
-  complement        String
-  number            Int
-  createdAt         DateTime            @default(now())
+  id           String   @id @default(uuid())
+  name         String
+  cpf          String
+  email        String
+  password     String
+  gender       String
+  cell         String
+  dateOfBirth  String
+  zipCode      String
+  city         String
+  uf           String
+  neighborhood String
+  street       String
+  complement   String?  @default("")
+  number       Int
+  createdAt    DateTime @default(now())
+
   Appointment       Appointment[]
   Reports           Reports[]
   PatientHealthInfo PatientHealthInfo[]
@@ -46,10 +47,10 @@ model Doctor {
   name        String
   CRM         String
   password    String
-  expertise   String
+  expertise   String[]
   phone       String
   cell        String?       @default("null")
-  agreement   String
+  agreement   String[]
   Appointment Appointment[]
   Reports     Reports[]
   Exams       Exams[]

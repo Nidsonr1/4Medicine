@@ -39,6 +39,13 @@ export class PrismaExamRepository implements ExamRepository {
 					}
 				]
 			},
+			include: {
+				doctor: {
+					select: {
+						name: true
+					}
+				}
+			},
 			orderBy: {
 				created_at: data.order === 'asc' ? 'asc' : 'desc'
 			}

@@ -10,12 +10,12 @@ export class RegisterDoctorController {
 
 		const registerDoctorSchema = z.object({
 			name: z.string(),
-			CRM: z.string(),
+			CRM: z.string().min(10).max(11),
 			password: z.string().min(6),
-			expertise: z.string(),
+			expertise: z.array(z.string()),
 			phone: z.string(),
 			cell: z.string().optional(),
-			agreement: z.string()
+			agreement: z.array(z.string())
 		});
 		const doctor = registerDoctorSchema.safeParse(request.body);
 

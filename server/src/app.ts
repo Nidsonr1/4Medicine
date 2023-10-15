@@ -5,9 +5,13 @@ import './shared/container';
 import { routes } from './http/routes';
 import { env } from 'env';
 import { ZodError } from 'zod';
+import cors from 'cors';
 
 export const app = express();
 
+app.use(cors({
+	origin: env.ENABLED_CORS?.split(';') || []
+}));
 app.use(express.json());
 app.use((
 	error: Error,
