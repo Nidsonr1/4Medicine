@@ -9,6 +9,7 @@ const envSchema = z.object({
 	DB_DATABASE: z.coerce.string(),
 	DB_PORT: z.coerce.number(),
 	PATIENTKEY: z.string(),
+	DOCTORKEY: z.string(),
 	DATABASE_URL: z.string(),
 	ENABLED_CORS: z.coerce.string()
 });

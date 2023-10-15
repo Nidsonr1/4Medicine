@@ -21,7 +21,7 @@ export class RegisterPatientController {
 			uf: z.string(),
 			neighborhood: z.string(),
 			street: z.string(),
-			complement: z.string(),
+			complement: z.string().optional(),
 			number: z.number(),
 		});
     

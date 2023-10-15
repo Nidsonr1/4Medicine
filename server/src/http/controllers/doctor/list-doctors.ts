@@ -10,13 +10,14 @@ export class ListDoctorsController {
 
 		const { search } = request.query;
 
+
 		try {
 			const result = await listDoctorsUseCase.execute(search as string);
 
-
+			
 			return response.status(200).json(result);
 		} catch (error) {
-			return response.status(500).json();
+			return response.status(500).json('Deu Erro!');
 		}
 	}
 }

@@ -2,16 +2,16 @@ export interface RegisterDoctorRequest {
   name: string,
   CRM:  string,
   password: string,
-  expertise: string,
+  expertise: string[],
   phone: string,
   cell?: string
-  agreement: string
+  agreement: string[]
 }
 
 export interface UpdateDoctorRequest {
   phone: string;
   cell?: string;
-  agreement: string;
+  agreement: string[];
 }
 
 export interface returnDoctorsInfo {
