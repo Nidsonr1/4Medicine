@@ -1,4 +1,4 @@
-import { RegisterExamRequest } from '@DTO/exam';
+import { IRegisterExamRequest } from '@DTO/exam';
 import { PatientNotFound } from '@errors/patient-errors';
 import { ExamRepository } from '@repositories/exam-repository';
 import { PatientRepository } from '@repositories/patient-repository';
@@ -14,7 +14,7 @@ export class RegisterExamsUseCase {
     private patientRepository: PatientRepository
 	) {}
 
-	async execute(data: RegisterExamRequest) {
+	async execute(data: IRegisterExamRequest) {
 		const patientAlreadyExist = await this.patientRepository.findById(data.patientId);
 
 		if (!patientAlreadyExist) {

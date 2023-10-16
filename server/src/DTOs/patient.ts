@@ -1,4 +1,4 @@
-export interface RegisterPatientRequest {
+export interface IRegisterPatientRequest {
   name: string;
   cpf: string;
   email: string;
@@ -15,7 +15,7 @@ export interface RegisterPatientRequest {
   number: number;
 }
 
-export interface UpdatePatientRequest {
+export interface IUpdatePatientRequest {
   name: string;
   email: string;
   zipCode: string;
@@ -29,7 +29,7 @@ export interface UpdatePatientRequest {
 }
 
 
-export interface ReturnPatient {
+export interface IReturnPatient {
   id: string;
   name: string;
   cpf: string;
@@ -47,12 +47,12 @@ export interface ReturnPatient {
   }
 }
 
-export interface LoginPatientRequest {
+export interface ILoginPatientRequest {
   email: string;
   password: string;
 }
 
-export interface LoginPatientResponse {
+export interface ILoginPatientResponse {
   name: string;
   email: string;
   token: string

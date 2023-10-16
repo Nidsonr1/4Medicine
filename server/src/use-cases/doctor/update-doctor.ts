@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { UpdateDoctorRequest, returnDoctorsInfo } from '@DTO/doctor';
+import { IUpdateDoctorRequest, IreturnDoctorsInfo } from '@DTO/doctor';
 import { DoctorNotFound } from '@errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 
@@ -12,7 +12,7 @@ export class UpdateDoctor {
     private doctorRepository: DoctorRepository
 	) {}
 
-	async execute(data: UpdateDoctorRequest, id: string): Promise<returnDoctorsInfo> {
+	async execute(data: IUpdateDoctorRequest, id: string): Promise<IreturnDoctorsInfo> {
 		const doctorExist = await this.doctorRepository.findById(id);
 
 		if (!doctorExist) {

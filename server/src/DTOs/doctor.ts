@@ -1,4 +1,4 @@
-export interface RegisterDoctorRequest {
+export interface IRegisterDoctorRequest {
   name: string,
   CRM:  string,
   password: string,
@@ -8,13 +8,13 @@ export interface RegisterDoctorRequest {
   agreement: string[]
 }
 
-export interface UpdateDoctorRequest {
+export interface IUpdateDoctorRequest {
   phone: string;
   cell?: string;
   agreement: string[];
 }
 
-export interface returnDoctorsInfo {
+export interface IreturnDoctorsInfo {
 	id: string,
 	name: string,
 	CRM: string,
@@ -24,12 +24,12 @@ export interface returnDoctorsInfo {
   cell?: string | null
 }
 
-export interface LoginDoctorRequest {
+export interface ILoginDoctorRequest {
   CRM: string;
   password: string
 }
 
-export interface LoginDoctorResponse {
+export interface ILoginDoctorResponse {
   name: string,
   CRM: string,
   token: string

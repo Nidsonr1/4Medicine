@@ -1,10 +1,10 @@
 import { Patient } from '@prisma/client';
 import { PatientRepository } from '../patient-repository';
 import { prisma } from '../../lib/prisma';
-import { RegisterPatientRequest, UpdatePatientRequest } from '@DTO/patient';
+import { IRegisterPatientRequest, IUpdatePatientRequest } from '@DTO/patient';
 
 export class PrismaPatientRepository implements PatientRepository {
-	async create(data: RegisterPatientRequest): Promise<void> {
+	async create(data: IRegisterPatientRequest): Promise<void> {
 		await prisma.patient.create({
 			data
 		}); 
@@ -37,7 +37,7 @@ export class PrismaPatientRepository implements PatientRepository {
 		return patient;
 	}
 
-	async update(data: UpdatePatientRequest, id: string): Promise<Patient> {
+	async update(data: IUpdatePatientRequest, id: string): Promise<Patient> {
 		const patient = await prisma.patient.update({
 			where: {
 				id

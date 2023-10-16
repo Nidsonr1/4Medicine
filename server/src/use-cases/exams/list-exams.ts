@@ -11,12 +11,9 @@ export class ListExamsUseCase {
 	async execute(customerId: string, order: string, search?: string) {
 		const exams = await this.examRepository.list({
 			customerId,
-			order,
-			search
+			order
 		});
 	
-
 		return exams;
-		
 	}
 }

@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { hash } from 'bcrypt';
 
 import { PatientRepository } from '../../repositories/patient-repository';
-import { RegisterPatientRequest } from '@DTO/patient';
+import { IRegisterPatientRequest } from '@DTO/patient';
 import { PatientAlreadyExist } from '@errors/patient-errors';
 
 @injectable()
@@ -13,7 +13,7 @@ export class RegisterPatientUseCase {
     private patientRepository: PatientRepository
 	) {}
 
-	async execute(data: RegisterPatientRequest) {
+	async execute(data: IRegisterPatientRequest) {
 		const patientWithCpf = await this.patientRepository.findByCpf(data.cpf);
 
 		if (patientWithCpf) {

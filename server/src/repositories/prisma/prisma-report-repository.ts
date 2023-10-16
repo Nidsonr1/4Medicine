@@ -1,16 +1,30 @@
-import { PrismaRegisterReport, listReportsRequest } from '@DTO/report';
+import { IPrismaRegisterReport, ISharedReports, IListReportsRequest } from '@DTO/report';
 import { prisma } from '@lib/prisma';
 import { Reports } from '@prisma/client';
 import {  ReportRepository } from '@repositories/report-repository';
 
 export class PrismaReportRepository implements ReportRepository {
-	async create(data: PrismaRegisterReport): Promise<void> {
+	async sharedBy(data: ISharedReports): Promise<void> {
+		await prisma.reports.update({
+			where: {
+				id: data.reportId
+			},
+			data: {
+				sharedBy: {
+					push: data.doctorId
+				}
+			}
+		});
+	}
+
+	async create(data: IPrismaRegisterReport): Promise<void> {
 		await prisma.reports.create({
 			data
 		});
 	}
 
-	async listByCustomerId(data: listReportsRequest): Promise<Reports[] | null> {
+	async listByCustomerId(data: IListReportsRequest): Promise<Reports[] | null> {
+		console.log(data.customerId);
 		const reports = await prisma.reports.findMany({
 			where: {
 				patient: {

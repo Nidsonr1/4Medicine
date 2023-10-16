@@ -1,8 +1,9 @@
-import { ListExams, PrismaRegisterExam } from '@DTO/exam';
+import { ISharedExam, IListExams, IPrismaRegisterExam } from '@DTO/exam';
 import { Exams } from '@prisma/client';
 
 
 export interface ExamRepository {
-  create(data: PrismaRegisterExam): Promise<void>;
-  list(data: ListExams): Promise<Exams[] | null>
+  create(data: IPrismaRegisterExam): Promise<void>;
+  list(data: IListExams): Promise<Exams[] | null>
+  sharedTo(data: ISharedExam): Promise<void>
 }

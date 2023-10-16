@@ -1,18 +1,18 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IRegisterReportRequest } from '@DTO/report';
-import { DoctorNotFound } from '@errors/doctor-error';
-import { PatientNotFound } from '@errors/patient-errors';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
-import { ReportRepository } from '@repositories/report-repository';
 
+import { ISharedExam } from '@DTO/exam';
+import { DoctorNotFound } from '@errors/doctor-error';
+import { PatientNotFound } from '@errors/patient-errors';
+import { ExamRepository } from '@repositories/exam-repository';
 
 @injectable()
-export class RegisterReportUseCase {
+export class SharedExamsUseCase {
 	constructor(
-    @inject('ReportRepository')
-    private reportRepository: ReportRepository,
+    @inject('ExamRepository')
+    private examRepository: ExamRepository,
 
     @inject('DoctorRepository')
     private doctorRepository: DoctorRepository,
@@ -21,8 +21,7 @@ export class RegisterReportUseCase {
     private patientRepository: PatientRepository
 	) {}
 
-
-	async execute(data: IRegisterReportRequest) {
+	async execute(data: ISharedExam) {
 		const [
 			doctorExist,
 			patientExist
@@ -30,7 +29,7 @@ export class RegisterReportUseCase {
 			this.doctorRepository.findById(data.doctorId),
 			this.patientRepository.findById(data.patientId)
 		]);
-
+    
 		if (!doctorExist) {
 			throw new DoctorNotFound();
 		}
@@ -39,15 +38,6 @@ export class RegisterReportUseCase {
 			throw new PatientNotFound();
 		}
 
-		/**
-		 * To-Do
-		 * [] - Criar upload para o arquivo do Laudo
-		 */
-		await this.reportRepository.create({
-			doctor_id: data.doctorId,
-			patient_id: data.patientId,
-			document: data.document,
-			sharedBy: data.sharedBy
-		});
+		await this.examRepository.sharedTo(data);
 	}
 }

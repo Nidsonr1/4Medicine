@@ -6,13 +6,12 @@ export class ListExamsPatientController {
 	async handle(request: Request, response: Response) {
 		const listExamUseCase = container.resolve(ListExamsUseCase);
 		const { patientId } = request;
-		const { order, search } = request.query;
+		const { order } = request.query;
 
 		try {
 			const result = await listExamUseCase.execute(
 				patientId,
-        order as string,
-        search as string
+        order as string
 			);
 			
 			return response.json({

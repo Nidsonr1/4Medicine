@@ -1,4 +1,4 @@
-import { ReturnPatient } from '@DTO/patient';
+import { IReturnPatient } from '@DTO/patient';
 import { DoctorNotFound } from '@errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';

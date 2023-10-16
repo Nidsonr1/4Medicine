@@ -1,4 +1,4 @@
-import { ReturnPatient, UpdatePatientRequest } from '@DTO/patient';
+import { IReturnPatient, IUpdatePatientRequest } from '@DTO/patient';
 import { PatientNotFound } from '@errors/patient-errors';
 import { PatientRepository } from '@repositories/patient-repository';
 import { hideSensitiveData } from 'lib/hideSensitiveData';
@@ -13,7 +13,7 @@ export class UpdatePatient {
     private patientRepository: PatientRepository
 	) {}
 
-	async execute(data: UpdatePatientRequest, patientId: string): Promise<ReturnPatient> {
+	async execute(data: IUpdatePatientRequest, patientId: string): Promise<IReturnPatient> {
 		const patientExist = await this.patientRepository.findById(patientId);
 
 		if (!patientExist) {
