@@ -1,7 +1,7 @@
 import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
-import { RegisterDoctorRequest } from '@DTO/doctor';
+import { IRegisterDoctorRequest } from '@DTO/doctor';
 import { DoctorAlreadyExist } from '@errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 
@@ -12,7 +12,7 @@ export class RegisterDoctor {
     private doctorRepository: DoctorRepository,
 	) {}
 
-	async execute(data: RegisterDoctorRequest) {
+	async execute(data: IRegisterDoctorRequest) {
 		const doctorAlreadyExist = await this.doctorRepository.findByCRM(data.CRM);
 
 		if (doctorAlreadyExist) {

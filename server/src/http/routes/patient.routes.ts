@@ -8,6 +8,8 @@ import { UpdatePatientController } from 'http/controllers/patients/update-patien
 import { ListReportsByPatientController } from 'http/controllers/patients/list-reports';
 import { ListAppointmentPatientController } from 'http/controllers/patients/list-appointment';
 import { ListExamsPatientController } from 'http/controllers/patients/list-exams';
+import { SharedReportController } from 'http/controllers/patients/shared-report';
+import { SharedExamsController } from 'http/controllers/patients/shared-exams';
 
 export const patientRoutes = Router();
 
@@ -18,6 +20,8 @@ const updatePatientController = new UpdatePatientController();
 const listReportsByPatientController = new ListReportsByPatientController();
 const listAppointmentController = new ListAppointmentPatientController();
 const listExamsController = new ListExamsPatientController();
+const sharedReportController = new SharedReportController();
+const sharedExamController = new SharedExamsController();
 
 patientRoutes.post('/create', registerPatientController.handle);
 patientRoutes.get(
@@ -45,4 +49,14 @@ patientRoutes.get(
 	'/exams',
 	EnsureAuthenticatePatient,
 	listExamsController.handle
+);
+patientRoutes.patch(
+	'/sharedReport/:reportId',
+	EnsureAuthenticatePatient,
+	sharedReportController.handle
+);
+patientRoutes.patch(
+	'/sharedExam/:examId',
+	EnsureAuthenticatePatient,
+	sharedExamController.handle
 );

@@ -1,4 +1,4 @@
-export interface RegisterAppointmentRequest {
+export interface IRegisterAppointmentRequest {
   title: string;
   description?: string;
   startDate: string;
@@ -7,7 +7,7 @@ export interface RegisterAppointmentRequest {
   patientId: string;
 }
 
-export interface PrismaCreateAppointment {
+export interface IPrismaCreateAppointment {
   title: string;
   description?: string;
   startDate: Date;
@@ -17,7 +17,7 @@ export interface PrismaCreateAppointment {
   link: string;
 }
 
-export interface RegisterAppointmentResponse {
+export interface IRegisterAppointmentResponse {
   title: string;
   startDate: string;
   endDate: string;
@@ -25,7 +25,7 @@ export interface RegisterAppointmentResponse {
   link: string;
 }
 
-export interface FindByDateRequest {
+export interface IFindByDateRequest {
   startDate: Date;
   endDate: Date;
   doctorId: string;

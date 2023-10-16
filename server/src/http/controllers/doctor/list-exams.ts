@@ -1,21 +1,21 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { ListExamsUseCase } from 'use-cases/exams/list-exams';
+import { z } from 'zod';
 
 export class ListExamsDoctorController {
 	async handle(request: Request, response: Response) {
 		const listExamUseCase = container.resolve(ListExamsUseCase);
 		
 		const { doctorId } = request;
-		const { order, search } = request.query;
+		const { order } = request.query;
 
 		try {
-			const result = listExamUseCase.execute(
+			const result = await listExamUseCase.execute(
 				doctorId,
         order as string,
-        search as string
 			);
-      
+				
 			return response.json({
 				result
 			});

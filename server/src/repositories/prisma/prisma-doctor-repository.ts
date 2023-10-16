@@ -2,7 +2,7 @@ import { Doctor } from '@prisma/client';
 
 import { prisma } from '@lib/prisma';
 import { DoctorRepository } from '@repositories/doctor-repository';
-import { RegisterDoctorRequest, UpdateDoctorRequest } from '@DTO/doctor';
+import { IRegisterDoctorRequest, IUpdateDoctorRequest } from '@DTO/doctor';
 
 export class PrismaDoctorRepository implements DoctorRepository {
 	async findById(id: string): Promise<Doctor | null> {
@@ -25,7 +25,7 @@ export class PrismaDoctorRepository implements DoctorRepository {
 		return doctor;
 	}
 
-	async create(data: RegisterDoctorRequest): Promise<Doctor> {
+	async create(data: IRegisterDoctorRequest): Promise<Doctor> {
 		const doctor = await prisma.doctor.create({
 			data
 		});
@@ -33,7 +33,7 @@ export class PrismaDoctorRepository implements DoctorRepository {
 		return doctor;
 	}
 
-	async update(data: UpdateDoctorRequest, doctorId: string): Promise<Doctor> {
+	async update(data: IUpdateDoctorRequest, doctorId: string): Promise<Doctor> {
 		const doctor = await prisma.doctor.update({
 			where: {
 				id: doctorId

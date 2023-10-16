@@ -1,4 +1,4 @@
-import { FindByDateRequest, PrismaCreateAppointment } from '@DTO/appointment';
+import { IFindByDateRequest, IPrismaCreateAppointment } from '@DTO/appointment';
 import { prisma } from '@lib/prisma';
 import { Appointment } from '@prisma/client';
 import { AppointmentRepository } from '@repositories/appointment-repository';
@@ -16,7 +16,7 @@ export class PrismaAppointmentRepository implements AppointmentRepository {
 		
 		return appointments;
 	}
-	async create(data: PrismaCreateAppointment): Promise<void> {
+	async create(data: IPrismaCreateAppointment): Promise<void> {
 		await prisma.appointment.create({
 			data: {
 				title: data.title,
@@ -29,7 +29,7 @@ export class PrismaAppointmentRepository implements AppointmentRepository {
 			}
 		});
 	}
-	async findByDate(data: FindByDateRequest): Promise<Appointment | null> {
+	async findByDate(data: IFindByDateRequest): Promise<Appointment | null> {
 		const {
 			startDate,
 			endDate,

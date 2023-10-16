@@ -1,4 +1,4 @@
-import { RegisterAppointmentRequest } from '@DTO/appointment';
+import { IRegisterAppointmentRequest } from '@DTO/appointment';
 import { AppointmentAlreadyExist } from '@errors/appointment-error';
 import { DoctorNotFound } from '@errors/doctor-error';
 import { PatientNotFound } from '@errors/patient-errors';
@@ -32,7 +32,7 @@ export class RegisterAppointmentUseCase {
 		private appointmentRepository: AppointmentRepository
 	) {}
 
-	async execute(data: RegisterAppointmentRequest) {
+	async execute(data: IRegisterAppointmentRequest) {
 		const [
 			doctorExist,
 			patientExist

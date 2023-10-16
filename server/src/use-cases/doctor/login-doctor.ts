@@ -1,4 +1,4 @@
-import { LoginDoctorRequest, LoginDoctorResponse } from '@DTO/doctor';
+import { ILoginDoctorRequest, ILoginDoctorResponse } from '@DTO/doctor';
 import { InvalidCredentials } from '@errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { compare } from 'bcrypt';
@@ -16,7 +16,7 @@ export class LoginDoctor {
     private doctorRepository: DoctorRepository
 	) {}
 
-	async execute({CRM, password}: LoginDoctorRequest): Promise<LoginDoctorResponse> {
+	async execute({CRM, password}: ILoginDoctorRequest): Promise<ILoginDoctorResponse> {
 		const doctor = await this.doctorRepository.findByCRM(CRM);
 
 		if (!doctor) {

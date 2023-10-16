@@ -5,7 +5,7 @@ import { InvalidCredentials } from '@errors/patient-errors';
 import { PatientRepository } from '@repositories/patient-repository';
 import { sign } from 'jsonwebtoken';
 import { env } from 'env';
-import { LoginPatientRequest } from '@DTO/patient';
+import { ILoginPatientRequest } from '@DTO/patient';
 
 @injectable()
 export class LoginPatient {
@@ -14,7 +14,7 @@ export class LoginPatient {
     private patientRepository: PatientRepository
 	) {}
 
-	async execute({ email, password }: LoginPatientRequest)  {
+	async execute({ email, password }: ILoginPatientRequest)  {
 		const patient = await this.patientRepository.findByEmail(email);
 
 		if (!patient) {
