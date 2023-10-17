@@ -42,6 +42,16 @@ model PatientHealthInfo {
   patient_id String
 }
 
+model Expertise {
+  id   String @id @default(uuid())
+  name String
+}
+
+model Agreement {
+  id   String @id @default(uuid())
+  name String
+}
+
 model Doctor {
   id          String        @id @default(uuid())
   name        String
