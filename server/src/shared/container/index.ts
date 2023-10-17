@@ -10,6 +10,10 @@ import { AppointmentRepository } from '@repositories/appointment-repository';
 import { PrismaAppointmentRepository } from '@repositories/prisma/prisma-appointment-repository';
 import { ExamRepository } from '@repositories/exam-repository';
 import { PrismaExamRepository } from '@repositories/prisma/prisma-exam-repository';
+import { ExpertiseRepository } from '@repositories/expertise-repository';
+import { PrismaExpertiseRepository } from '@repositories/prisma/prisma-expertise-repository';
+import { AgreementRepository } from '@repositories/agreement-repository';
+import { PrismaAgreementRepository } from '@repositories/prisma/prisma-agreement-repository';
 
 container.registerSingleton<PatientRepository>('PatientRepository', PrismaPatientRepository);
 container.registerSingleton<DoctorRepository>('DoctorRepository', PrismaDoctorRepository);
@@ -18,4 +22,6 @@ container.registerSingleton<PatientRepository>('PatientRepository', PrismaPatien
 container.registerSingleton<DoctorRepository>('DoctorRepository', PrismaDoctorRepository);
 container.registerSingleton<AppointmentRepository>('AppointmentRepository', PrismaAppointmentRepository);
 container.registerSingleton<ExamRepository>('ExamRepository', PrismaExamRepository);
+container.registerSingleton<ExpertiseRepository>('ExpertiseRepository', PrismaExpertiseRepository);
+container.registerSingleton<AgreementRepository>('AgreementRepository', PrismaAgreementRepository);
 
