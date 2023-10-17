@@ -39,15 +39,12 @@ export class RegisterReportUseCase {
 			throw new PatientNotFound();
 		}
 
-		/**
-		 * To-Do
-		 * [] - Criar upload para o arquivo do Laudo
-		 */
-		await this.reportRepository.create({
+		const newReport = {
 			doctor_id: data.doctorId,
 			patient_id: data.patientId,
-			document: data.document,
-			sharedBy: data.sharedBy
-		});
+			document: data.document as string,
+		};
+	
+		await this.reportRepository.create(newReport);
 	}
-}
+} 

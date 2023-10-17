@@ -16,20 +16,17 @@ export class RegisterExamsUseCase {
 
 	async execute(data: IRegisterExamRequest) {
 		const patientAlreadyExist = await this.patientRepository.findById(data.patientId);
-
+		
 		if (!patientAlreadyExist) {
 			throw new PatientNotFound();
 		}
 
-		/**
-		 * To-Do
-		 * [] - Criar upload para o arquivo do exame
-		 */
-		await this.examRepository.create({
+		const newExam = {
 			doctor_id: data.doctorId,
 			patient_id: data.patientId,
 			document: data.document,
-			sharedBy: data.sharedBy
-		});
+		};
+
+		await this.examRepository.create(newExam);
 	}
 }
