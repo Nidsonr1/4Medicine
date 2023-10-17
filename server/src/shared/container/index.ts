@@ -2,16 +2,22 @@ import { container } from 'tsyringe';
 
 import { PatientRepository } from '../../repositories/patient-repository';
 import { PrismaPatientRepository } from '../../repositories/prisma/prisma-patient-repository';
+
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PrismaDoctorRepository } from '@repositories/prisma/prisma-doctor-repository';
+
 import { ReportRepository } from '@repositories/report-repository';
 import { PrismaReportRepository } from '@repositories/prisma/prisma-report-repository';
+
 import { AppointmentRepository } from '@repositories/appointment-repository';
 import { PrismaAppointmentRepository } from '@repositories/prisma/prisma-appointment-repository';
+
 import { ExamRepository } from '@repositories/exam-repository';
 import { PrismaExamRepository } from '@repositories/prisma/prisma-exam-repository';
+
 import { ExpertiseRepository } from '@repositories/expertise-repository';
 import { PrismaExpertiseRepository } from '@repositories/prisma/prisma-expertise-repository';
+
 import { AgreementRepository } from '@repositories/agreement-repository';
 import { PrismaAgreementRepository } from '@repositories/prisma/prisma-agreement-repository';
 
