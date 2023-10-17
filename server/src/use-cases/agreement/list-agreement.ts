@@ -3,16 +3,15 @@ import { inject, injectable } from 'tsyringe';
 
 
 
-injectable();
-export class ListAgreementsUseCase {
+@injectable()
+export class ListAgreementUseCase {
 	constructor(
     @inject('AgreementRepository')
-    private agreementRepository: AgreementRepository
-	) {}  
+    private agreementRepository: AgreementRepository   
+	) {}
 
-	async execute() {
+	async execute() { 
 		const agreements = await this.agreementRepository.list();
-
 		return agreements;
 	}
 }

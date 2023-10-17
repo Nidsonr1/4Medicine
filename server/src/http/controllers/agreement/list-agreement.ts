@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { ListAgreementsUseCase } from 'use-cases/agreement/list-agreement';
+import { ListAgreementUseCase } from 'use-cases/agreement/list-agreement';
 
 export class ListAgreementController {
-	async handle(request: Request, response: Response) {
-		const listAgreementUseCase = container.resolve(ListAgreementsUseCase);
-    
+	async handle(_: Request, response: Response) {
+		const listAgreementUseCase = container.resolve(ListAgreementUseCase);
+		
 		try {
 			const result = await listAgreementUseCase.execute();
 
