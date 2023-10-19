@@ -1,5 +1,5 @@
 export class AppointmentAlreadyExist extends Error {
 	constructor() {
-		super('Time slot is already occupied. Please choose another time slot.');
+		super('Horário já agendado! Agende em um outro horário');
 	}
 }
