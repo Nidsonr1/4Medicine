@@ -1,23 +1,17 @@
 export class DoctorAlreadyExist extends Error {
 	constructor() {
-		super('CRM already exist.');
+		super('CRM já cadastrado!');
 	}
 }
 
 export class DoctorNotFound extends Error {
 	constructor() {
-		super('Doctor Not Found!');
-	}
-}
-
-export class Unauthenticated extends Error {
-	constructor() {
-		super('Token Missing');
+		super('Médico não encontrado!');
 	}
 }
 
 export class InvalidCredentials extends Error {
 	constructor() {
-		super('CRM or password invalid!');
+		super('CRM e/ou senha inválidos!');
 	}
 }

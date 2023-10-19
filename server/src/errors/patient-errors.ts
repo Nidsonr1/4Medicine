@@ -1,17 +1,17 @@
 export class PatientNotFound extends Error {
 	constructor() {
-		super('Patient Not Found');
+		super('Paciente não encontrado');
 	}
 }
 
 export class PatientAlreadyExist extends Error {
 	constructor() {
-		super('cpf already exist!');
+		super('CPF já cadastrado!');
 	}
 }
 
 export class InvalidCredentials extends Error {
 	constructor() {
-		super('E-mail or password invalid!');
+		super('E-mail e/ou senha inválidos!!');
 	}
 }
