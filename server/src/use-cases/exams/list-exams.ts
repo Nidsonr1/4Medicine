@@ -9,7 +9,7 @@ export class ListExamsUseCase {
 	) {}
 
 	async execute(customerId: string, order: string, search?: string) {
-		const exams = await this.examRepository.list({
+		const exams = await this.examRepository.listToDoctor({
 			customerId,
 			order
 		});

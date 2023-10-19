@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import multer from 'multer';
 
 import { InfoDoctorController } from 'http/controllers/doctor/info-doctor';
 import { ListAppointmentsDoctorController } from 'http/controllers/doctor/list-appointment';
@@ -9,9 +10,12 @@ import { ListReportsByDoctorController } from 'http/controllers/doctor/list-repo
 import { LoginDoctorController } from 'http/controllers/doctor/login-doctor';
 import { RegisterDoctorController } from 'http/controllers/doctor/register-doctor';
 import { UpdateDoctorController } from 'http/controllers/doctor/update-doctor';
+import { RegisterReportController } from 'http/controllers/report/register-report';
 import { EnsureAuthenticateDoctor } from 'middlewares/ensureAuthenticateDoctor';
 import { EnsureAuthenticatePatient } from 'middlewares/ensureAuthenticatePatient';
+import { storage } from '@lib/upload';
 
+const uploadFile = multer({ storage: storage });
 export const doctorRoutes = Router();
 
 const registerDoctorController = new RegisterDoctorController();
@@ -23,6 +27,7 @@ const listPatientsController = new ListPatientsController();
 const listAppointmentsController = new ListAppointmentsDoctorController();
 const listExamsController = new ListExamsDoctorController();
 const listReportsController = new ListReportsByDoctorController();
+const registerReportsController = new RegisterReportController();
 
 doctorRoutes.post('/create', registerDoctorController.handle);
 doctorRoutes.post('/login', loginDoctorController.handle);
@@ -51,11 +56,22 @@ doctorRoutes.get(
 	EnsureAuthenticateDoctor,
 	listAppointmentsController.handle
 );
+
+//Exams Routes
 doctorRoutes.get(
 	'/exams',
 	EnsureAuthenticateDoctor,
 	listExamsController.handle
 );
+
+//Reports Routes
+doctorRoutes.post(
+	'/reports/create',
+	uploadFile.single('file'),
+	EnsureAuthenticateDoctor,
+	registerReportsController.handle
+);
+
 doctorRoutes.get(
 	'/reports',
 	EnsureAuthenticateDoctor,

@@ -16,6 +16,7 @@ export class RegisterExamsUseCase {
 
 	async execute(data: IRegisterExamRequest) {
 		const patientAlreadyExist = await this.patientRepository.findById(data.patientId);
+
 		
 		if (!patientAlreadyExist) {
 			throw new PatientNotFound();

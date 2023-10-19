@@ -7,6 +7,10 @@ import { z } from 'zod';
 
 export class RegisterReportController {
 	async handle(request: Request, response: Response) {
+		const { doctorId } = request;
+		const file = request.file?.filename;
+		const { patientId } = request.body;
+		
 		const registerReport = container.resolve(RegisterReportUseCase);
 
 		const reportSchema = z.object({
@@ -14,10 +18,6 @@ export class RegisterReportController {
 			patientId: z.string(),
 			doctorId: z.string()
 		});
-
-		const { doctorId } = request;
-		const file = request.file?.filename;
-		const { patientId } = request.body;
 
 		const validateBody = {
 			document: file,
@@ -32,7 +32,7 @@ export class RegisterReportController {
 				message: report.error
 			});
 		}
-		console.log(report.data);
+		
 		try {
 			await registerReport.execute(report.data);
 

@@ -15,3 +15,9 @@ export class InvalidCredentials extends Error {
 		super('CRM e/ou senha inválidos!');
 	}
 }
+
+export class DoctorAlreadyShared extends Error {
+	constructor() {
+		super('Seu arquivo já foi compartilhado com este profissional!');
+	}
+}

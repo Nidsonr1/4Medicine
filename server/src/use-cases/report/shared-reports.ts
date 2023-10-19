@@ -1,5 +1,5 @@
 import { ISharedReports } from '@DTO/report';
-import { DoctorNotFound } from '@errors/doctor-error';
+import { DoctorAlreadyShared, DoctorNotFound } from '@errors/doctor-error';
 import { PatientNotFound } from '@errors/patient-errors';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
@@ -20,14 +20,26 @@ export class SharedReportsUseCase {
 	) {}
 
 	async execute(data: ISharedReports) {
+		const validateDoctorAlreadyShared = {
+			customerId: data.doctorId,
+			order: 'asc'
+		};
+
 		const [
 			doctorExist,
-			patientExist
+			patientExist,
+			doctorAlreadyShared
 		] = await Promise.all([
 			this.doctorRepository.findById(data.doctorId),
-			this.patientRepository.findById(data.patientId)
+			this.patientRepository.findById(data.patientId),
+			this.reportRepository.listToDoctor(validateDoctorAlreadyShared)
 		]);
     
+		
+		if (doctorAlreadyShared) {
+			throw new DoctorAlreadyShared();
+		}
+
 		if (!doctorExist) {
 			throw new DoctorNotFound();
 		}

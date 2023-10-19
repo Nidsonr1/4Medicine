@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { z } from 'zod';
 
-import { DoctorNotFound } from '@errors/doctor-error';
+import { DoctorAlreadyShared, DoctorNotFound } from '@errors/doctor-error';
 import { PatientNotFound } from '@errors/patient-errors';
 import { SharedReportsUseCase } from 'use-cases/report/shared-reports';
 
@@ -43,6 +43,13 @@ export class SharedReportController {
 				return response.status(404).json({
 					message: error.message
 				});
+			}
+
+			if (error instanceof DoctorAlreadyShared) {
+				return response.status(409).json({
+					message: error.message
+				});
+					
 			}
 		}
 	}
