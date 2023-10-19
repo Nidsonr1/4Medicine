@@ -52,7 +52,11 @@ export class PrismaExamRepository implements ExamRepository {
 	}
 	async create(data: IPrismaRegisterExam): Promise<void> {
 		await prisma.exams.create({
-			data
+			data: {
+				document: data.document,
+				doctor_id: data.doctor_id,
+				patient_id: data.patient_id
+			}
 		});
 	}
   

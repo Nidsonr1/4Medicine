@@ -12,26 +12,29 @@ export class RegisterReportController {
 		const reportSchema = z.object({
 			document: z.string(),
 			patientId: z.string(),
+			doctorId: z.string()
 		});
 
 		const { doctorId } = request;
+		const file = request.file?.filename;
+		const { patientId } = request.body;
 
-		const report = reportSchema.safeParse(request.body);
+		const validateBody = {
+			document: file,
+			patientId,
+			doctorId
+		};
+
+		const report = reportSchema.safeParse(validateBody);
 
 		if (report.success === false) {
 			return response.status(400).json({
 				message: report.error
 			});
 		}
-
-		const newReport = {
-			document: report.data.document,
-			patientId: report.data.patientId,
-			doctorId
-		};
-
+		console.log(report.data);
 		try {
-			await registerReport.execute(newReport);
+			await registerReport.execute(report.data);
 
 			return response.status(201).send();
 		} catch (error) {

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { InfoDoctorController } from 'http/controllers/doctor/info-doctor';
 import { ListAppointmentsDoctorController } from 'http/controllers/doctor/list-appointment';
 import { ListDoctorsController } from 'http/controllers/doctor/list-doctors';

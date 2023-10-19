@@ -1,6 +1,6 @@
 export interface IRegisterReportRequest {
   patientId: string;
-  document: string;
+  document: string | undefined;
   sharedBy?: string[];
   doctorId: string;
 }
