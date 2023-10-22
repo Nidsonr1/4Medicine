@@ -10,7 +10,7 @@ export class ListReportsUseCase {
 	) {}
 
 	async execute(customerId: string, order: string, search?: string) {
-		const reports  = await this.reportRepository.listByCustomerId({
+		const reports  = await this.reportRepository.listToPatient({
 			customerId,
 			order,
 			search
