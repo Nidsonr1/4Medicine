@@ -9,7 +9,7 @@ export class PrismaDoctorRepository implements DoctorRepository {
 		const doctor = await prisma.doctor.findFirst({
 			where: {
 				id
-			}
+			},
 		});
 
 		return doctor;

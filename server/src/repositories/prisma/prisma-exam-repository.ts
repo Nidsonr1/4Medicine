@@ -19,7 +19,7 @@ export class PrismaExamRepository implements ExamRepository {
 		});
 	}
 
-	async list(data: IListExams): Promise<Exams[] | null> {
+	async listToDoctor(data: IListExams): Promise<Exams[] | null> {
 		const exams = await prisma.exams.findMany({
 			where: {
 				OR: [
@@ -37,9 +37,9 @@ export class PrismaExamRepository implements ExamRepository {
 				]
 			},
 			include: {
-				doctor: {
+				patient: {
 					select: {
-						name: true
+						name: true,
 					}
 				}
 			},
@@ -50,6 +50,7 @@ export class PrismaExamRepository implements ExamRepository {
 		
 		return exams;
 	}
+
 	async create(data: IPrismaRegisterExam): Promise<void> {
 		await prisma.exams.create({
 			data: {

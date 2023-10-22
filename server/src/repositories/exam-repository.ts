@@ -4,6 +4,6 @@ import { Exams } from '@prisma/client';
 
 export interface ExamRepository {
   create(data: IPrismaRegisterExam): Promise<void>;
-  list(data: IListExams): Promise<Exams[] | null>
+  listToDoctor(data: IListExams): Promise<Exams[] | null>
   sharedTo(data: ISharedExam): Promise<void>
 }

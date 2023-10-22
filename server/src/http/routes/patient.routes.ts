@@ -10,6 +10,7 @@ import { ListAppointmentPatientController } from 'http/controllers/patients/list
 import { ListExamsPatientController } from 'http/controllers/patients/list-exams';
 import { SharedReportController } from 'http/controllers/patients/shared-report';
 import { SharedExamsController } from 'http/controllers/patients/shared-exams';
+import { ListDoctorsSharedTo } from 'http/controllers/patients/list-doctors-sharedTo';
 
 export const patientRoutes = Router();
 
@@ -22,6 +23,7 @@ const listAppointmentController = new ListAppointmentPatientController();
 const listExamsController = new ListExamsPatientController();
 const sharedReportController = new SharedReportController();
 const sharedExamController = new SharedExamsController();
+const listDoctorsSharedTo = new ListDoctorsSharedTo();
 
 patientRoutes.post('/create', registerPatientController.handle);
 patientRoutes.get(
@@ -59,4 +61,8 @@ patientRoutes.patch(
 	'/sharedExam/:examId',
 	EnsureAuthenticatePatient,
 	sharedExamController.handle
+);
+patientRoutes.get(
+	'/sharedTo',
+	listDoctorsSharedTo.handle
 );

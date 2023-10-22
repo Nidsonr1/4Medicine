@@ -18,6 +18,16 @@ export interface IListReportsRequest {
   search?: string
 }
 
+export interface IListReportsResponse {
+  id: string
+  document: string
+  createdAt: string
+  patient: {
+    patientId: string
+    name: string
+  }
+}
+
 export interface ISharedReports {
   reportId: string;
   doctorId: string;
