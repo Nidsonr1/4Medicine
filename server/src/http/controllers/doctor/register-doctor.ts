@@ -1,4 +1,4 @@
-import { DoctorAlreadyExist } from '@errors/doctor-error';
+import { DoctorAlreadyExist } from '@helpers/api-errors/doctor-error';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { RegisterDoctor } from 'use-cases/doctor/register-doctor';

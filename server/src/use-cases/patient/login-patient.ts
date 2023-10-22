@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { compare } from 'bcrypt';
 
-import { InvalidCredentials } from '@errors/patient-errors';
+import { InvalidCredentials } from '@helpers/api-errors/patient-errors';
 import { PatientRepository } from '@repositories/patient-repository';
 import { sign } from 'jsonwebtoken';
 import { env } from 'env';

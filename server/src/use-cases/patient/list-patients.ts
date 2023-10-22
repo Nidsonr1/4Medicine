@@ -1,8 +1,7 @@
-import { IReturnPatient } from '@DTO/patient';
-import { DoctorNotFound } from '@errors/doctor-error';
+import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
-import { hideSensitiveData } from 'lib/hideSensitiveData';
+import { hideSensitiveData } from 'helpers/hideSensitiveData';
 import { inject, injectable } from 'tsyringe';
 
 
@@ -16,8 +15,8 @@ export class ListPatientsUseCase {
     @inject('PatientRepository')
     private patientRepository: PatientRepository,
 
-		@inject('DoctorRepository')
-		private doctorRepository: DoctorRepository
+	@inject('DoctorRepository')
+	private doctorRepository: DoctorRepository
 	) {}
 
 	async execute(doctorId: string, search?: string) {
@@ -28,8 +27,6 @@ export class ListPatientsUseCase {
 		}
 
 		const patients = await this.patientRepository.list(search);
-
-		
 
 		const result = patients?.map((patient) => {
 

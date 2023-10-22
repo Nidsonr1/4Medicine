@@ -2,7 +2,7 @@ import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
 import { IRegisterDoctorRequest } from '@DTO/doctor';
-import { DoctorAlreadyExist } from '@errors/doctor-error';
+import { DoctorAlreadyExist } from '@helpers/api-errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 
 @injectable()

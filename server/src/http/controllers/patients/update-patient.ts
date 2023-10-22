@@ -1,4 +1,4 @@
-import { PatientNotFound } from '@errors/patient-errors';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { UpdatePatient } from 'use-cases/patient/update-patient';

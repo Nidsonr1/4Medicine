@@ -1,20 +1,24 @@
 import express, { NextFunction, Request, Response } from 'express';
 import 'reflect-metadata';
+import 'express-async-errors';
 
 import './shared/container';
 import { routes } from './http/routes';
 import { env } from 'env';
 import { ZodError } from 'zod';
 import cors from 'cors';
+import { ApiErrors } from '@helpers/api-errors/api-errors';
 
 export const app = express();
 
-app.use(cors({
-	origin: env.ENABLED_CORS?.split(';') || []
-}));
+// app.use(cors({
+// 	origin: env.ENABLED_CORS?.split(';') || []
+// }));
 app.use(express.json());
+app.use(routes);
+
 app.use((
-	error: Error,
+	error: Error & Partial<ApiErrors>,
 	_: Request,
 	response: Response,
 	next: NextFunction
@@ -22,7 +26,7 @@ app.use((
 	if (error instanceof ZodError) {
 		return response.status(400).json({
 			message: 'Validation Error.',
-			issues: error.format()
+			issues: error
 		});
 	}
 
@@ -30,8 +34,8 @@ app.use((
 		console.error(error);
 	}
 
-	return response.status(500).json({ message: 'Internal Server Error' });
+	const statusCode = error.statusCode ?? 500;
+	const message = error.statusCode ? error.message : 'Internal Server Error';
+	return response.status(statusCode).json({ message });
 
 });
-
-app.use(routes);

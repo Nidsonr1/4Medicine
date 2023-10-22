@@ -1,5 +1,5 @@
 import { ILoginDoctorRequest, ILoginDoctorResponse } from '@DTO/doctor';
-import { InvalidCredentials } from '@errors/doctor-error';
+import { InvalidCredentials } from '@helpers/api-errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { compare } from 'bcrypt';
 import { env } from 'env';

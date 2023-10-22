@@ -3,7 +3,7 @@ import { hash } from 'bcrypt';
 
 import { PatientRepository } from '../../repositories/patient-repository';
 import { IRegisterPatientRequest } from '@DTO/patient';
-import { PatientAlreadyExist } from '@errors/patient-errors';
+import { PatientAlreadyExist } from '@helpers/api-errors/patient-errors';
 
 @injectable()
 export class RegisterPatientUseCase {

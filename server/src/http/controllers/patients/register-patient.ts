@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { z } from 'zod';
 import { RegisterPatientUseCase } from '../../../use-cases/patient/register-patient';
 import { container } from 'tsyringe';
-import { PatientAlreadyExist } from '@errors/patient-errors';
+import { Unauthenticated } from '@helpers/api-errors/api-errors';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 
 export class RegisterPatientController {
 	async handle (request: Request, response: Response) {
@@ -25,22 +26,12 @@ export class RegisterPatientController {
 			number: z.number(),
 		});
     
-		const patient  = registerSchemaBody.safeParse(request.body);
+		const patient  = registerSchemaBody.parse(request.body);
 
-		if (patient.success === false) {
-			return response.status(400).json( patient.error.issues );
-		}
+		throw new PatientNotFound();
 		
-		try {
-			await registerPatient.execute(patient.data);
+		// await registerPatient.execute(patient);
       
-			return response.status(201).json();
-		} catch (error) {
-			if (error instanceof PatientAlreadyExist) {
-				return response.status(409).json({
-					message: error.message
-				});
-			}
-		}
+		// return response.status(201).json();
 	}
 }

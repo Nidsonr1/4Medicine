@@ -3,7 +3,7 @@ import multer from 'multer';
 
 import { RegisterExamController } from 'http/controllers/exam/register-exam';
 import { EnsureAuthenticatePatient } from 'middlewares/ensureAuthenticatePatient';
-import { storage } from '../../lib/upload';
+import { storage } from '../../helpers/upload';
 
 export const examRoutes = Router();
 

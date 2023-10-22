@@ -1,7 +1,7 @@
 import { IRegisterAppointmentRequest } from '@DTO/appointment';
-import { AppointmentAlreadyExist } from '@errors/appointment-error';
-import { DoctorNotFound } from '@errors/doctor-error';
-import { PatientNotFound } from '@errors/patient-errors';
+import { AppointmentAlreadyExist } from '@helpers/api-errors/appointment-error';
+import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { AppointmentRepository } from '@repositories/appointment-repository';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';

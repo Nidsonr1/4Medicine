@@ -1,5 +1,5 @@
 import { IRegisterExamRequest } from '@DTO/exam';
-import { PatientNotFound } from '@errors/patient-errors';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { ExamRepository } from '@repositories/exam-repository';
 import { PatientRepository } from '@repositories/patient-repository';
 import { inject, injectable } from 'tsyringe';

@@ -1,4 +1,4 @@
-import { Unauthenticated } from '@errors/general-errors';
+import { Unauthenticated } from '@helpers/api-errors/api-errors';
 import { env } from 'env';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';

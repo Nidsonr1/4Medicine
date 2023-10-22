@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { z } from 'zod';
 
-import { DoctorNotFound } from '@errors/doctor-error';
-import { PatientNotFound } from '@errors/patient-errors';
+import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { SharedExamsUseCase } from 'use-cases/exams/shared-exams';
 
 export class SharedExamsController {

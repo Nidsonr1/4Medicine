@@ -4,8 +4,8 @@ import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
 
 import { ISharedExam } from '@DTO/exam';
-import { DoctorNotFound } from '@errors/doctor-error';
-import { PatientNotFound } from '@errors/patient-errors';
+import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { ExamRepository } from '@repositories/exam-repository';
 
 @injectable()

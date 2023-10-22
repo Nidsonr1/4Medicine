@@ -1,4 +1,4 @@
-import { InvalidCredentials } from '@errors/patient-errors';
+import { InvalidCredentials } from '@helpers/api-errors/patient-errors';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { LoginPatient } from 'use-cases/patient/login-patient';

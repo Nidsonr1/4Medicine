@@ -1,5 +1,5 @@
-import { DoctorNotFound } from '@errors/doctor-error';
-import { PatientNotFound } from '@errors/patient-errors';
+import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { RegisterReportUseCase } from 'use-cases/report/register-report';

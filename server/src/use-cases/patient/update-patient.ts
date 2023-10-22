@@ -1,7 +1,7 @@
 import { IReturnPatient, IUpdatePatientRequest } from '@DTO/patient';
-import { PatientNotFound } from '@errors/patient-errors';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { PatientRepository } from '@repositories/patient-repository';
-import { hideSensitiveData } from 'lib/hideSensitiveData';
+import { hideSensitiveData } from 'helpers/hideSensitiveData';
 import { inject, injectable } from 'tsyringe';
 
 

@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IUpdateDoctorRequest, IreturnDoctorsInfo } from '@DTO/doctor';
-import { DoctorNotFound } from '@errors/doctor-error';
+import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 
 @injectable()

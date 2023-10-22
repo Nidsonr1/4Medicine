@@ -3,7 +3,7 @@ import multer from 'multer';
 
 import { RegisterReportController } from 'http/controllers/report/register-report';
 import { EnsureAuthenticateDoctor } from 'middlewares/ensureAuthenticateDoctor';
-import { storage } from '../../lib/upload';
+import { storage } from '../../helpers/upload';
 
 export const reportRoutes = Router();
 

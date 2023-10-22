@@ -1,4 +1,4 @@
-import { DoctorNotFound } from '@errors/doctor-error';
+import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { UpdateDoctor } from 'use-cases/doctor/update-doctor';

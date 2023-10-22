@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
 import { IRegisterReportRequest } from '@DTO/report';
-import { DoctorNotFound } from '@errors/doctor-error';
-import { PatientNotFound } from '@errors/patient-errors';
+import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
 import { ReportRepository } from '@repositories/report-repository';

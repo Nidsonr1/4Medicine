@@ -1,4 +1,4 @@
-import { InvalidCredentials } from '@errors/doctor-error';
+import { InvalidCredentials } from '@helpers/api-errors/doctor-error';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { LoginDoctor } from 'use-cases/doctor/login-doctor';

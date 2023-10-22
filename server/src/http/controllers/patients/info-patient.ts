@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import { InfoPatient } from 'use-cases/patient/info-patient';
-import { PatientNotFound } from '@errors/patient-errors';
+import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 
 
 export class InfoPatientController {
