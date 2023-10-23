@@ -13,14 +13,14 @@ export class UpdatePatient {
     private patientRepository: PatientRepository
 	) {}
 
-	async execute(data: IUpdatePatientRequest, patientId: string): Promise<IReturnPatient> {
-		const patientExist = await this.patientRepository.findById(patientId);
+	async execute(data: IUpdatePatientRequest): Promise<IReturnPatient> {
+		const patientExist = await this.patientRepository.findById(data.patientId);
 
 		if (!patientExist) {
 			throw new PatientNotFound();
 		}
 
-		const patientEdited = await this.patientRepository.update(data, patientId);
+		const patientEdited = await this.patientRepository.update(data, data.patientId);
 
 		const sensitiveData = hideSensitiveData(patientEdited.email, patientEdited.cpf);
 

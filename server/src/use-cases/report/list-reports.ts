@@ -1,6 +1,7 @@
-import { ReportRepository } from '@repositories/report-repository';
 import { inject, injectable } from 'tsyringe';
 
+import { IListReportsRequest } from '@DTO/report';
+import { ReportRepository } from '@repositories/report-repository';
 
 @injectable()
 export class ListReportsUseCase {
@@ -9,12 +10,8 @@ export class ListReportsUseCase {
     private reportRepository: ReportRepository
 	) {}
 
-	async execute(customerId: string, order: string, search?: string) {
-		const reports  = await this.reportRepository.listToPatient({
-			customerId,
-			order,
-			search
-		});
+	async execute(data: IListReportsRequest) {
+		const reports  = await this.reportRepository.listToPatient(data);
 
 		return reports;
 	}

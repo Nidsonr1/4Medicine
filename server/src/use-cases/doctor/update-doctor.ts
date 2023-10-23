@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IUpdateDoctorRequest, IreturnDoctorsInfo } from '@DTO/doctor';
+import { IUpdateDoctorRequest, IReturnDoctorsInfo } from '@DTO/doctor';
 import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 
@@ -12,14 +12,14 @@ export class UpdateDoctor {
     private doctorRepository: DoctorRepository
 	) {}
 
-	async execute(data: IUpdateDoctorRequest, id: string): Promise<IreturnDoctorsInfo> {
-		const doctorExist = await this.doctorRepository.findById(id);
+	async execute(data: IUpdateDoctorRequest): Promise<IReturnDoctorsInfo> {
+		const doctorExist = await this.doctorRepository.findById(data.doctorId);
 
 		if (!doctorExist) {
 			throw new DoctorNotFound();
 		}
 
-		const doctor = await this.doctorRepository.update(data, id);
+		const doctor = await this.doctorRepository.update(data, data.doctorId);
 
 		return {
 			id: doctor.id,

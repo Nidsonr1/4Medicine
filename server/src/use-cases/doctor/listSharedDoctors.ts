@@ -1,7 +1,6 @@
-import { DoctorRepository } from '@repositories/doctor-repository';
 import { inject, injectable } from 'tsyringe';
 
-
+import { DoctorRepository } from '@repositories/doctor-repository';
 
 @injectable()
 export class ListSharedDoctors {
@@ -14,6 +13,7 @@ export class ListSharedDoctors {
 		const promise =  doctorsId.map(async (doctorId) => {
 			return await this.doctorRepository.findById(doctorId);
 		});
+		
 		const doctors = (await Promise.all(promise)).map((doctor) => {
 			return {
 				id: doctor?.id,

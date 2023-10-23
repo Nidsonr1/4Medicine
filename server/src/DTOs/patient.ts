@@ -26,6 +26,7 @@ export interface IUpdatePatientRequest {
   complement: string;
   number: number;
   cell: string;
+  patientId: string
 }
 
 
@@ -41,7 +42,7 @@ export interface IReturnPatient {
     uf: string;
     neighborhood: string;
     street: string;
-    complement: string;
+    complement?: string | null;
     number: number;
     cell: string;
   }

@@ -1,8 +1,9 @@
+import { inject, injectable } from 'tsyringe';
+
 import { IRegisterExamRequest } from '@DTO/exam';
 import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { ExamRepository } from '@repositories/exam-repository';
 import { PatientRepository } from '@repositories/patient-repository';
-import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class RegisterExamsUseCase {
@@ -17,7 +18,6 @@ export class RegisterExamsUseCase {
 	async execute(data: IRegisterExamRequest) {
 		const patientAlreadyExist = await this.patientRepository.findById(data.patientId);
 
-		
 		if (!patientAlreadyExist) {
 			throw new PatientNotFound();
 		}

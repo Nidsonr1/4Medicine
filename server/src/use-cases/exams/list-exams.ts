@@ -1,3 +1,4 @@
+import { IListExams } from '@DTO/exam';
 import { ExamRepository } from '@repositories/exam-repository';
 import { inject, injectable } from 'tsyringe';
 
@@ -8,11 +9,8 @@ export class ListExamsUseCase {
     private examRepository: ExamRepository
 	) {}
 
-	async execute(customerId: string, order: string, search?: string) {
-		const exams = await this.examRepository.listToDoctor({
-			customerId,
-			order
-		});
+	async execute(data: IListExams) {
+		const exams = await this.examRepository.listToDoctor(data);
 	
 		return exams;
 	}

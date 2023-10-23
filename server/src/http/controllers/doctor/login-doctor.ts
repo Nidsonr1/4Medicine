@@ -1,33 +1,17 @@
-import { InvalidCredentials } from '@helpers/api-errors/doctor-error';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
 import { LoginDoctor } from 'use-cases/doctor/login-doctor';
-import { z } from 'zod';
+import { loginDoctorSchema } from '@lib/zod';
 
 export class LoginDoctorController {
 	async handle(request: Request, response: Response) {
 		const loginDoctorUseCase = container.resolve(LoginDoctor);
-		const loginDoctorSchema = z.object({
-			CRM: z.string(),
-			password: z.string().min(6)
-		});
 
-		const doctor = loginDoctorSchema.safeParse(request.body);
+		const loginDoctorRequest = loginDoctorSchema.parse(request.body);
 
-		if (doctor.success === false) {
-			return response.status(400).json( doctor.error.issues );
-		}
+		const result = await loginDoctorUseCase.execute(loginDoctorRequest);
 
-		try {
-			const result = await loginDoctorUseCase.execute(doctor.data);
-
-			return response.json(result);
-		} catch (error) {
-			if (error instanceof InvalidCredentials) {
-				return response.status(404).json({
-					message: error.message
-				});
-			}
-		}
+		return response.json(result);
 	}
 }

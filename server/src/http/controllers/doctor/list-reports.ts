@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
+import { listReportsSchema } from '@lib/zod';
 import { ListReportsUseCase } from 'use-cases/report/list-reports';
 
 export class ListReportsByDoctorController {
@@ -9,22 +11,16 @@ export class ListReportsByDoctorController {
 		const { doctorId } = request;
 		const { order, search } = request.query;
 
-		try {
-			const result = await listReports.execute(
-				doctorId,
-				order as string,
-				search as string
-			);
+		const validateBody = {
+			customerId: doctorId,
+			order,
+			search
+		};
 
-			return response.json({
-				result
-			});
-		} catch (error) {
-			if (error instanceof Error) {
-				return response.status(500).json({
-					error: error.message
-				});
-			}
-		}
+		const listReportRequest = listReportsSchema.parse(validateBody);
+		
+		const result = await listReports.execute(listReportRequest);
+
+		return response.json(result);
 	}
 }

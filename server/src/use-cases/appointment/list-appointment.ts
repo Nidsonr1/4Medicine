@@ -1,3 +1,4 @@
+import { IListAppointmentRequest } from '@DTO/appointment';
 import { AppointmentRepository } from '@repositories/appointment-repository';
 import { inject, injectable } from 'tsyringe';
 
@@ -9,8 +10,8 @@ export class ListAppointmentUseCase {
     private appointmentRepository: AppointmentRepository
 	) {}
 
-	async execute(customerId: string) {
-		const appointments = await this.appointmentRepository.listByCustomer(customerId);
+	async execute(data: IListAppointmentRequest) {
+		const appointments = await this.appointmentRepository.listByCustomer(data.customerId);
 
 		return appointments;
 	}

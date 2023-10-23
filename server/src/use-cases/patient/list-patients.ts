@@ -1,13 +1,10 @@
+import { inject, injectable } from 'tsyringe';
+
+import { IListPatientsResponse } from '@DTO/doctor';
 import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
 import { hideSensitiveData } from 'helpers/hideSensitiveData';
-import { inject, injectable } from 'tsyringe';
-
-
-export interface ListPatientsResponse {
-
-}
 
 @injectable()
 export class ListPatientsUseCase {
@@ -19,14 +16,14 @@ export class ListPatientsUseCase {
 	private doctorRepository: DoctorRepository
 	) {}
 
-	async execute(doctorId: string, search?: string) {
-		const doctorExist = await this.doctorRepository.findById(doctorId);
+	async execute(data: IListPatientsResponse) {
+		const doctorExist = await this.doctorRepository.findById(data.doctorId);
 
 		if (!doctorExist) {
 			throw new DoctorNotFound();
 		}
 
-		const patients = await this.patientRepository.list(search);
+		const patients = await this.patientRepository.list(data.search);
 
 		const result = patients?.map((patient) => {
 
