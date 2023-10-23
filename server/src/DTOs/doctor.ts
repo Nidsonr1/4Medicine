@@ -12,15 +12,16 @@ export interface IUpdateDoctorRequest {
   phone: string;
   cell?: string;
   agreement: string[];
+  doctorId: string
 }
 
-export interface IreturnDoctorsInfo {
+export interface IReturnDoctorsInfo {
 	id: string,
 	name: string,
 	CRM: string,
-	expertise: string,
+	expertise: string[],
 	phone: string,
-	agreement: string,
+	agreement: string[],
   cell?: string | null
 }
 
@@ -33,4 +34,9 @@ export interface ILoginDoctorResponse {
   name: string,
   CRM: string,
   token: string
+}
+
+export interface IListPatientsResponse {
+	doctorId: string,
+	search?: string
 }

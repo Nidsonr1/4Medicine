@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
 import { ListAppointmentUseCase } from 'use-cases/appointment/list-appointment';
+import { listAppointmentSchema } from '@lib/zod';
 
 export class ListAppointmentsDoctorController {
 	async handle(request: Request, response: Response) {
@@ -8,18 +10,14 @@ export class ListAppointmentsDoctorController {
 
 		const { doctorId } = request;
 
-		try {
-			const result = await listAppointment.execute(doctorId);
+		const validateBody = {
+			customerId: doctorId
+		};
 
-			return response.json({
-				result
-			});
-		} catch (error) {
-			if ( error instanceof Error ) {
-				return response.status(500).json({
-					message: error.message
-				});
-			}
-		}
+		const listAppointmentRequest = listAppointmentSchema.parse(validateBody);
+
+		const result = await listAppointment.execute(listAppointmentRequest);
+
+		return response.json(result);
 	}
 }

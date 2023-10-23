@@ -33,3 +33,9 @@ export interface ISharedReports {
   doctorId: string;
   patientId: string
 }
+
+export interface IListReportsRequest {
+	customerId: string,
+	order: string,
+	serach?: string
+}

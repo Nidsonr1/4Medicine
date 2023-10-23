@@ -1,12 +1,11 @@
+import { inject, injectable } from 'tsyringe';
+import { env } from 'env';
+import { compare } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
+
 import { ILoginDoctorRequest, ILoginDoctorResponse } from '@DTO/doctor';
 import { InvalidCredentials } from '@helpers/api-errors/doctor-error';
 import { DoctorRepository } from '@repositories/doctor-repository';
-import { compare } from 'bcrypt';
-import { env } from 'env';
-import { sign } from 'jsonwebtoken';
-import { inject, injectable } from 'tsyringe';
-
-
 
 @injectable()
 export class LoginDoctor {

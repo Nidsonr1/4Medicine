@@ -35,7 +35,6 @@ export class SharedReportsUseCase {
 			this.patientRepository.findById(data.patientId),
 			this.reportRepository.listToDoctor(validateDoctorAlreadyShared)
 		]);
-    
 		
 		if (doctorAlreadyShared) {
 			throw new DoctorAlreadyShared();

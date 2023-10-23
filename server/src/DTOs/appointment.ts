@@ -31,3 +31,7 @@ export interface IFindByDateRequest {
   doctorId: string;
   patientId: string;
 }
+
+export interface IListAppointmentRequest {
+  customerId: string
+}

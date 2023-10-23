@@ -13,7 +13,7 @@ import { UpdateDoctorController } from 'http/controllers/doctor/update-doctor';
 import { RegisterReportController } from 'http/controllers/report/register-report';
 import { EnsureAuthenticateDoctor } from 'middlewares/ensureAuthenticateDoctor';
 import { EnsureAuthenticatePatient } from 'middlewares/ensureAuthenticatePatient';
-import { storage } from '@lib/upload';
+import { storage } from '@helpers/upload';
 
 const uploadFile = multer({ storage: storage });
 export const doctorRoutes = Router();

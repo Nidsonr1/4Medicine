@@ -1,32 +1,17 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
 import { ListSharedDoctors } from 'use-cases/doctor/listSharedDoctors';
-import { z } from 'zod';
-
-
+import { listDoctorsWhoSharedSchema } from '@lib/zod';
 
 export class ListDoctorsSharedTo {
 	async handle(request: Request, response: Response) {
-		const doctorsIds = request.body;
-		const listDoctorsUseCase = container.resolve(ListSharedDoctors);
+		const listDoctorsWhoShared = container.resolve(ListSharedDoctors);
 
-		const listDoctorsSchema = z.object({
-			doctorsIds: z.array(z.string())
-		});
+		const { doctorsIds } = listDoctorsWhoSharedSchema.parse(request.body);
 
-		const doctors = listDoctorsSchema.safeParse(doctorsIds);
+		const result = await listDoctorsWhoShared.execute(doctorsIds);
 
-		if (doctors.success === false) {
-			return response.status(400).json(
-				doctors.error
-			);
-		}
-		
-		try {
-			const result = await listDoctorsUseCase.execute(doctors.data.doctorsIds);
-			return response.json(result);
-		} catch (error) {
-			return response.status(500).json('erro');
-		}
+		return response.json(result);
 	}
 }
