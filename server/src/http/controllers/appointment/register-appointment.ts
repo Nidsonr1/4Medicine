@@ -20,10 +20,12 @@ export class RegisterAppointmentController {
 			doctorId
 		};
 
-		const appointment = registerAppointmentSchema.parse(validateBody);
+		const registerAppointmentRequest = registerAppointmentSchema.parse(validateBody);
 
-		const result = await registerAppointment.execute(appointment);
+		await registerAppointment.execute(registerAppointmentRequest);
 
-		return response.json(result);
+		return response.status(201).json({
+			message: 'Horário marcado com sucesso!'
+		});
 	}
 }
