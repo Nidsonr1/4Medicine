@@ -7,7 +7,7 @@ export function isValidDate(startDate: Date, endDate: Date, currentDate: Date) {
 		return'A data de término deve estar no futuro.';
 	}
 
-	if (endDate < startDate) {
+	if (endDate <= startDate) {
 		return 'A data de término deve ser posterior à data de início.';
 	}
 }
