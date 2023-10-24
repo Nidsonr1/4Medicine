@@ -5,6 +5,7 @@ export interface IRegisterAppointmentRequest {
   endDate: string;
   doctorId: string;
   patientId: string;
+  link?: string
 }
 
 export interface IPrismaCreateAppointment {
@@ -14,7 +15,7 @@ export interface IPrismaCreateAppointment {
   endDate: Date;
   patient_id: string;
   doctor_id: string;
-  link: string;
+  link?: string;
 }
 
 export interface IRegisterAppointmentResponse {

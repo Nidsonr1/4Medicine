@@ -61,7 +61,7 @@ export const registerAppointmentSchema = z.object({
 	description: z.string().optional(),
 	doctorId: z.string(),
 	patientId: z.string(),
-	link: z.string()
+	link: z.string().optional()
 });
 
 export const listAppointmentSchema = z.object({

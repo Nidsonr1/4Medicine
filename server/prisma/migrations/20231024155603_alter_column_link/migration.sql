@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "appointments" ALTER COLUMN "link" DROP NOT NULL;

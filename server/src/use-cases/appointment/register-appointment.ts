@@ -1,23 +1,14 @@
+import { inject, injectable } from 'tsyringe';
+import dayjs from 'dayjs';
+
 import { IRegisterAppointmentRequest } from '@DTO/appointment';
-import { AppointmentAlreadyExist } from '@helpers/api-errors/appointment-error';
+import { AppointmentAlreadyExist, InvalidDates } from '@helpers/api-errors/appointment-error';
 import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
 import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { AppointmentRepository } from '@repositories/appointment-repository';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
-import dayjs from 'dayjs';
-import { inject, injectable } from 'tsyringe';
-
-
-/**
-		 * TO-DO:
-		 * [X] - Verificar a existência do médico e paciente
-		 * [X] - Retornar erros caso eles não existam
-		 * [X] - Verificar se existe uma consulta marcada para aquele horário
-		 * [] - Criar integração com o Meet SDK
-		 * [X] - Criar a consulta
-*/
-
+import { isValidDate } from '@helpers/isValidDate';
 
 @injectable()
 export class RegisterAppointmentUseCase {
@@ -33,31 +24,38 @@ export class RegisterAppointmentUseCase {
 	) {}
 
 	async execute(data: IRegisterAppointmentRequest) {
+		const currentDate = dayjs(dayjs().toDate()).subtract(3, 'hour').toDate();
+		const startDate = dayjs(data.startDate).toDate();
+		const endDate = dayjs(data.endDate).toDate();
+
 		const [
 			doctorExist,
-			patientExist
+			patientExist,
+			overlappingAppointment
 		] = await Promise.all([
 			this.doctorRepository.findById(data.doctorId),
 			this.patietnRepository.findById(data.patientId),
+			this.appointmentRepository.findByDate({
+				startDate,
+				endDate,
+				patientId: data.patientId,
+				doctorId: data.doctorId
+			})
 		]);
+		
+		const returnValidDate = isValidDate(startDate, endDate, currentDate);
+
+		if (returnValidDate) {
+			throw new InvalidDates(returnValidDate);
+		}
 
 		if (!patientExist) {
 			throw new PatientNotFound();
 		}
-
+		
 		if (!doctorExist) {
 			throw new DoctorNotFound();
 		}
-
-		const startDate = dayjs(data.startDate).toDate();
-		const endDate = dayjs(data.endDate).toDate();
-
-		const overlappingAppointment = await this.appointmentRepository.findByDate({
-			startDate,
-			endDate,
-			patientId: data.patientId,
-			doctorId: data.doctorId
-		});
 
 		if (overlappingAppointment) {
 			throw new AppointmentAlreadyExist();
@@ -70,7 +68,7 @@ export class RegisterAppointmentUseCase {
 			endDate,
 			doctor_id: data.doctorId,
 			patient_id: data.patientId,
-			link: 'http://meet.com'
+			link: data.link
 		};
 
 		await this.appointmentRepository.create(appointment);
