@@ -1,19 +1,20 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { ListExamsUseCase } from 'use-cases/exams/list-exams';
+import { ListExamsToDoctorUseCase } from 'use-cases/exams/list-exams-to-doctor';
 import { listExamsSchema } from '@lib/zod';
 
-export class ListExamsPatientController {
+export class ListExamsDoctorController {
 	async handle(request: Request, response: Response) {
-		const listExamUseCase = container.resolve(ListExamsUseCase);
+		const listExamUseCase = container.resolve(ListExamsToDoctorUseCase);
 
-		const { patientId } = request;
-		const { order } = request.query;
+		const { doctorId } = request;
+		const { order, search } = request.query;
 
 		const validateBody = {
-			customerId: patientId,
-			order
+			customerId: doctorId,
+			order,
+			search
 		};
 
 		const listExamsRequest = listExamsSchema.parse(validateBody);

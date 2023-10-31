@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import { listReportsSchema } from '@lib/zod';
-import { ListReportsUseCase } from 'use-cases/report/list-reports';
+import { ListReportsToDoctorUseCase } from 'use-cases/report/list-reports-to-doctor';
 
-export class ListReportsByDoctorController {
+export class ListReportsToDoctorController {
 	async handle(request: Request, response: Response) {
-		const listReports = container.resolve(ListReportsUseCase);
+		const listReports = container.resolve(ListReportsToDoctorUseCase);
 
 		const { doctorId } = request;
 		const { order, search } = request.query;

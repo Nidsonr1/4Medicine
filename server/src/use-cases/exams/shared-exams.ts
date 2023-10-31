@@ -4,7 +4,7 @@ import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
 
 import { ISharedExam } from '@DTO/exam';
-import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
+import { DoctorAlreadyHasAccess, DoctorNotFound } from '@helpers/api-errors/doctor-error';
 import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { ExamRepository } from '@repositories/exam-repository';
 
@@ -38,6 +38,19 @@ export class SharedExamsUseCase {
 			throw new PatientNotFound();
 		}
 
-		await this.examRepository.sharedTo(data);
+		const validateDoctroWithAccess = {
+			examId: data.examId,
+			doctorId: data.doctorId,
+			doctorName: doctorExist.name
+		};
+
+		const doctorAlreadyHasAccess = await this.examRepository.listShared(validateDoctroWithAccess);
+
+		if (doctorAlreadyHasAccess) throw new DoctorAlreadyHasAccess();
+
+		await this.examRepository.sharedTo(
+			data,
+			doctorExist.name
+		);
 	}
 }

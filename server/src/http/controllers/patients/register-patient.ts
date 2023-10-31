@@ -12,6 +12,8 @@ export class RegisterPatientController {
 		
 		await registerPatient.execute(registerPatientRequest);
       
-		return response.status(201).json();
+		return response.status(201).json({
+			message: 'Cadastro realizado com sucesso!'
+		});
 	}
 }

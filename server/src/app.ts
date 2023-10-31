@@ -11,9 +11,7 @@ import { ApiErrors } from '@helpers/api-errors/api-errors';
 
 export const app = express();
 
-// app.use(cors({
-// 	origin: env.ENABLED_CORS?.split(';') || []
-// }));
+app.use(cors());
 app.use(express.json());
 app.use(routes);
 

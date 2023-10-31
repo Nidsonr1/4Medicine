@@ -111,7 +111,8 @@ export const listDoctorsWhoSharedSchema = z.object({
 //Exam's validation
 export const listExamsSchema = z.object({
 	customerId: z.string(),
-	order: z.string()
+	order: z.string().optional(),
+	search: z.string().optional()
 });
 
 export const registerExamSchema = z.object({
@@ -124,7 +125,7 @@ export const registerExamSchema = z.object({
 //Report's validation
 export const listReportsSchema = z.object({
 	customerId: z.string(),
-	order: z.string(),
+	order: z.string().optional(),
 	search: z.string().optional()
 });
 

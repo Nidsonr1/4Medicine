@@ -22,6 +22,8 @@ export class SharedExamsController {
 		
 		await sharedExamsUseCase.execute(sharedExamRequest);
 
-		return response.status(204).send();
+		return response.json({
+			message: 'Exame compartilhado com sucesso!'
+		});
 	}
 }

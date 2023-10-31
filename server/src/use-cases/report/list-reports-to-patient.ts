@@ -2,9 +2,10 @@ import { inject, injectable } from 'tsyringe';
 
 import { IListReportsRequest } from '@DTO/report';
 import { ReportRepository } from '@repositories/report-repository';
+import { listToPatient } from '@helpers/list-exam-report-to-domain';
 
 @injectable()
-export class ListReportsUseCase {
+export class ListReportsToPatientUseCase {
 	constructor(
     @inject('ReportRepository')
     private reportRepository: ReportRepository
@@ -13,6 +14,14 @@ export class ListReportsUseCase {
 	async execute(data: IListReportsRequest) {
 		const reports  = await this.reportRepository.listToPatient(data);
 
-		return reports;
+		if (!reports) return null;
+
+		const promise = reports.map((report) => {
+			return listToPatient(report);
+		});
+
+		return (await Promise.all(promise)).map((reportsPatient) => {
+			return reportsPatient;
+		});
 	}
 }

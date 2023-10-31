@@ -54,6 +54,7 @@ export interface ILoginPatientRequest {
 }
 
 export interface ILoginPatientResponse {
+  id: string;
   name: string;
   email: string;
   token: string

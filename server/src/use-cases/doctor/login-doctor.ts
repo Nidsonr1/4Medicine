@@ -34,6 +34,7 @@ export class LoginDoctor {
 		});
 
 		return {
+			id: doctor.id,
 			name: doctor.name,
 			CRM,
 			token

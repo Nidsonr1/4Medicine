@@ -17,3 +17,9 @@ export class InvalidCredentials extends ApiErrors {
 		super('CRM e/ou senha inválidos!', 404);
 	}
 }
+
+export class DoctorAlreadyHasAccess extends ApiErrors {
+	constructor() {
+		super('Seu arquivo já foi compartilhado com este profissional!', 400);
+	}
+}

@@ -31,8 +31,9 @@ export interface ILoginDoctorRequest {
 }
 
 export interface ILoginDoctorResponse {
-  name: string,
-  CRM: string,
+  id: string;
+  name: string;
+  CRM: string;
   token: string
 }
 

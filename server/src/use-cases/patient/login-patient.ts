@@ -34,6 +34,7 @@ export class LoginPatient {
 		});
 
 		return {
+			id: patient.id,
 			name: patient.name,
 			email,
 			token

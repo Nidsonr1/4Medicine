@@ -1,8 +1,7 @@
+import { sharedReportsSchema } from '@lib/zod';
+import { SharedReportsUseCase } from '@use-cases/report/shared-reports';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-
-import { SharedReportsUseCase } from 'use-cases/report/shared-reports';
-import { sharedReportsSchema } from '@lib/zod';
 
 export class SharedReportController {
 	async handle(request: Request, response: Response) {
@@ -22,6 +21,8 @@ export class SharedReportController {
 
 		await sharedReportUseCase.execute(sharedReportRequest);
 
-		return response.status(204).send();
+		return response.json({
+			message: 'Laudo compartilhado com sucesso!'
+		});
 	}
 }

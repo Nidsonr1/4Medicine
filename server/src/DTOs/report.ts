@@ -14,7 +14,7 @@ export interface IPrismaRegisterReport {
 
 export interface IListReportsRequest {
   customerId: string,
-  order: string,
+  order?: string,
   search?: string
 }
 
@@ -34,8 +34,26 @@ export interface ISharedReports {
   patientId: string
 }
 
-export interface IListReportsRequest {
-	customerId: string,
-	order: string,
-	serach?: string
+
+export interface IListReportToDoctor {
+  id: string;
+  document: string;
+  created_at: Date;
+  doctor_id: string;
+  patient: object
+}
+
+export interface IListReportToPatient {
+  id: string;
+  document: string;
+  sharedBy: string[],
+  created_at: Date;
+  patient_id: string;
+  doctor: object
+}
+
+export interface ILIstReportsSharedRequest {
+  reportId: string;
+  doctorId: string;
+  doctorName: string;
 }
