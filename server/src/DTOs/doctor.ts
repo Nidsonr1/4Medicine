@@ -12,7 +12,8 @@ export interface IUpdateDoctorRequest {
   phone: string;
   cell?: string;
   agreement: string[];
-  doctorId: string
+  doctorId: string;
+  expertise: string[];
 }
 
 export interface IReturnDoctorsInfo {
