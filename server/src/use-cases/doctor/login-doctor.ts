@@ -4,7 +4,7 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 
 import { ILoginDoctorRequest, ILoginDoctorResponse } from '@DTO/doctor';
-import { InvalidCredentials } from '@helpers/api-errors/doctor-error';
+import { InvalidCredentials } from '@helpers/api-errors/api-errors';
 import { DoctorRepository } from '@repositories/doctor-repository';
 
 @injectable()

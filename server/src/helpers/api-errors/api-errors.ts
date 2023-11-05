@@ -12,3 +12,9 @@ export class Unauthenticated extends ApiErrors {
 		super('Token Missing', 401);
 	}
 }
+
+export class InvalidCredentials extends ApiErrors {
+	constructor() {
+		super('Credenciais Inválidas!!', 404);
+	}
+}
