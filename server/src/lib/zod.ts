@@ -49,7 +49,7 @@ export const infoPatientSchema = z.object({
 });
 
 export const loginPatientSchema = z.object({
-	email: z.string().email(),
+	cpf: z.string(),
 	password: z.string()
 });
 
@@ -120,7 +120,6 @@ export const registerExamSchema = z.object({
 	doctorId: z.string(),
 	patientId: z.string()
 });
-
 
 //Report's validation
 export const listReportsSchema = z.object({

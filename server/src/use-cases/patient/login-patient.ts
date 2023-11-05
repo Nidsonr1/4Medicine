@@ -14,21 +14,20 @@ export class LoginPatient {
     private patientRepository: PatientRepository
 	) {}
 
-	async execute({ email, password }: ILoginPatientRequest)  {
-		const patient = await this.patientRepository.findByEmail(email);
+	async execute({ cpf, password }: ILoginPatientRequest)  {
+		const patient = await this.patientRepository.findByCpf(cpf);
 
 		if (!patient) {
 			throw new InvalidCredentials();
 		}
 
 		const passwordCompare = await compare(password, patient.password);
-
 		
 		if (!passwordCompare) {
 			throw new InvalidCredentials();
 		}
 
-		const token = sign({ email }, env.PATIENTKEY, {
+		const token = sign({ cpf }, env.PATIENTKEY, {
 			subject: patient.id,
 			expiresIn: '1d'
 		});
@@ -36,7 +35,6 @@ export class LoginPatient {
 		return {
 			id: patient.id,
 			name: patient.name,
-			email,
 			token
 		};
 	}

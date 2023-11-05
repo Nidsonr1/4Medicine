@@ -49,7 +49,7 @@ export interface IReturnPatient {
 }
 
 export interface ILoginPatientRequest {
-  email: string;
+  cpf: string;
   password: string;
 }
 
