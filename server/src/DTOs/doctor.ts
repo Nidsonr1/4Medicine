@@ -1,11 +1,11 @@
 export interface IRegisterDoctorRequest {
-  name: string,
-  CRM:  string,
-  password: string,
-  expertise: string[],
-  phone: string,
-  cell?: string
-  agreement: string[]
+  name: string;
+  CRM:  string;
+  password: string;
+  expertise: string[];
+  phone?: string;
+  cell: string;
+  agreement: string[];
 }
 
 export interface IUpdateDoctorRequest {
@@ -17,28 +17,28 @@ export interface IUpdateDoctorRequest {
 }
 
 export interface IReturnDoctorsInfo {
-	id: string,
-	name: string,
-	CRM: string,
-	expertise: string[],
-	phone: string,
-	agreement: string[],
-  cell?: string | null
+	id: string;
+	name: string;
+	CRM: string;
+	expertise: string[];
+	phone?: string | null;
+	agreement: string[];
+  cell: string;
 }
 
 export interface ILoginDoctorRequest {
   CRM: string;
-  password: string
+  password: string;
 }
 
 export interface ILoginDoctorResponse {
   id: string;
   name: string;
   CRM: string;
-  token: string
+  token: string;
 }
 
 export interface IListPatientsResponse {
-	doctorId: string,
-	search?: string
+	doctorId: string;
+	search?: string;
 }
