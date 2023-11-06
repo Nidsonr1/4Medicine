@@ -92,8 +92,8 @@ export const registerDoctorSchema = z.object({
 	CRM: z.string().min(9).max(11),
 	password: z.string().min(6),
 	expertise: z.array(z.string()),
-	phone: z.string(),
-	cell: z.string().optional(),
+	phone: z.string().optional(),
+	cell: z.string(),
 	agreement: z.array(z.string())
 });
 
