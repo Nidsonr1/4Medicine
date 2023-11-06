@@ -36,6 +36,7 @@ export interface IReturnPatient {
   cpf: string;
   email: string;
   dateOfBirth: string;
+  cell: string;
   address: {
     zipCode: string;
     city: string;
@@ -44,7 +45,6 @@ export interface IReturnPatient {
     street: string;
     complement?: string | null;
     number: number;
-    cell: string;
   }
 }
 

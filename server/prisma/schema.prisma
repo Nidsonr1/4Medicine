@@ -58,8 +58,8 @@ model Doctor {
   CRM         String
   password    String
   expertise   String[]
-  phone       String
-  cell        String?       @default("null")
+  phone       String?       @default("null")
+  cell        String
   agreement   String[]
   Appointment Appointment[]
   Reports     Reports[]

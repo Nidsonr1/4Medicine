@@ -4,12 +4,12 @@ export function hideSensitiveData(email: string, cpf: string) {
 
 	const [splitEmail,  emailDomain] = email.split('@');
 
-	const maskEmail = email.slice(0, -15);
+	//Código comentado, pois vou decidir se realmente precisa omitir o e-mail do paciente
+	// const maskEmail = email.slice(0, -15);
   
-	const lenthInitialEmail = splitEmail.length - maskEmail.length;
+	// const lenthInitialEmail = splitEmail.length - maskEmail.length;
 
 	return {
-		email: `${maskEmail}${'*'.repeat(lenthInitialEmail)}@${emailDomain}`,
 		cpf: `${initialCPF}.***.***-${digitCPF}`
 	};
 }

@@ -28,8 +28,9 @@ export class UpdatePatient {
 			id: patientEdited.id,
 			name: patientEdited.name,
 			cpf: sensitiveData.cpf,
-			email: sensitiveData.email,
+			email: patientEdited.email,
 			dateOfBirth: patientEdited.dateOfBirth,
+			cell: patientEdited.cell,
 			address: {
 				zipCode: patientEdited.zipCode,
 				city: patientEdited.city,
@@ -38,7 +39,6 @@ export class UpdatePatient {
 				street: patientEdited.street,
 				complement: patientEdited.complement,
 				number: patientEdited.number,
-				cell: patientEdited.cell,
 			}
 		};
 	}
