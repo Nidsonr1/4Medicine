@@ -71,7 +71,7 @@ doctorRoutes.get(
 
 //Report's Routes
 doctorRoutes.post(
-	'/reports/create',
+	'/reports/upload',
 	uploadFile.single('file'),
 	EnsureAuthenticateDoctor,
 	registerReportController.handle
