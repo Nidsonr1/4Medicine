@@ -100,6 +100,7 @@ export const registerDoctorSchema = z.object({
 export const updateDoctorSchema = z.object({
 	phone: z.string(),
 	agreement: z.array(z.string()),
+	expertise: z.array(z.string()),
 	cell: z.string().optional(),
 	doctorId: z.string()
 });

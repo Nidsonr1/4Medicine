@@ -14,6 +14,7 @@ export class UpdateDoctorController {
 			phone: request.body.phone,
 			agreement: request.body.agreement,
 			cell: request.body.cell,
+			expertise: request.body.expertise,
 			doctorId
 		};
 

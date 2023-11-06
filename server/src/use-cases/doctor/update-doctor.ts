@@ -19,7 +19,17 @@ export class UpdateDoctor {
 			throw new DoctorNotFound();
 		}
 
-		const doctor = await this.doctorRepository.update(data, data.doctorId);
+		const validateAgreementAlreadyExist = data.agreement.filter(agreement => !doctorExist.agreement.includes(agreement));
+
+		const valdiateExpertiseAlreadyExist = data.expertise.filter(expertise => !doctorExist.expertise.includes(expertise));
+		
+		const updateDoctor = {
+			...data,
+			agreement: validateAgreementAlreadyExist,
+			expertise: valdiateExpertiseAlreadyExist
+		};
+
+		const doctor = await this.doctorRepository.update(updateDoctor);
 
 		return {
 			id: doctor.id,

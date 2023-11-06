@@ -6,5 +6,5 @@ export interface DoctorRepository {
   findByCRM(crm: string): Promise<Doctor | null>;
   list(search?: string): Promise<Doctor[] | null>
   findById(id: string): Promise<Doctor | null>
-  update(data: IUpdateDoctorRequest, doctorId: string): Promise<Doctor>;
+  update(data: IUpdateDoctorRequest): Promise<Doctor>;
 }
