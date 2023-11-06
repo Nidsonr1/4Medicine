@@ -20,6 +20,6 @@ export class ListPatientsController {
 
 		const result = await listPatientsUseCase.execute(listPatientsRequest);
 
-		return response.json({ result });
+		return response.json(result);
 	}
 }

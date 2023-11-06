@@ -32,20 +32,7 @@ export class ListPatientsUseCase {
 			return {
 				id: patient.id,
 				name: patient.name,
-				cpf: sensitiveData.cpf,
-				email: sensitiveData.email,
-				gender: patient.gender,				
-				cell: patient.cell,
-				dateOfBirth: patient.dateOfBirth,
-				address: {
-					zipCode: patient.zipCode,
-					city: patient.city,
-					uf: patient.uf,
-					neighborhood: patient.neighborhood,
-					street: patient.street,
-					complement: patient.complement,
-					number: patient.number,
-				}
+				cpf: sensitiveData.cpf
 			};
 		});
 
