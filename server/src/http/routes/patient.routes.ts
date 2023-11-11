@@ -16,6 +16,7 @@ import { ListExamsPatientController } from '@controllers/exam/list-exam-to-patie
 import { EnsureAuthenticatePatient } from 'middlewares/ensureAuthenticatePatient';
 
 import { storage } from '@helpers/upload';
+import { EnsureAuthenticateDoctor } from 'middlewares/ensureAuthenticateDoctor';
 
 export const patientRoutes = Router();
 
@@ -34,22 +35,23 @@ const uploadFile = multer({ storage: storage });
 
 //Patient's Routes
 patientRoutes.post('/create', registerPatientController.handle);
+
 patientRoutes.get(
-	'/',
+	'/:patientId',
 	EnsureAuthenticatePatient,
+	EnsureAuthenticateDoctor,
 	infoPatientController.handle
 );
+
 patientRoutes.post('/login', loginPatientcontroller.handle);
+
 patientRoutes.put(
 	'/update',
 	EnsureAuthenticatePatient,
 	updatePatientController.handle
 );
-patientRoutes.get(
-	'/reports',
-	EnsureAuthenticatePatient,
-	listReportsByPatientController.handle
-);
+
+//Appointment's Routes
 patientRoutes.get(
 	'/appointments',
 	EnsureAuthenticatePatient,
@@ -79,4 +81,10 @@ patientRoutes.patch(
 	'/reports/shared/:reportId',
 	EnsureAuthenticatePatient,
 	sharedReportController.handle
+);
+
+patientRoutes.get(
+	'/reports',
+	EnsureAuthenticatePatient,
+	listReportsByPatientController.handle
 );

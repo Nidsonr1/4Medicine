@@ -24,6 +24,7 @@ export class InfoPatient {
 			cpf: patient.cpf,
 			email: patient.email,
 			dateOfBirth: patient.dateOfBirth,
+			cell: patient.cell,
 			address: {
 				zipCode: patient.zipCode,
 				city: patient.city,
@@ -32,7 +33,6 @@ export class InfoPatient {
 				street: patient.street,
 				complement: patient.complement,
 				number: patient.number,
-				cell: patient.cell,
 			}
 		};
 	}

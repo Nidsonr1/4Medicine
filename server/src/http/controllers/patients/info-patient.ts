@@ -8,7 +8,7 @@ export class InfoPatientController {
 	async handle(request: Request, response: Response) {
 		const infoPatientUseCase = container.resolve(InfoPatient);
 		
-		const  { patientId }  = infoPatientSchema.parse(request);
+		const  { patientId }  = infoPatientSchema.parse(request.params);
 
 		const result = await infoPatientUseCase.execute(patientId);
 
