@@ -51,11 +51,8 @@ doctorRoutes.put(
 	EnsureAuthenticateDoctor,
 	updateDoctorController.handle
 );
-doctorRoutes.get(
-	'/patients',
-	EnsureAuthenticateDoctor,
-	listPatientsController.handle
-);
+
+
 doctorRoutes.get(
 	'/appointments',
 	EnsureAuthenticateDoctor,

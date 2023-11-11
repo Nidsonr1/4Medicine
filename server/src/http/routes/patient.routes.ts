@@ -17,6 +17,7 @@ import { EnsureAuthenticatePatient } from 'middlewares/ensureAuthenticatePatient
 
 import { storage } from '@helpers/upload';
 import { EnsureAuthenticateDoctor } from 'middlewares/ensureAuthenticateDoctor';
+import { ListPatientsController } from '@controllers/doctor/list-patients';
 
 export const patientRoutes = Router();
 
@@ -30,6 +31,7 @@ const listExamsController = new ListExamsPatientController();
 const sharedReportController = new SharedReportController();
 const sharedExamController = new SharedExamsController();
 const registerExamController = new RegisterExamController();
+const searchPatients = new ListPatientsController();
 
 const uploadFile = multer({ storage: storage });
 
@@ -37,10 +39,15 @@ const uploadFile = multer({ storage: storage });
 patientRoutes.post('/create', registerPatientController.handle);
 
 patientRoutes.get(
-	'/:patientId',
+	'/info/:patientId',
 	EnsureAuthenticatePatient,
-	EnsureAuthenticateDoctor,
 	infoPatientController.handle
+);
+
+patientRoutes.get(
+	'/search',
+	EnsureAuthenticateDoctor,
+	searchPatients.handle
 );
 
 patientRoutes.post('/login', loginPatientcontroller.handle);
