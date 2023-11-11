@@ -1,5 +1,6 @@
 import { IReturnPatient } from '@DTO/patient';
 import { PatientNotFound } from '@helpers/api-errors/patient-errors';
+import { hideSensitiveData } from '@helpers/hideSensitiveData';
 import { PatientRepository } from '@repositories/patient-repository';
 import { inject, injectable } from 'tsyringe';
 
@@ -14,14 +15,17 @@ export class InfoPatient {
 	async execute(id: string): Promise<IReturnPatient> {
 		const patient = await this.patientRepository.findById(id);
 
+		
 		if (!patient) {
 			throw new PatientNotFound();
 		}
+		
+		const sensitiveData = hideSensitiveData(patient.email, patient.cpf);
 
 		return {
 			id: patient.id,
 			name: patient.name,
-			cpf: patient.cpf,
+			cpf: sensitiveData.cpf,
 			email: patient.email,
 			dateOfBirth: patient.dateOfBirth,
 			cell: patient.cell,
