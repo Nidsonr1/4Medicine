@@ -23,8 +23,9 @@ export class RegisterExamsUseCase {
 		}
 
 		const newExam = {
-			patient_id: data.patientId,
+			documentTitle: data.documentTitle,
 			document: data.document,
+			patient_id: data.patientId,
 		};
 
 		await this.examRepository.create(newExam);

@@ -1,10 +1,12 @@
 export interface IPrismaRegisterExam {
+  documentTitle: string;
   document: string;
   sharedBy?: string[];
   patient_id: string;
 }
 
 export interface IRegisterExamRequest {
+  documentTitle: string;
 	document: string;
 	patientId: string;
   sharedBy?: string[];

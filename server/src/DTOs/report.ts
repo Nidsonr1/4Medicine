@@ -1,4 +1,5 @@
 export interface IRegisterReportRequest {
+  documentTitle: string;
   patientId: string;
   document: string | undefined;
   sharedBy?: string[];
@@ -6,6 +7,7 @@ export interface IRegisterReportRequest {
 }
 
 export interface IPrismaRegisterReport {
+  documentTitle: string;
   document: string;
   sharedBy?: string[];
   patient_id: string;

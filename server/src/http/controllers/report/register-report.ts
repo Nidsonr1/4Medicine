@@ -9,9 +9,12 @@ export class RegisterReportController {
 		const { doctorId } = request;
 		const file = request.file?.filename;
 		const { patientId } = request.body;
+		const { documentTitle } = request.body;
 		
 		const registerReport = container.resolve(RegisterReportUseCase);
+
 		const validateBody = {
+			documentTitle,
 			document: file,
 			patientId,
 			doctorId

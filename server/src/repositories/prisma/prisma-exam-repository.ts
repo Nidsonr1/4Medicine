@@ -7,7 +7,7 @@ import {
 	IListExamSharedRequest
 } from '@DTO/exam';
 import { prisma } from '@lib/prisma';
-import { Exams, Reports } from '@prisma/client';
+import { Exams } from '@prisma/client';
 import { ExamRepository } from '@repositories/exam-repository';
 
 export class PrismaExamRepository implements ExamRepository {
@@ -15,7 +15,8 @@ export class PrismaExamRepository implements ExamRepository {
 		await prisma.exams.create({
 			data: {
 				document: data.document,
-				patient_id: data.patient_id
+				patient_id: data.patient_id,
+				documentTitle: data.documentTitle
 			}
 		});
 	}
