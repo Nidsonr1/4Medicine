@@ -70,6 +70,7 @@ export class PrismaExamRepository implements ExamRepository {
 			},
 			select: {
 				id: true,
+				documentTitle: true,
 				document: true,
 				sharedBy: false,
 				created_at: true,
@@ -81,6 +82,8 @@ export class PrismaExamRepository implements ExamRepository {
 					}
 				}
 			},
+			take: data.take,
+			skip: data.take,
 			orderBy: {
 				created_at: data.order === 'asc' ? 'asc' : 'desc'
 			}
@@ -106,6 +109,8 @@ export class PrismaExamRepository implements ExamRepository {
 				created_at: true,
 				patient_id: true,
 			},
+			take: data.take,
+			skip: data.take,
 			orderBy: {
 				created_at: data.order === 'asc' ? 'asc' : 'desc'
 			}

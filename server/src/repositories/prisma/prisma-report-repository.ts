@@ -9,6 +9,8 @@ import {
 import { prisma } from '@lib/prisma';
 import { Reports } from '@prisma/client';
 import {  ReportRepository } from '@repositories/report-repository';
+import { Console } from 'console';
+import { report } from 'process';
 
 export class PrismaReportRepository implements ReportRepository {
 	async create(data: IPrismaRegisterReport): Promise<void> {
@@ -76,6 +78,8 @@ export class PrismaReportRepository implements ReportRepository {
 					}
 				}
 			},
+			take: data.take,
+			skip: data.take,
 			orderBy: {
 				created_at: data.order === 'asc' ? 'asc' : 'desc' 
 			}
@@ -85,6 +89,7 @@ export class PrismaReportRepository implements ReportRepository {
 	}
 
 	async listToDoctor(data: IListReportsRequest, doctorName: string): Promise<IListReportToDoctor[] | null> {
+		console.log(data);
 		const reports = await prisma.reports.findMany({
 			where: {
 				patient: {
@@ -118,10 +123,14 @@ export class PrismaReportRepository implements ReportRepository {
 					}
 				}
 			},
+			take: data.take,
+			skip: data.take,
 			orderBy: {
 				created_at: data.order === 'asc' ? 'asc' : 'desc' 
 			}
 		});  
+
+		console.log(reports);
 
 		return reports;
 	}

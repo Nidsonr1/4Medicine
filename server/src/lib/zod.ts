@@ -113,7 +113,9 @@ export const listDoctorsWhoSharedSchema = z.object({
 export const listExamsSchema = z.object({
 	customerId: z.string(),
 	order: z.string().optional(),
-	search: z.string().optional()
+	search: z.string().optional(),
+	take: z.coerce.number(),
+	skip: z.coerce.number()
 });
 
 export const registerExamSchema = z.object({
@@ -126,7 +128,9 @@ export const registerExamSchema = z.object({
 export const listReportsSchema = z.object({
 	customerId: z.string(),
 	order: z.string().optional(),
-	search: z.string().optional()
+	search: z.string().optional(),
+	take: z.coerce.number(),
+	skip: z.coerce.number().optional()
 });
 
 export const registerReportSchema = z.object({

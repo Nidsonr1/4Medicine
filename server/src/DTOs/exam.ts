@@ -13,9 +13,11 @@ export interface IRegisterExamRequest {
 }
 
 export interface IListExams {
-  customerId: string,
-  order?: string,
-  search?: string
+  customerId: string;
+  order?: string;
+  search?: string;
+  take: number;
+  skip: number;
 }
 
 export interface ISharedExam {
@@ -36,7 +38,7 @@ export interface IListExamsToPatient {
   id: string;
   documentTitle: string;
   document: string;
-  sharedBy: string[],
+  sharedBy: string[];
   created_at: Date;
   patient_id: string;
 }

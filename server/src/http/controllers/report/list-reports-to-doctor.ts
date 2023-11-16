@@ -9,12 +9,19 @@ export class ListReportsToDoctorController {
 		const listReports = container.resolve(ListReportsToDoctorUseCase);
 
 		const { doctorId } = request;
-		const { order, search } = request.query;
+		const { 
+			order, 
+			search,
+			take,
+			skip
+		} = request.query;
 
 		const validateBody = {
 			customerId: doctorId,
 			order,
-			search
+			search,
+			take,
+			skip
 		};
 
 		const listReportRequest = listReportsSchema.parse(validateBody);

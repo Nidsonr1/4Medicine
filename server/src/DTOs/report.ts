@@ -15,9 +15,11 @@ export interface IPrismaRegisterReport {
 }
 
 export interface IListReportsRequest {
-  customerId: string,
-  order?: string,
+  customerId: string;
+  order?: string;
   search?: string
+  take: number;
+  skip?: number;
 }
 
 export interface IListReportsResponse {
@@ -50,7 +52,7 @@ export interface IListReportToPatient {
   id: string;
   documentTitle: string;
   document: string;
-  sharedBy: string[],
+  sharedBy: string[];
   created_at: Date;
   patient_id: string;
   doctor: object
