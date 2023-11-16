@@ -40,6 +40,7 @@ export class RegisterReportUseCase {
 		}
 
 		const newReport = {
+			documentTitle: data.documentTitle,
 			doctor_id: data.doctorId,
 			patient_id: data.patientId,
 			document: data.document as string,

@@ -1,4 +1,5 @@
 export interface IRegisterReportRequest {
+  documentTitle: string;
   patientId: string;
   document: string | undefined;
   sharedBy?: string[];
@@ -6,6 +7,7 @@ export interface IRegisterReportRequest {
 }
 
 export interface IPrismaRegisterReport {
+  documentTitle: string;
   document: string;
   sharedBy?: string[];
   patient_id: string;
@@ -37,6 +39,7 @@ export interface ISharedReports {
 
 export interface IListReportToDoctor {
   id: string;
+  documentTitle: string;
   document: string;
   created_at: Date;
   doctor_id: string;
@@ -45,6 +48,7 @@ export interface IListReportToDoctor {
 
 export interface IListReportToPatient {
   id: string;
+  documentTitle: string;
   document: string;
   sharedBy: string[],
   created_at: Date;

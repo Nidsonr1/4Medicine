@@ -1,5 +1,5 @@
 import { IListExams } from '@DTO/exam';
-import { listToPatient } from '@helpers/list-exam-report-to-domain';
+import { ListToPatient } from '@helpers/list-exam-to-domain';
 import { ExamRepository } from '@repositories/exam-repository';
 import { inject, injectable } from 'tsyringe';
 
@@ -17,7 +17,7 @@ export class ListExamsToPatientUseCase {
 		if (!exams) return null;
 
 		const promise = exams.map((exam) => {
-			return listToPatient(exam);
+			return ListToPatient(exam);
 		});
 
 		return (await Promise.all(promise)).map((examsPatient) => {

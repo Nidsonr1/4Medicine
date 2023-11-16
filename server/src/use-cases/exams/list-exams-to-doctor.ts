@@ -1,6 +1,6 @@
 import { IListExams } from '@DTO/exam';
 import { DoctorNotFound } from '@errors/doctor-error';
-import { listToDoctor } from '@helpers/list-exam-report-to-domain';
+import { ListToDoctor } from '@helpers/list-exam-to-domain';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { ExamRepository } from '@repositories/exam-repository';
 import { inject, injectable } from 'tsyringe';
@@ -28,7 +28,7 @@ export class ListExamsToDoctorUseCase {
 		if (!exams) return null;
 
 		const promise = exams.map((exam) => {
-			return listToDoctor(exam);
+			return ListToDoctor(exam);
 		});
 
 		return (await Promise.all(promise)).map(examsDoctor => {

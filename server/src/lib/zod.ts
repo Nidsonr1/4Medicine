@@ -117,8 +117,8 @@ export const listExamsSchema = z.object({
 });
 
 export const registerExamSchema = z.object({
+	documentTitle: z.string(),
 	document: z.string(),
-	doctorId: z.string(),
 	patientId: z.string()
 });
 
@@ -130,6 +130,7 @@ export const listReportsSchema = z.object({
 });
 
 export const registerReportSchema = z.object({
+	documentTitle: z.string(),
 	document: z.string(),
 	patientId: z.string(),
 	doctorId: z.string()

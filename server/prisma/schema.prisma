@@ -63,16 +63,16 @@ model Doctor {
   agreement   String[]
   Appointment Appointment[]
   Reports     Reports[]
-  Exams       Exams[]
 
   @@map("doctors")
 }
 
 model Reports {
-  id         String   @id @default(uuid())
-  document   String
-  sharedBy   String[]
-  created_at DateTime @default(now())
+  id            String   @id @default(uuid())
+  documentTitle String
+  document      String
+  sharedBy      String[]
+  created_at    DateTime @default(now())
 
   patient    Patient @relation(fields: [patient_id], references: [id])
   patient_id String
@@ -84,16 +84,14 @@ model Reports {
 }
 
 model Exams {
-  id         String   @id @default(uuid())
-  document   String
-  sharedBy   String[]
-  created_at DateTime @default(now())
+  id            String   @id @default(uuid())
+  documentTitle String
+  document      String
+  sharedBy      String[]
+  created_at    DateTime @default(now())
 
   patient    Patient @relation(fields: [patient_id], references: [id])
   patient_id String
-
-  doctor    Doctor @relation(fields: [doctor_id], references: [id])
-  doctor_id String
 
   @@map("exams")
 }

@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { IListReportsRequest } from '@DTO/report';
 import { ReportRepository } from '@repositories/report-repository';
-import { listToDoctor } from '@helpers/list-exam-report-to-domain';
+import { listToDoctor } from '@helpers/list-report-to-domain';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { DoctorNotFound } from '@errors/doctor-error';
 
