@@ -2,13 +2,11 @@ export interface IPrismaRegisterExam {
   document: string;
   sharedBy?: string[];
   patient_id: string;
-  doctor_id: string
 }
 
 export interface IRegisterExamRequest {
 	document: string;
 	patientId: string;
-  doctorId: string;
   sharedBy?: string[];
 }
 
@@ -28,7 +26,6 @@ export interface IListExamsToDoctor {
   id: string;
   document: string;
   created_at: Date;
-  doctor_id: string;
   patient: object
 }
 
@@ -38,11 +35,9 @@ export interface IListExamsToPatient {
   sharedBy: string[],
   created_at: Date;
   patient_id: string;
-  doctor: object
 }
 
 export interface IListExamSharedRequest {
   examId: string;
-  doctorId: string;
   doctorName: string
 }

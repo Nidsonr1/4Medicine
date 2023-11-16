@@ -23,7 +23,6 @@ export class RegisterExamsUseCase {
 		}
 
 		const newExam = {
-			doctor_id: data.doctorId,
 			patient_id: data.patientId,
 			document: data.document,
 		};

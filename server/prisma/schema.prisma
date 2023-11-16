@@ -63,7 +63,6 @@ model Doctor {
   agreement   String[]
   Appointment Appointment[]
   Reports     Reports[]
-  Exams       Exams[]
 
   @@map("doctors")
 }
@@ -91,9 +90,6 @@ model Exams {
 
   patient    Patient @relation(fields: [patient_id], references: [id])
   patient_id String
-
-  doctor    Doctor @relation(fields: [doctor_id], references: [id])
-  doctor_id String
 
   @@map("exams")
 }

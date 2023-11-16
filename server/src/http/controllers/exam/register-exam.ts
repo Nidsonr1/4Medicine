@@ -10,11 +10,9 @@ export class RegisterExamController {
 
 		const { patientId } = request;
 		const file = request.file?.filename;
-		const { doctorId } = request.body;
 
 		const validateBody = {
 			document: file,
-			doctorId,
 			patientId
 		};
 

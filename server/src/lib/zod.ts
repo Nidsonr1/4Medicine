@@ -118,7 +118,6 @@ export const listExamsSchema = z.object({
 
 export const registerExamSchema = z.object({
 	document: z.string(),
-	doctorId: z.string(),
 	patientId: z.string()
 });
 

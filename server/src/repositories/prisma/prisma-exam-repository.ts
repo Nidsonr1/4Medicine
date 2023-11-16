@@ -7,7 +7,7 @@ import {
 	IListExamSharedRequest
 } from '@DTO/exam';
 import { prisma } from '@lib/prisma';
-import { Reports } from '@prisma/client';
+import { Exams, Reports } from '@prisma/client';
 import { ExamRepository } from '@repositories/exam-repository';
 
 export class PrismaExamRepository implements ExamRepository {
@@ -15,7 +15,6 @@ export class PrismaExamRepository implements ExamRepository {
 		await prisma.exams.create({
 			data: {
 				document: data.document,
-				doctor_id: data.doctor_id,
 				patient_id: data.patient_id
 			}
 		});
@@ -34,7 +33,7 @@ export class PrismaExamRepository implements ExamRepository {
 		});
 	}
 
-	async listShared(data: IListExamSharedRequest): Promise<Reports | null> {
+	async listShared(data: IListExamSharedRequest): Promise<Exams | null> {
 		const report = await prisma.exams.findFirst({
 			where: {
 				id: data.examId,
@@ -43,9 +42,6 @@ export class PrismaExamRepository implements ExamRepository {
 						sharedBy: {
 							has: data.doctorName
 						}
-					},
-					{
-						doctor_id: data.doctorId
 					}
 				]
 			}
@@ -65,9 +61,6 @@ export class PrismaExamRepository implements ExamRepository {
 				},
 				OR: [
 					{
-						doctor_id: data.customerId
-					},
-					{
 						sharedBy: {
 							has: doctorName
 						}
@@ -79,7 +72,6 @@ export class PrismaExamRepository implements ExamRepository {
 				document: true,
 				sharedBy: false,
 				created_at: true,
-				doctor_id: true,
 				patient: {
 					select: {
 						id: true,
@@ -99,12 +91,6 @@ export class PrismaExamRepository implements ExamRepository {
 	async listToPatient(data: IListExams): Promise<IListExamsToPatient[] | null> {
 		const exams = await prisma.exams.findMany({
 			where: {
-				doctor: {
-					name: {
-						contains: data.search,
-						mode: 'insensitive'
-					}
-				},
 				OR: [
 					{
 						patient_id: data.customerId
@@ -117,13 +103,6 @@ export class PrismaExamRepository implements ExamRepository {
 				sharedBy: true,
 				created_at: true,
 				patient_id: true,
-				doctor: {
-					select: {
-						id: true,
-						name: true,
-						expertise: true
-					}
-				}
 			},
 			orderBy: {
 				created_at: data.order === 'asc' ? 'asc' : 'desc'
