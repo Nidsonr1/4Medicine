@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { IListReportsRequest } from '@DTO/report';
 import { ReportRepository } from '@repositories/report-repository';
-import { listToPatient } from '@helpers/list-exam-report-to-domain';
+import { listToPatient } from '@helpers/list-report-to-domain';
 
 @injectable()
 export class ListReportsToPatientUseCase {

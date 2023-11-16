@@ -63,6 +63,7 @@ export class PrismaReportRepository implements ReportRepository {
 			},
 			select: {
 				id: true,
+				documentTitle: true,
 				document: true,
 				sharedBy: true,
 				created_at: true,
@@ -105,6 +106,7 @@ export class PrismaReportRepository implements ReportRepository {
 			},
 			select: {
 				id: true,
+				documentTitle: true,
 				document: true,
 				created_at: true,
 				doctor_id: true,

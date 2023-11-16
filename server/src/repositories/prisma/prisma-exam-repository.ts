@@ -100,6 +100,7 @@ export class PrismaExamRepository implements ExamRepository {
 			},
 			select: {
 				id: true,
+				documentTitle: true,
 				document: true,
 				sharedBy: true,
 				created_at: true,
