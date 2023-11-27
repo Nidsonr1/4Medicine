@@ -39,7 +39,7 @@ export interface ISharedReports {
 }
 
 
-export interface IListReportToDoctor {
+export interface IListReportToDoctorToDomain {
   id: string;
   documentTitle: string;
   document: string;
@@ -48,7 +48,13 @@ export interface IListReportToDoctor {
   patient: object
 }
 
-export interface IListReportToPatient {
+export interface IListReportsToDoctor {
+  reports: IListReportToDoctorToDomain[],
+  totalPage: number,
+	total: number,
+}
+
+export interface IListReportToPatientToDomain {
   id: string;
   documentTitle: string;
   document: string;
@@ -56,6 +62,12 @@ export interface IListReportToPatient {
   created_at: Date;
   patient_id: string;
   doctor: object
+}
+
+export interface IListReportsToPatient {
+  reports: IListReportToPatientToDomain[],
+  totalPage: number,
+	total: number,
 }
 
 export interface ILIstReportsSharedRequest {

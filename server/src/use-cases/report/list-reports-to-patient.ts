@@ -12,16 +12,28 @@ export class ListReportsToPatientUseCase {
 	) {}
 
 	async execute(data: IListReportsRequest) {
-		const reports  = await this.reportRepository.listToPatient(data);
+		const reportsInfo  = await this.reportRepository.listToPatient(data);
+		
+		if (!reportsInfo) return null;
 
-		if (!reports) return null;
+		const {
+			totalPage,
+			total
+		} = reportsInfo;
 
-		const promise = reports.map((report) => {
+
+		const promise = reportsInfo.reports.map((report) => {
 			return listToPatient(report);
 		});
 
-		return (await Promise.all(promise)).map((reportsPatient) => {
+		const reportsToPatient = (await Promise.all(promise)).map((reportsPatient) => {
 			return reportsPatient;
 		});
+
+		return {
+			total,
+			totalPage,
+			reportsToPatient
+		};
 	}
 }

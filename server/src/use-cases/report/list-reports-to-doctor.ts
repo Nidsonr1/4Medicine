@@ -21,16 +21,27 @@ export class ListReportsToDoctorUseCase {
 
 		if (!doctorExist) throw new DoctorNotFound();
 
-		const reports  = await this.reportRepository.listToDoctor(data, doctorExist.name);
+		const reportsInfo  = await this.reportRepository.listToDoctor(data, doctorExist.name);
 		
-		if (!reports) return null;
+		if (!reportsInfo) return null;
 
-		const promise = reports.map((report) => {
+		const {
+			totalPage,
+			total
+		} = reportsInfo;
+
+		const promise = reportsInfo.reports.map((report) => {
 			return listToDoctor(report);
 		});
 
-		return (await Promise.all(promise)).map((reportsDoctor) => {
+		const reportsToDoctor = (await Promise.all(promise)).map((reportsDoctor) => {
 			return reportsDoctor;
 		});
+
+		return {
+			total,
+			totalPage,
+			reportsToDoctor
+		};
 	}
 }

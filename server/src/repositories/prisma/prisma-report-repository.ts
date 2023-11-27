@@ -2,15 +2,13 @@ import {
 	IPrismaRegisterReport, 
 	ISharedReports, 
 	IListReportsRequest,
-	IListReportToDoctor, 
-	IListReportToPatient, 
-	ILIstReportsSharedRequest
+	ILIstReportsSharedRequest,
+	IListReportsToPatient,
+	IListReportsToDoctor
 } from '@DTO/report';
 import { prisma } from '@lib/prisma';
 import { Reports } from '@prisma/client';
 import {  ReportRepository } from '@repositories/report-repository';
-import { Console } from 'console';
-import { report } from 'process';
 
 export class PrismaReportRepository implements ReportRepository {
 	async create(data: IPrismaRegisterReport): Promise<void> {
@@ -52,86 +50,103 @@ export class PrismaReportRepository implements ReportRepository {
 		return report;
 	}
 
-	async listToPatient(data: IListReportsRequest): Promise<IListReportToPatient[] | null> {
-		const reports = await prisma.reports.findMany({
-			where: {
-				doctor: {
-					name: {
-						contains: data.search,
-						mode: 'insensitive'
-					}
-				},
-				patient_id: data.customerId
-			},
-			select: {
-				id: true,
-				documentTitle: true,
-				document: true,
-				sharedBy: true,
-				created_at: true,
-				patient_id: true,
-				doctor: {
-					select: {
-						id: true,
-						name: true,
-						expertise: true,
-					}
-				}
-			},
-			take: data.take,
-			skip: data.take,
-			orderBy: {
-				created_at: data.order === 'asc' ? 'asc' : 'desc' 
-			}
-		});  
-
-		return reports;
-	}
-
-	async listToDoctor(data: IListReportsRequest, doctorName: string): Promise<IListReportToDoctor[] | null> {
-		console.log(data);
-		const reports = await prisma.reports.findMany({
-			where: {
-				patient: {
-					name: {
-						contains: data.search,
-						mode: 'insensitive'
-					}
-				},
-				OR: [
-					{
-						doctor_id: data.customerId
-					},
-					{
-						sharedBy: {
-							has: doctorName
+	async listToPatient(data: IListReportsRequest): Promise<IListReportsToPatient | null> {
+		const [reports, total] = await prisma.$transaction([
+			prisma.reports.findMany({
+				where: {
+					doctor: {
+						name: {
+							contains: data.search,
+							mode: 'insensitive'
 						}
 					},
-				],
-			},
-			select: {
-				id: true,
-				documentTitle: true,
-				document: true,
-				created_at: true,
-				doctor_id: true,
-				patient: {
-					select: {
-						id: true,
-						name: true,
-						dateOfBirth: true
+					patient_id: data.customerId
+				},
+				select: {
+					id: true,
+					documentTitle: true,
+					document: true,
+					sharedBy: true,
+					created_at: true,
+					patient_id: true,
+					doctor: {
+						select: {
+							id: true,
+							name: true,
+							expertise: true,
+						}
 					}
+				},
+				skip: data.take,
+				take: data.take,
+				orderBy: {
+					created_at: data.order === 'asc' ? 'asc' : 'desc' 
 				}
-			},
-			take: data.take,
-			skip: data.take,
-			orderBy: {
-				created_at: data.order === 'asc' ? 'asc' : 'desc' 
-			}
-		});  
+			}),
 
-		console.log(reports);
+			prisma.reports.count()
+		]);
 
-		return reports;
+		const totalPage = Math.ceil(total / data.take);
+
+		return {
+			total,
+			totalPage,
+			reports
+		};
+	}
+
+	async listToDoctor(data: IListReportsRequest, doctorName: string): Promise<IListReportsToDoctor | null> {
+		const [reports, total] = await prisma.$transaction([
+			prisma.reports.findMany({
+				where: {
+					patient: {
+						name: {
+							contains: data.search,
+							mode: 'insensitive'
+						}
+					},
+					OR: [
+						{
+							doctor_id: data.customerId
+						},
+						{
+							sharedBy: {
+								has: doctorName
+							}
+						},
+					],
+				},
+				select: {
+					id: true,
+					documentTitle: true,
+					document: true,
+					created_at: true,
+					doctor_id: true,
+					patient: {
+						select: {
+							id: true,
+							name: true,
+							dateOfBirth: true
+						}
+					}
+				},
+				take: data.take,
+				skip: data.take,
+				orderBy: {
+					created_at: data.order === 'asc' ? 'asc' : 'desc' 
+				}
+			}),
+
+			prisma.reports.count()
+		]);
+
+		const totalPage = Math.ceil(total / data.take);
+
+		return {
+			total,
+			totalPage,
+			reports
+		};
 	}
 }
