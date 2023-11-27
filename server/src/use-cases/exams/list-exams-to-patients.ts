@@ -12,16 +12,27 @@ export class ListExamsToPatientUseCase {
 	) {}
 
 	async execute(data: IListExams) {
-		const exams = await this.examRepository.listToPatient(data);
+		const examsInfo = await this.examRepository.listToPatient(data);
 
-		if (!exams) return null;
+		if (!examsInfo) return null;
 
-		const promise = exams.map((exam) => {
+		const {
+			totalPage,
+			total
+		} = examsInfo;
+
+		const promise = examsInfo.exams.map((exam) => {
 			return ListToPatient(exam);
 		});
 
-		return (await Promise.all(promise)).map((examsPatient) => {
+		const examsToPatient = (await Promise.all(promise)).map((examsPatient) => {
 			return examsPatient;
 		});
+
+		return {
+			total,
+			totalPage,
+			examsToPatient
+		};
 	}
 }

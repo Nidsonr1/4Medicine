@@ -26,7 +26,7 @@ export interface ISharedExam {
   patientId: string
 }
 
-export interface IListExamsToDoctor {
+export interface IListExamsToDoctorToDomain {
   id: string;
   documentTitle: string;
   document: string;
@@ -34,13 +34,25 @@ export interface IListExamsToDoctor {
   patient: object
 }
 
-export interface IListExamsToPatient {
+export interface IListExamsToDoctor {
+  exams: IListExamsToDoctorToDomain[];
+  total: number;
+  totalPage: number;
+}
+
+export interface IListExamsToPatientToDomain {
   id: string;
   documentTitle: string;
   document: string;
   sharedBy: string[];
   created_at: Date;
   patient_id: string;
+}
+
+export interface IListExamsToPatient {
+  exams: IListExamsToPatientToDomain[];
+  total: number;
+  totalPage: number;
 }
 
 export interface IListExamSharedRequest {

@@ -20,19 +20,30 @@ export class ListExamsToDoctorUseCase {
 
 		if (!doctorExist) throw new DoctorNotFound();
 
-		const exams = await this.examRepository.listToDoctor(
+		const examsInfo = await this.examRepository.listToDoctor(
 			data, 
 			doctorExist.name
 		);
 
-		if (!exams) return null;
+		if (!examsInfo) return null;
 
-		const promise = exams.map((exam) => {
+		const {
+			totalPage,
+			total
+		} = examsInfo;
+
+		const promise = examsInfo.exams.map((exam) => {
 			return ListToDoctor(exam);
 		});
 
-		return (await Promise.all(promise)).map(examsDoctor => {
+		const examsToDoctor = (await Promise.all(promise)).map(examsDoctor => {
 			return examsDoctor;
 		});
+
+		return {
+			total,
+			totalPage,
+			examsToDoctor
+		};
 	}
 }
