@@ -1,6 +1,6 @@
-import { IListExamsToDoctor, IListExamsToPatient } from '@DTO/exam';
+import { IListExamsToDoctorToDomain, IListExamsToPatientToDomain } from '@DTO/exam';
 
-export async function ListToPatient(data: IListExamsToPatient) {
+export async function ListToPatient(data: IListExamsToPatientToDomain) {
 	return {
 		id: data.id,
 		documentTitle: data.documentTitle,
@@ -11,7 +11,7 @@ export async function ListToPatient(data: IListExamsToPatient) {
 	};
 }
 
-export async function ListToDoctor(data: IListExamsToDoctor) {
+export async function ListToDoctor(data: IListExamsToDoctorToDomain) {
 	return {
 		id: data.id,
 		documentTitle: data.documentTitle,

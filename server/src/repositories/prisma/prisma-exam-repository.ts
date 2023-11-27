@@ -35,7 +35,7 @@ export class PrismaExamRepository implements ExamRepository {
 	}
 
 	async listShared(data: IListExamSharedRequest): Promise<Exams | null> {
-		const report = await prisma.exams.findFirst({
+		const exams = await prisma.exams.findFirst({
 			where: {
 				id: data.examId,
 				OR: [
@@ -48,74 +48,94 @@ export class PrismaExamRepository implements ExamRepository {
 			}
 		});
 
-		return report;
+		return exams;
 	}
 
-	async listToDoctor(data: IListExams, doctorName: string): Promise<IListExamsToDoctor[] | null> {
-		const exams = await prisma.exams.findMany({
-			where: {
-				patient: {
-					name: {
-						contains: data.search,
-						mode: 'insensitive'
-					}
+	async listToDoctor(data: IListExams, doctorName: string): Promise<IListExamsToDoctor | null> {
+		const [exams, total] = await prisma.$transaction([
+			prisma.exams.findMany({
+				where: {
+					patient: {
+						name: {
+							contains: data.search,
+							mode: 'insensitive'
+						}
+					},
+					OR: [
+						{
+							sharedBy: {
+								has: doctorName
+							}
+						}
+					]
 				},
-				OR: [
-					{
-						sharedBy: {
-							has: doctorName
+				select: {
+					id: true,
+					documentTitle: true,
+					document: true,
+					sharedBy: false,
+					created_at: true,
+					patient: {
+						select: {
+							id: true,
+							name: true,
+							dateOfBirth: true
 						}
 					}
-				]
-			},
-			select: {
-				id: true,
-				documentTitle: true,
-				document: true,
-				sharedBy: false,
-				created_at: true,
-				patient: {
-					select: {
-						id: true,
-						name: true,
-						dateOfBirth: true
-					}
+				},
+				take: data.take,
+				skip: data.take,
+				orderBy: {
+					created_at: data.order === 'asc' ? 'asc' : 'desc'
 				}
-			},
-			take: data.take,
-			skip: data.take,
-			orderBy: {
-				created_at: data.order === 'asc' ? 'asc' : 'desc'
-			}
-		});
-		
-		return exams;
+			}),
+
+			prisma.exams.count()
+		]);
+
+		const totalPage = Math.ceil(total / data.take);
+
+		return {
+			total,
+			totalPage,
+			exams
+		};
 	}
 
-	async listToPatient(data: IListExams): Promise<IListExamsToPatient[] | null> {
-		const exams = await prisma.exams.findMany({
-			where: {
-				OR: [
-					{
-						patient_id: data.customerId
-					},
-				]
-			},
-			select: {
-				id: true,
-				documentTitle: true,
-				document: true,
-				sharedBy: true,
-				created_at: true,
-				patient_id: true,
-			},
-			take: data.take,
-			skip: data.take,
-			orderBy: {
-				created_at: data.order === 'asc' ? 'asc' : 'desc'
-			}
-		});
+	async listToPatient(data: IListExams): Promise<IListExamsToPatient | null> {
+		const [exams, total] = await prisma.$transaction([
+			prisma.exams.findMany({
+				where: {
+					OR: [
+						{
+							patient_id: data.customerId
+						},
+					]
+				},
+				select: {
+					id: true,
+					documentTitle: true,
+					document: true,
+					sharedBy: true,
+					created_at: true,
+					patient_id: true,
+				},
+				take: data.take,
+				skip: data.take,
+				orderBy: {
+					created_at: data.order === 'asc' ? 'asc' : 'desc'
+				}
+			}),
+			
+			prisma.exams.count()
+		]);
+		
+		const totalPage = Math.ceil( total/data.take );
 
-		return exams;
+		return {
+			total,
+			totalPage,
+			exams
+		};
 	}
 }
