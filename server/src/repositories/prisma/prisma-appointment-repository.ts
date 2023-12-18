@@ -39,19 +39,21 @@ export class PrismaAppointmentRepository implements AppointmentRepository {
 
 		const appointments = await prisma.appointment.findFirst({
 			where: {
-				doctor_id: doctorId,
-				patient_id: patientId,
 				OR: [
 					{
 						AND: [
 							{ start_date: { lte: startDate } },
-							{ end_date: { gte: startDate } }
+							{ end_date: { gte: startDate } },
+							{ doctor_id: doctorId },
+							{ patient_id: patientId },
 						]
 					},
 					{
 						AND: [
 							{ start_date: { lte: endDate } },
-							{ end_date: { gte: endDate } }
+							{ end_date: { gte: endDate } },
+							{ doctor_id: doctorId },
+							{ patient_id: patientId },
 						]
 					}
 				]
