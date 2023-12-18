@@ -38,7 +38,7 @@ export const updatePatientSchema = z.object({
 	uf: z.string(),
 	neighborhood: z.string(),
 	street: z.string(),
-	complement: z.string(),
+	complement: z.string().optional(),
 	number: z.coerce.number(),
 	cell: z.string(),
 	patientId: z.string()
@@ -98,6 +98,7 @@ export const registerDoctorSchema = z.object({
 });
 
 export const updateDoctorSchema = z.object({
+	name: z.string(),
 	phone: z.string(),
 	agreement: z.array(z.string()),
 	expertise: z.array(z.string()),

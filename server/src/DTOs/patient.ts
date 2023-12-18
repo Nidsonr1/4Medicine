@@ -23,7 +23,7 @@ export interface IUpdatePatientRequest {
   uf: string;
   neighborhood: string;
   street: string;
-  complement: string;
+  complement?: string;
   number: number;
   cell: string;
   patientId: string
