@@ -12,6 +12,7 @@ export class UpdatePatientController {
 		const validateBody = {
 			name: request.body.name,
 			email: request.body.email,
+			cell: request.body.cell,
 			zipCode: request.body.zipCode,
 			city: request.body.city,
 			uf: request.body.uf,
@@ -19,7 +20,6 @@ export class UpdatePatientController {
 			street: request.body.street,
 			complement: request.body.complement,
 			number: request.body.number,
-			cell: request.body.cell,
 			patientId
 		};
 
@@ -30,3 +30,7 @@ export class UpdatePatientController {
 		return response.status(202).json(result);
 	}
 }
+
+
+
+

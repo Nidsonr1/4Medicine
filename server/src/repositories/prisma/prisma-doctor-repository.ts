@@ -41,7 +41,12 @@ export class PrismaDoctorRepository implements DoctorRepository {
 			data: {
 				phone: data.phone,
 				cell: data.cell,
-				agreement: data.agreement,
+				agreement: {
+					push: data.agreement,
+				},
+				expertise: {
+					push: data.expertise
+				}
 			}
 		});
 

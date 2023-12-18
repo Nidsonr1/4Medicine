@@ -11,9 +11,10 @@ export class UpdateDoctorController {
 		const { doctorId } = request;
 
 		const validateBody = {
+			name: request.body.name,
 			phone: request.body.phone,
-			agreement: request.body.agreement,
 			cell: request.body.cell,
+			agreement: request.body.agreement,
 			expertise: request.body.expertise,
 			doctorId
 		};
