@@ -1,17 +1,29 @@
-import { IFindByDateRequest, IPrismaCreateAppointment } from '@DTO/appointment';
+import { IFindByDateRequest, IListByCustomer, IPrismaCreateAppointment } from '@DTO/appointment';
 import { prisma } from '@lib/prisma';
 import { Appointment } from '@prisma/client';
 import { AppointmentRepository } from '@repositories/appointment-repository';
 
 export class PrismaAppointmentRepository implements AppointmentRepository {
-	async listByCustomer(customerId: string): Promise<Appointment[] | null> {
+	async listByCustomer(data: IListByCustomer): Promise<Appointment[] | null> {
 		const appointments = await prisma.appointment.findMany({
 			where: {
 				OR: [
-					{ doctor_id: customerId },
-					{ patient_id: customerId }
-				]
-			}
+					{
+						AND: [
+							{ start_date: { gte: data.startDate } },
+							{ start_date: { lt: data.endDate } },
+							{ patient_id: data.customerId },
+						],
+					},
+					{
+						AND: [
+							{ start_date: { gte: data.startDate } },
+							{ start_date: { lt: data.endDate } },
+							{ doctor_id: data.customerId },
+						],
+					},
+				],
+			},
 		});
 		
 		return appointments;
@@ -30,28 +42,23 @@ export class PrismaAppointmentRepository implements AppointmentRepository {
 		});
 	}
 	async findByDate(data: IFindByDateRequest): Promise<Appointment | null> {
-		const {
-			startDate,
-			endDate,
-			doctorId,
-			patientId
-		} = data;
-
 		const appointments = await prisma.appointment.findFirst({
 			where: {
-				doctor_id: doctorId,
-				patient_id: patientId,
 				OR: [
 					{
 						AND: [
-							{ start_date: { lte: startDate } },
-							{ end_date: { gte: startDate } }
+							{ start_date: { lte: data.startDate } },
+							{ end_date: { gte: data.startDate } },
+							{ doctor_id: data.doctorId },
+							{ patient_id: data.patientId },
 						]
 					},
 					{
 						AND: [
-							{ start_date: { lte: endDate } },
-							{ end_date: { gte: endDate } }
+							{ start_date: { lte: data.endDate } },
+							{ end_date: { gte: data.endDate } },
+							{ doctor_id: data.doctorId },
+							{ patient_id: data.patientId },
 						]
 					}
 				]

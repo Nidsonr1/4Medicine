@@ -34,5 +34,12 @@ export interface IFindByDateRequest {
 }
 
 export interface IListAppointmentRequest {
-  customerId: string
+  date?: string;
+  customerId: string;
+}
+
+export interface IListByCustomer {
+  customerId: string;
+  startDate?: Date;
+  endDate?: Date;
 }

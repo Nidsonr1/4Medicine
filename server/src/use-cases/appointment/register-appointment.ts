@@ -25,6 +25,7 @@ export class RegisterAppointmentUseCase {
 
 	async execute(data: IRegisterAppointmentRequest) {
 		const currentDate = dayjs(dayjs().toDate()).subtract(3, 'hour').toDate();
+
 		const startDate = dayjs(data.startDate).toDate();
 		const endDate = dayjs(data.endDate).toDate();
 
