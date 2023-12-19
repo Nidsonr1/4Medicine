@@ -65,6 +65,7 @@ export const registerAppointmentSchema = z.object({
 });
 
 export const listAppointmentSchema = z.object({
+	date: z.string().optional(),
 	customerId: z.string()
 });
 

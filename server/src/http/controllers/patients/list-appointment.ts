@@ -9,8 +9,10 @@ export class ListAppointmentPatientController {
 		const listAppointment = container.resolve(ListAppointmentUseCase);
 
 		const { patientId } = request;
+		const { date } = request.query;
 
 		const validateBody = {
+			date,
 			customerId: patientId
 		};
 
