@@ -116,8 +116,8 @@ export const listExamsSchema = z.object({
 	customerId: z.string(),
 	order: z.string().optional(),
 	search: z.string().optional(),
-	take: z.coerce.number(),
-	skip: z.coerce.number()
+	limit: z.coerce.number(),
+	offset: z.coerce.number()
 });
 
 export const registerExamSchema = z.object({
@@ -131,8 +131,8 @@ export const listReportsSchema = z.object({
 	customerId: z.string(),
 	order: z.string().optional(),
 	search: z.string().optional(),
-	take: z.coerce.number(),
-	skip: z.coerce.number().optional()
+	offset: z.coerce.number(),
+	limit: z.coerce.number()
 });
 
 export const registerReportSchema = z.object({

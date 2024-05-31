@@ -16,8 +16,8 @@ export interface IListExams {
   customerId: string;
   order?: string;
   search?: string;
-  take: number;
-  skip: number;
+  limit: number;
+  offset: number;
 }
 
 export interface ISharedExam {

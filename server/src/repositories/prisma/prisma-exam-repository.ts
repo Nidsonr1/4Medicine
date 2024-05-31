@@ -55,13 +55,15 @@ export class PrismaExamRepository implements ExamRepository {
 		const [exams, total] = await prisma.$transaction([
 			prisma.exams.findMany({
 				where: {
-					patient: {
-						name: {
-							contains: data.search,
-							mode: 'insensitive'
-						}
-					},
-					OR: [
+					AND: [
+						{
+							patient: {
+								name: {
+									contains: data.search,
+									mode: 'insensitive'
+								}
+							}
+						},
 						{
 							sharedBy: {
 								has: doctorName
@@ -83,17 +85,23 @@ export class PrismaExamRepository implements ExamRepository {
 						}
 					}
 				},
-				take: data.take,
-				skip: data.take,
+				take: data.limit,
+				skip: data.offset,
 				orderBy: {
 					created_at: data.order === 'asc' ? 'asc' : 'desc'
 				}
 			}),
 
-			prisma.exams.count()
+			prisma.exams.count({
+				where: {
+					sharedBy: {
+						has: doctorName
+					}
+				}
+			})
 		]);
 
-		const totalPage = Math.ceil(total / data.take);
+		const totalPage = Math.ceil(total / data.limit);
 
 		return {
 			total,
@@ -120,17 +128,21 @@ export class PrismaExamRepository implements ExamRepository {
 					created_at: true,
 					patient_id: true,
 				},
-				take: data.take,
-				skip: data.take,
+				take: data.limit,
+				skip: data.offset,
 				orderBy: {
 					created_at: data.order === 'asc' ? 'asc' : 'desc'
 				}
 			}),
 			
-			prisma.exams.count()
+			prisma.exams.count({
+				where: {
+					patient_id: data.customerId
+				}
+			})
 		]);
 		
-		const totalPage = Math.ceil( total/data.take );
+		const totalPage = Math.ceil( total/data.limit );
 
 		return {
 			total,

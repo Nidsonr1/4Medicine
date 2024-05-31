@@ -19,8 +19,6 @@ export class UpdateDoctor {
 			throw new DoctorNotFound();
 		}
 
-		console.log(data);
-
 		const validateAgreementAlreadyExist = data.agreement.filter(agreement => !doctorExist.agreement.includes(agreement));
 
 		const validateExpertiseAlreadyExist = data.expertise.filter(expertise => !doctorExist.expertise.includes(expertise));

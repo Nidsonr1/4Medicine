@@ -12,16 +12,16 @@ export class ListReportsToPatientController {
 		const { 
 			order, 
 			search, 
-			skip, 
-			take 
+			offset, 
+			limit 
 		} = request.query;
 
 		const validateBody = {
 			customerId: patientId,
 			order,
 			search,
-			take,
-			skip
+			offset,
+			limit
 		};
 
 		const listReportsRequest = listReportsSchema.parse(validateBody);

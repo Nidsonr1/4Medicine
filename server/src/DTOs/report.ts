@@ -18,8 +18,8 @@ export interface IListReportsRequest {
   customerId: string;
   order?: string;
   search?: string
-  take: number;
-  skip?: number;
+  offset: number;
+  limit: number;
 }
 
 export interface IListReportsResponse {
