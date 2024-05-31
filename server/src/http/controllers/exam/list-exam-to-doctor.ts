@@ -12,17 +12,18 @@ export class ListExamsDoctorController {
 		const { 
 			order,
 			search,
-			take,
-			skip
+			limit,
+			offset
 		} = request.query;
-
+		
 		const validateBody = {
 			customerId: doctorId,
 			order,
 			search,
-			take,
-			skip,
+			limit,
+			offset,
 		};
+
 
 		const listExamsRequest = listExamsSchema.parse(validateBody);
 

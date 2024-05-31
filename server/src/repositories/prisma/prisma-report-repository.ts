@@ -77,17 +77,21 @@ export class PrismaReportRepository implements ReportRepository {
 						}
 					}
 				},
-				skip: data.take,
-				take: data.take,
+				skip: data.offset,
+				take: data.limit,
 				orderBy: {
 					created_at: data.order === 'asc' ? 'asc' : 'desc' 
 				}
 			}),
 
-			prisma.reports.count()
+			prisma.reports.count({
+				where: {
+					patient_id: data.customerId
+				}
+			})
 		]);
 
-		const totalPage = Math.ceil(total / data.take);
+		const totalPage = Math.ceil(total / data.limit);
 
 		return {
 			total,
@@ -100,12 +104,6 @@ export class PrismaReportRepository implements ReportRepository {
 		const [reports, total] = await prisma.$transaction([
 			prisma.reports.findMany({
 				where: {
-					patient: {
-						name: {
-							contains: data.search,
-							mode: 'insensitive'
-						}
-					},
 					OR: [
 						{
 							doctor_id: data.customerId
@@ -114,8 +112,8 @@ export class PrismaReportRepository implements ReportRepository {
 							sharedBy: {
 								has: doctorName
 							}
-						},
-					],
+						}
+					]
 				},
 				select: {
 					id: true,
@@ -131,17 +129,31 @@ export class PrismaReportRepository implements ReportRepository {
 						}
 					}
 				},
-				take: data.take,
-				skip: data.take,
+				skip: data.offset,
+				take: data.limit,
 				orderBy: {
-					created_at: data.order === 'asc' ? 'asc' : 'desc' 
+					created_at: data.order == 'asc' ? 'asc' : 'desc'
 				}
 			}),
 
-			prisma.reports.count()
+			prisma.reports.count({
+				where: {
+					OR: [
+						{
+							sharedBy: {
+								has: doctorName
+							}
+						},
+						{
+							doctor_id: data.customerId
+						}
+					]
+				}
+			})
+
 		]);
 
-		const totalPage = Math.ceil(total / data.take);
+		const totalPage = Math.ceil(total / data.limit);
 
 		return {
 			total,
