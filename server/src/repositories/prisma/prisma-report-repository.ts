@@ -4,7 +4,8 @@ import {
 	IListReportsRequest,
 	ILIstReportsSharedRequest,
 	IListReportsToPatient,
-	IListReportsToDoctor
+	IListReportsToDoctor,
+	IUnshareReports
 } from '@DTO/report';
 import { prisma } from '@lib/prisma';
 import { Reports } from '@prisma/client';
@@ -29,7 +30,16 @@ export class PrismaReportRepository implements ReportRepository {
 			}
 		});
 	}
-
+	async unshare(data: IUnshareReports): Promise<void> {
+		await prisma.reports.update({
+			where: {
+				id: data.reportId
+			},
+			data: {
+				sharedBy: data.sharedBy
+			}
+		});
+	}
 	async listShared(data: ILIstReportsSharedRequest): Promise<Reports | null> {
 		const report = await prisma.reports.findFirst({
 			where: {

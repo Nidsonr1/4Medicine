@@ -38,6 +38,12 @@ export interface ISharedReports {
   patientId: string
 }
 
+export interface IUnshareReports {
+  reportId: string;
+  document: string;
+  sharedBy?: string[],
+  patient_id: string
+}
 
 export interface IListReportToDoctorToDomain {
   id: string;
