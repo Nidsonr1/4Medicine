@@ -26,6 +26,13 @@ export interface ISharedExam {
   patientId: string
 }
 
+export interface IUnshareExam {
+  examId: string;
+  document: string;
+  sharedBy?: string[],
+  patient_id: string
+}
+
 export interface IListExamsToDoctorToDomain {
   id: string;
   documentTitle: string;

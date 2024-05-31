@@ -4,7 +4,8 @@ import {
 	IPrismaRegisterExam, 
 	IListExamsToDoctor, 
 	IListExamsToPatient, 
-	IListExamSharedRequest
+	IListExamSharedRequest,
+	IUnshareExam
 } from '@DTO/exam';
 import { prisma } from '@lib/prisma';
 import { Exams } from '@prisma/client';
@@ -32,6 +33,17 @@ export class PrismaExamRepository implements ExamRepository {
 				}
 			}
 		});
+	}
+
+	async unshare(data: IUnshareExam): Promise<void> {
+		await prisma.exams.update({
+			where: {
+				id: data.examId
+			},
+			data: {
+				sharedBy: data.sharedBy
+			}
+		});	
 	}
 
 	async listShared(data: IListExamSharedRequest): Promise<Exams | null> {
