@@ -19,6 +19,7 @@ import { storage } from '@helpers/upload';
 import { EnsureAuthenticateDoctor } from 'middlewares/ensureAuthenticateDoctor';
 import { ListPatientsController } from '@controllers/doctor/list-patients';
 import { UnshareExamController } from '@controllers/exam/unshare-exam';
+import { UnsharedReportsController } from '@controllers/report/unshare-reports';
 
 export const patientRoutes = Router();
 
@@ -34,6 +35,7 @@ const sharedExamController = new SharedExamsController();
 const registerExamController = new RegisterExamController();
 const searchPatients = new ListPatientsController();
 const unshareExamController = new UnshareExamController();
+const unshareReportController = new UnsharedReportsController();
 
 const uploadFile = multer({ storage: storage });
 
@@ -96,6 +98,12 @@ patientRoutes.patch(
 	'/reports/shared/:reportId',
 	EnsureAuthenticatePatient,
 	sharedReportController.handle
+);
+
+patientRoutes.patch(
+	'/reports/unshared/:reportId',
+	EnsureAuthenticatePatient,
+	unshareReportController.handle
 );
 
 patientRoutes.get(
