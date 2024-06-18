@@ -4,7 +4,7 @@ import { ExamRepository } from '@repositories/exam-repository';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
 
-import { ISharedExam } from '@DTO/exam';
+import { IUnshareExamRequest } from '@DTO/exam';
 import { DoctorNotFound } from '@helpers/api-errors/doctor-error';
 import { PatientNotFound } from '@helpers/api-errors/patient-errors';
 import { UnshareError } from '@errors/reports-exams-errors';
@@ -22,12 +22,12 @@ export class UnharedExamsUseCase {
     private patientRepository: PatientRepository
 	) {}
 
-	async execute(data: ISharedExam) {
+	async execute(data: IUnshareExamRequest) {
 		const [
 			doctorExist,
 			patientExist
 		] = await Promise.all([
-			this.doctorRepository.findById(data.doctorId),
+			this.doctorRepository.findByName(data.doctorName),
 			this.patientRepository.findById(data.patientId)
 		]);
     
@@ -41,7 +41,6 @@ export class UnharedExamsUseCase {
 
 		const validateDoctorWithAccess = {
 			examId: data.examId,
-			doctorId: data.doctorId,
 			doctorName: doctorExist.name
 		};
 

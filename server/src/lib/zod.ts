@@ -24,8 +24,20 @@ export const sharedExamsSchema = z.object({
 	examId: z.string()
 });
 
+export const unsharedExamsSchema = z.object({
+	doctorName: z.string(),
+	patientId: z.string(),
+	examId: z.string()
+});
+
 export const sharedReportsSchema = z.object({
 	doctorId: z.string(),
+	patientId: z.string(),
+	reportId: z.string()
+});
+
+export const unsharedReportsSchema = z.object({
+	doctorName: z.string(),
 	patientId: z.string(),
 	reportId: z.string()
 });

@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import { ReportRepository } from '@repositories/report-repository';
 import { DoctorRepository } from '@repositories/doctor-repository';
 import { PatientRepository } from '@repositories/patient-repository';
-import { ISharedReports } from '@DTO/report';
+import { IUnsharedReportsRequest } from '@DTO/report';
 
 import { DoctorNotFound } from '@errors/doctor-error';
 import { PatientNotFound } from '@errors/patient-errors';
@@ -22,12 +22,12 @@ export class UnsharedReportsUseCase {
     private patientRepository: PatientRepository
 	) {}
 
-	async execute(data: ISharedReports) {
+	async execute(data: IUnsharedReportsRequest) {
 		const [
 			doctorExist,
 			patientExist
 		] = await Promise.all([
-			this.doctorRepository.findById(data.doctorId),
+			this.doctorRepository.findByName(data.doctorName),
 			this.patientRepository.findById(data.patientId)
 		]);
 
@@ -37,7 +37,6 @@ export class UnsharedReportsUseCase {
 
 		const doctorAlreadyHasAccess = await this.reportRepository.listShared({
 			reportId: data.reportId,
-			doctorId: data.doctorId,
 			doctorName: doctorExist.name
 		});
 

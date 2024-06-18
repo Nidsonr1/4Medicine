@@ -26,6 +26,12 @@ export interface ISharedExam {
   patientId: string
 }
 
+export interface IUnshareExamRequest {
+  examId: string;
+  doctorName: string;
+  patientId: string  
+}
+
 export interface IUnshareExam {
   examId: string;
   document: string;
