@@ -38,6 +38,12 @@ export interface ISharedReports {
   patientId: string
 }
 
+export interface IUnsharedReportsRequest {
+  reportId: string;
+  doctorName: string;
+  patientId: string
+}
+
 export interface IUnshareReports {
   reportId: string;
   document: string;
@@ -76,8 +82,7 @@ export interface IListReportsToPatient {
 	total: number,
 }
 
-export interface ILIstReportsSharedRequest {
+export interface IListReportsSharedRequest {
   reportId: string;
-  doctorId: string;
   doctorName: string;
 }

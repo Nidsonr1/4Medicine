@@ -1,23 +1,24 @@
-import { sharedExamsSchema } from '@lib/zod';
-import { UnharedExamsUseCase } from '@use-cases/exams/unshare-exams';
-import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { Request, Response } from 'express';
+
+import { unsharedExamsSchema } from '@lib/zod';
+import { UnharedExamsUseCase } from '@use-cases/exams/unshare-exams';
 
 export class UnshareExamController {
 	async handle(request: Request, response: Response): Promise<Response> {
 		const unshareExamUseCase = container.resolve(UnharedExamsUseCase);
 
-		const { doctorId } = request.body;
+		const { doctorName } = request.body;
 		const { patientId } = request;
 		const { examId } = request.params;
 
 		const validateBody = {
-			doctorId,
+			doctorName,
 			patientId,
 			examId
 		};
 
-		const payload = sharedExamsSchema.parse(validateBody);
+		const payload = unsharedExamsSchema.parse(validateBody);
 
 		await unshareExamUseCase.execute(payload);
     
