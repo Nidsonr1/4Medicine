@@ -1,0 +1,573 @@
+<div class="switch-register">
+  <p>Olá, quem é você?</p>
+  <nz-switch
+    (click)="onRegisterTypeChange()"
+    nzCheckedChildren="Médico"
+    nzUnCheckedChildren="Paciente"
+  ></nz-switch>
+</div>
+
+<div *ngIf="resgisterType === 'doctor'" class="register-doctor">
+  <div class="register-doctor-steps">
+    <nz-steps [nzCurrent]="stepIndexOfRegisterDoctor">
+      <nz-step
+        *ngFor="let step of stepsOfRegisterDoctor; let i = index"
+        [nzTitle]="step.title"
+        [nzStatus]="step.status"
+        [nzIcon]="step.icon"
+      ></nz-step>
+    </nz-steps>
+  </div>
+
+  <form
+    nz-form
+    nzLayout="vertical"
+    class="register-doctor-form"
+    [formGroup]="validateFormDoctor"
+    (ngSubmit)="registerDoctor()"
+  >
+    <div class="register-doctor-form-header">
+      <h1 class="desktop mobile" *ngIf="stepIndexOfRegisterDoctor === 0">
+        Dados pessoais
+      </h1>
+      <h1 class="desktop mobile" *ngIf="stepIndexOfRegisterDoctor === 1">
+        Conclusão
+      </h1>
+      <p>Preencha os campos abaixo com atenção:</p>
+    </div>
+
+    <div
+      *ngIf="stepIndexOfRegisterDoctor === 0"
+      class="register-doctor-form-about-user"
+    >
+      <div class="register-doctor-form-about-user-inputs">
+        <nz-form-item>
+          <nz-form-label nzFor="name" nzRequired>Nome</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="name"
+              id="name"
+              placeholder="Insira seu nome"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="CRM" nzRequired>CRM</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="CRM"
+              id="CRM"
+              mask="UU00000/00"
+              [dropSpecialCharacters]="false"
+              placeholder="EX00000/00"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="phone">Telefone</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="phone"
+              id="phone"
+              mask="(00) 0000-0000"
+              [dropSpecialCharacters]="false"
+              placeholder="(00) 0000-0000"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="cell" nzRequired>Celular</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="cell"
+              id="cell"
+              mask="(00) 00000-0000"
+              [dropSpecialCharacters]="false"
+              placeholder="(00) 00000-0000"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="expertise" nzRequired
+            >Especialidade</nz-form-label
+          >
+          <nz-form-control
+            nzHasFeedback
+            nzErrorTip="De acordo com o Decreto-Lei nº 4.113, de 14 de fevereiro de 1942, Art. 1º, é proibido aos médicos anunciar, entre outras restrições, o exercício de mais de duas especialidades, sendo facultada a enumeração de doenças, órgãos ou sistemas compreendidos na especialização."
+          >
+            <nz-select
+              nzMode="multiple"
+              [(ngModel)]="listOfExpertiseSelecteds"
+              formControlName="expertise"
+              id="expertise"
+              nzPlaceHolder="Selecione uma ou mais especialidades"
+            >
+              <nz-option
+                *ngFor="let expertise of expertiseOptions"
+                [nzLabel]="expertise.label"
+                [nzValue]="expertise.value"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="agreement" nzRequired>Convênio</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <nz-select
+              nzMode="multiple"
+              [(ngModel)]="listOfAgreementSelecteds"
+              formControlName="agreement"
+              id="agreement"
+              nzPlaceHolder="Selecione um ou mais convênios"
+            >
+              <nz-option
+                *ngFor="let agreement of agreementOptions"
+                [nzLabel]="agreement.label"
+                [nzValue]="agreement.value"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="register-doctor-form-about-user-footer">
+        <span
+          nz-icon
+          nzType="arrow-right"
+          nzTheme="outline"
+          (click)="
+            changeStatusOfRegister(
+              stepIndexOfRegisterDoctor,
+              stepsOfRegisterDoctor,
+              'next'
+            )
+          "
+        ></span>
+      </div>
+    </div>
+
+    <div
+      *ngIf="stepIndexOfRegisterDoctor === 1"
+      class="register-doctor-form-finish"
+    >
+      <div class="register-doctor-form-finish-validation-password">
+        <h4>A senha deve conter as seguintes caracteristicas:</h4>
+        <p [ngClass]="{ checkValidation: hasMinLength && hasMaxLength }">
+          Deve ter de 8 a 12 caracteres
+        </p>
+        <p [ngClass]="{ checkValidation: hasUpperCase }">
+          Conter pelo menos uma letra maiúscula
+        </p>
+        <p [ngClass]="{ checkValidation: hasNumbers }">
+          Conter pelo menos um número
+        </p>
+      </div>
+
+      <nz-form-item>
+        <nz-form-label nzFor="password" nzRequired>Senha</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-group nzPrefixIcon="lock" [nzSuffix]="password">
+            <input
+              nz-input
+              [type]="passwordVisible ? 'text' : 'password'"
+              formControlName="password"
+              id="password"
+              placeholder="Senha"
+              (keyup)="validatePassword(validateFormDoctor)"
+            />
+          </nz-input-group>
+          <ng-template #password>
+            <span
+              nz-icon
+              [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+              (click)="passwordVisible = !passwordVisible"
+            ></span>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="register-doctor-form-finish-footer">
+        <span
+          nz-icon
+          nzType="arrow-left"
+          nzTheme="outline"
+          (click)="
+            changeStatusOfRegister(
+              stepIndexOfRegisterDoctor,
+              stepsOfRegisterDoctor,
+              'previous'
+            )
+          "
+        ></span>
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="!validateFormDoctor.valid"
+        >
+          Cadastrar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="resgisterType === 'patient'" class="register-patient">
+  <div class="register-patient-steps">
+    <nz-steps [nzCurrent]="stepIndexOfRegisterPatient">
+      <nz-step
+        *ngFor="let step of stepsOfRegisterPatient; let i = index"
+        [nzTitle]="step.title"
+        [nzStatus]="step.status"
+        [nzIcon]="step.icon"
+      ></nz-step>
+    </nz-steps>
+  </div>
+
+  <form
+    nz-form
+    nzLayout="vertical"
+    class="register-patient-form"
+    [formGroup]="validateFormPatient"
+    (ngSubmit)="registerPatient()"
+  >
+    <div class="register-patient-form-header">
+      <h1 class="desktop mobile" *ngIf="stepIndexOfRegisterPatient === 0">
+        Dados pessoais
+      </h1>
+      <h1 class="desktop mobile" *ngIf="stepIndexOfRegisterPatient === 1">
+        Contato
+      </h1>
+      <h1 class="desktop mobile" *ngIf="stepIndexOfRegisterPatient === 2">
+        Endereço
+      </h1>
+      <h1 class="desktop mobile" *ngIf="stepIndexOfRegisterPatient === 3">
+        Conclusão
+      </h1>
+      <p>Preencha os campos abaixo com atenção:</p>
+    </div>
+
+    <div
+      *ngIf="stepIndexOfRegisterPatient === 0"
+      class="register-patient-form-about-user"
+    >
+      <div class="register-patient-form-about-user-inputs">
+        <nz-form-item>
+          <nz-form-label nzFor="name" nzRequired>Nome</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="name"
+              id="name"
+              placeholder="Insira seu nome"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="cpf" nzRequired>CPF</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="cpf"
+              id="cpf"
+              mask="000.000.000-00"
+              [dropSpecialCharacters]="false"
+              placeholder="000.000.000-00"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="gender" nzRequired> Gênero </nz-form-label>
+          <nz-form-control>
+            <nz-radio-group formControlName="gender" id="gender">
+              <label nz-radio nzValue="feminino">Feminino</label>
+              <label nz-radio nzValue="masculino">Masculino</label>
+              <label nz-radio nzValue="outros">Outros</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzRequired>Data de nascimento</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <nz-date-picker
+              formControlName="dateOfBirth"
+              id="dateOfBirth"
+              nzFormat="dd/MM/yyyy"
+              [nzDisabledDate]="disabledDate"
+            ></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="register-patient-form-about-user-footer">
+        <span
+          nz-icon
+          nzType="arrow-right"
+          nzTheme="outline"
+          (click)="
+            changeStatusOfRegister(
+              stepIndexOfRegisterPatient,
+              stepsOfRegisterPatient,
+              'next'
+            )
+          "
+        ></span>
+      </div>
+    </div>
+
+    <div
+      *ngIf="stepIndexOfRegisterPatient === 1"
+      class="register-patient-form-contact"
+    >
+      <div class="register-patient-form-contact-inputs">
+        <nz-form-item>
+          <nz-form-label nzFor="cell" nzRequired>Celular</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="cell"
+              id="cell"
+              mask="(00) 00000-0000"
+              [dropSpecialCharacters]="false"
+              placeholder="(00) 00000-0000"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="email" nzRequired>E-mail</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="email"
+              id="email"
+              placeholder="Insira seu email"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="register-patient-form-contact-footer">
+        <span
+          nz-icon
+          nzType="arrow-left"
+          nzTheme="outline"
+          (click)="
+            changeStatusOfRegister(
+              stepIndexOfRegisterPatient,
+              stepsOfRegisterPatient,
+              'previous'
+            )
+          "
+        ></span>
+        <span
+          nz-icon
+          nzType="arrow-right"
+          nzTheme="outline"
+          (click)="
+            changeStatusOfRegister(
+              stepIndexOfRegisterPatient,
+              stepsOfRegisterPatient,
+              'next'
+            )
+          "
+        ></span>
+      </div>
+    </div>
+
+    <div
+      *ngIf="stepIndexOfRegisterPatient === 2"
+      class="register-patient-form-address"
+    >
+      <div class="register-patient-form-address-inputs">
+        <nz-form-item>
+          <nz-form-label nzFor="city" nzRequired>Cidade</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="city"
+              id="city"
+              placeholder="Nome da sua cidade"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="uf" nzRequired>Estado</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="uf"
+              id="uf"
+              mask="UU"
+              placeholder="EX"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="street" nzRequired>Rua</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="street"
+              id="street"
+              placeholder="Nome da sua rua"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="number" nzRequired>Número</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="number"
+              id="number"
+              mask="99999"
+              placeHolder="N°"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="neighborhood" nzRequired>Bairro</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="neighborhood"
+              id="neighborhood"
+              placeholder="Nome do seu bairro"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzFor="zipCode" nzRequired>CEP</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="zipCode"
+              id="zipCode"
+              mask="00000-000"
+              placeholder="00000-000"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <nz-form-item>
+        <nz-form-label nzFor="complement">Complemento</nz-form-label>
+        <nz-form-control>
+          <textarea
+            nz-input
+            formControlName="complement"
+            id="complement"
+            placeholder="Informações adicionais"
+          ></textarea>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="register-patient-form-address-footer">
+        <span
+          nz-icon
+          nzType="arrow-left"
+          nzTheme="outline"
+          (click)="
+            changeStatusOfRegister(
+              stepIndexOfRegisterPatient,
+              stepsOfRegisterPatient,
+              'previous'
+            )
+          "
+        ></span>
+        <span
+          nz-icon
+          nzType="arrow-right"
+          nzTheme="outline"
+          (click)="
+            changeStatusOfRegister(
+              stepIndexOfRegisterPatient,
+              stepsOfRegisterPatient,
+              'next'
+            )
+          "
+        ></span>
+      </div>
+    </div>
+
+    <div
+      *ngIf="stepIndexOfRegisterPatient === 3"
+      class="register-patient-form-finish"
+    >
+      <div class="register-patient-form-finish-validation-password">
+        <h4>A senha deve conter as seguintes caracteristicas:</h4>
+        <p [ngClass]="{ checkValidation: hasMinLength && hasMaxLength }">
+          Deve ter de 8 a 12 caracteres
+        </p>
+        <p [ngClass]="{ checkValidation: hasUpperCase }">
+          Conter pelo menos uma letra maiúscula
+        </p>
+        <p [ngClass]="{ checkValidation: hasNumbers }">
+          Conter pelo menos um número
+        </p>
+      </div>
+
+      <nz-form-item>
+        <nz-form-label nzFor="password" nzRequired>Senha</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-group nzPrefixIcon="lock" [nzSuffix]="password">
+            <input
+              nz-input
+              [type]="passwordVisible ? 'text' : 'password'"
+              formControlName="password"
+              id="password"
+              placeholder="Senha"
+              (keyup)="validatePassword(validateFormPatient)"
+            />
+          </nz-input-group>
+          <ng-template #password>
+            <span
+              nz-icon
+              [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+              (click)="passwordVisible = !passwordVisible"
+            ></span>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="register-patient-form-finish-footer">
+        <span
+          nz-icon
+          nzType="arrow-left"
+          nzTheme="outline"
+          (click)="
+            changeStatusOfRegister(
+              stepIndexOfRegisterPatient,
+              stepsOfRegisterPatient,
+              'previous'
+            )
+          "
+        ></span>
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="!validateFormPatient.valid"
+        >
+          Cadastrar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

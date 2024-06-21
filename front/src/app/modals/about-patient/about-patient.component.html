@@ -1,0 +1,24 @@
+<div class="modal" *ngIf="patient">
+  <div class="modal-about-user">
+    <p class="name">{{ patient.name }}</p>
+    <p>
+      <span class="dateOfBirth"
+        >{{ formatDate(patient.dateOfBirth) }}
+        <span class="age">({{ calculateAge(patient.dateOfBirth) }})</span></span
+      >
+    </p>
+  </div>
+
+  <div class="modal-user-address">
+    <span nz-icon nzType="environment" nzTheme="twotone"></span>
+    <div class="modal-user-address-details">
+      <p>
+        <span class="street">{{ patient.address.street }}</span
+        >, <span class="number">{{ patient.address.number }}</span
+        >, <span class="neighborhood">{{ patient.address.neighborhood }}</span
+        >, <span class="city">{{ patient.address.city }}</span> -
+        <span class="state">{{ patient.address.uf }}</span>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="modal">
+  <form nz-form [formGroup]="validateFormNewExam" class="modal-form">
+    <p>Preencha os campos abaixo atentamente:</p>
+    <div class="modal-form-pdf">
+      <p>
+        <span class="required">*</span> Exame em pdf:
+        <span
+          *ngIf="selectedPdfFileList.length"
+          class="sucess-icon"
+          nz-icon
+          nzType="check-circle"
+          nzTheme="fill"
+        ></span>
+        <span
+          *ngIf="!selectedPdfFileList.length && this.firtsUploadPdf"
+          class="error-icon"
+          nz-icon
+          nzType="close-circle"
+          nzTheme="fill"
+        ></span>
+      </p>
+
+      <nz-upload
+        nzType="drag"
+        nzFileType="application/pdf, .pdf, .PDF"
+        [nzBeforeUpload]="beforeUploadPdf"
+        [(nzFileList)]="selectedPdfFileList"
+      >
+        <p class="ant-upload-drag-icon">
+          <span nz-icon nzType="inbox"></span>
+        </p>
+        <p class="ant-upload-text">
+          Clique ou arraste o arquivo para esta área para fazer upload
+        </p>
+        <p class="ant-upload-hint">Suporte para um único upload.</p>
+      </nz-upload>
+    </div>
+
+    <div class="modal-form-document-title" *ngIf="selectedPdfFileList.length">
+      <nz-form-item>
+        <nz-form-label nzFor="documentTitle" nzRequired
+          >Título do documento
+        </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input
+            nz-input
+            type="text"
+            id="documentTitle"
+            formControlName="documentTitle"
+            placeholder="Dê um nome a esse exame"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div class="modal-form-footer">
+      <button nz-button nzType="default" (click)="closeModal()">
+        Cancelar
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="sendNewExam()"
+        [disabled]="!validateFormNewExam.valid || !selectedPdfFileList.length"
+      >
+        Enviar exame
+      </button>
+    </div>
+  </form>
+</div>
