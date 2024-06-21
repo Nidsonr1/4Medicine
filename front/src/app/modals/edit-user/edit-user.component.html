@@ -1,0 +1,277 @@
+<div class="modal">
+  <div
+    class="modal-edit-doctor"
+    [ngClass]="{
+      'modal-edit-doctor-disabled': !isADoctor
+    }"
+  >
+    <form
+      nz-form
+      [formGroup]="editDoctorForm"
+      [nzLayout]="'vertical'"
+      class="modal-edit-doctor-form"
+    >
+      <div class="modal-edit-doctor-form-name">
+        <nz-form-item>
+          <nz-form-label nzFor="documentTitle" nzRequired> Nome </nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="Informe seu nome"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-doctor-form-phone">
+        <nz-form-item>
+          <nz-form-label nzFor="phone">Telefone</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="phone"
+              id="phone"
+              mask="(00) 0000-0000"
+              [dropSpecialCharacters]="false"
+              placeholder="Informe seu telefone"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-doctor-form-cell">
+        <nz-form-item>
+          <nz-form-label nzFor="cell" nzRequired>Celular</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="cell"
+              id="cell"
+              mask="(00) 00000-0000"
+              [dropSpecialCharacters]="false"
+              placeholder="Informe seu celular"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-doctor-form-expertise">
+        <div class="modal-edit-doctor-form-expertise-header">
+          <p>Especialidade(s):</p>
+        </div>
+
+        <div class="modal-edit-doctor-form-expertise-item">
+          <span *ngFor="let expertise of doctorExpertises">{{
+            expertise
+          }}</span>
+        </div>
+      </div>
+
+      <div class="modal-edit-doctor-form-agreements">
+        <div class="modal-edit-doctor-form-agreements-header">
+          <p>Planos de saúde aceitos:</p>
+        </div>
+
+        <div class="modal-edit-doctor-form-agreements-item">
+          <span *ngFor="let agreement of doctorAgreements">{{
+            agreement
+          }}</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div
+    class="modal-edit-patient"
+    [ngClass]="{
+      'modal-edit-patient-disabled': isADoctor
+    }"
+  >
+    <form
+      nz-form
+      [formGroup]="editPatientForm"
+      [nzLayout]="'vertical'"
+      class="modal-edit-patient-form"
+    >
+      <div class="modal-edit-patient-form-name">
+        <nz-form-item>
+          <nz-form-label nzFor="documentTitle" nzRequired> Nome </nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="Informe seu nome"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-patient-form-email">
+        <nz-form-item>
+          <nz-form-label nzFor="email" nzRequired>Email</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="email"
+              id="email"
+              placeholder="Informe seu email"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-patient-form-cell">
+        <nz-form-item>
+          <nz-form-label nzFor="cell" nzRequired>Celular</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="cell"
+              id="cell"
+              mask="(00) 00000-0000"
+              [dropSpecialCharacters]="false"
+              placeholder="Informe seu celular"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-patient-form-zipCode">
+        <nz-form-item>
+          <nz-form-label nzFor="zipCode" nzRequired>CEP</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="zipCode"
+              id="zipCode"
+              mask="00000-000"
+              [dropSpecialCharacters]="true"
+              placeholder="Informe seu CEP"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-patient-form-uf">
+        <nz-form-item>
+          <nz-form-label nzFor="uf" nzRequired>UF</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="uf"
+              id="uf"
+              placeholder="Informe seu UF"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-patient-form-city">
+        <nz-form-item>
+          <nz-form-label nzFor="city" nzRequired>Cidade</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="city"
+              id="city"
+              placeholder="Informe sua cidade"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-patient-form-neighborhood">
+        <nz-form-item>
+          <nz-form-label nzFor="neighborhood" nzRequired>Bairro</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="neighborhood"
+              id="neighborhood"
+              placeholder="Informe seu bairro"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-patient-form-street">
+        <nz-form-item>
+          <nz-form-label nzFor="street" nzRequired>Rua</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="street"
+              id="street"
+              placeholder="Informe sua rua"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-patient-form-number">
+        <nz-form-item>
+          <nz-form-label nzFor="number" nzRequired>Número</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="number"
+              id="number"
+              placeholder="Informe seu número"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="modal-edit-patient-form-complement">
+        <nz-form-item>
+          <nz-form-label nzFor="complement">Complemento</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input
+              nz-input
+              formControlName="complement"
+              id="complement"
+              placeholder="Informe seu complemento"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      nz-button
+      nzType="default"
+      (click)="changeValueCanEditInformations()"
+    >
+      {{ canEditInformations ? "Cancelar" : "Editar informações" }}
+    </button>
+
+    <button
+      *ngIf="canEditInformations && isADoctor"
+      nz-button
+      nzType="primary"
+      (click)="sendEditUser()"
+      [disabled]="validateChangeFormDoctor()"
+    >
+      Salvar
+      <img *ngIf="loading" src="assets/loading.gif" width="16" />
+    </button>
+
+    <button
+      *ngIf="canEditInformations && !isADoctor"
+      nz-button
+      nzType="primary"
+      (click)="sendEditUser()"
+      [disabled]="validateChangeFormPatient()"
+    >
+      <span>Salvar</span>
+      <img *ngIf="loading" src="assets/loading.gif" width="16" />
+    </button>
+  </div>
+</div>

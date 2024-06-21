@@ -1,0 +1,163 @@
+<div class="exams-header">
+  <div class="exams-header-title">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="circle"
+      routerLink="/inicio"
+      nz-tooltip
+      nzTooltipPlacement="bottom"
+      nzTooltipTitle="Voltar"
+    >
+      <span nz-icon nzType="caret-left" nzTheme="outline"></span>
+    </button>
+    <h3>Exames médicos</h3>
+  </div>
+
+  <div class="exams-header-actions" *ngIf="userLogged === 'patient'">
+    <button nz-button nzType="primary" (click)="newExam()">
+      <span nz-icon nzType="upload" nzTheme="outline"></span>
+      Importar exame
+    </button>
+
+    <button
+      class="desktop mobile"
+      nz-button
+      nzType="primary"
+      nzShape="circle"
+      (click)="newExam()"
+    >
+      <span nz-icon nzType="import" nzTheme="outline"></span>
+    </button>
+  </div>
+</div>
+
+<div class="exams-doctor" *ngIf="userLogged === 'doctor'">
+  <nz-table
+    class="exams-table"
+    [nzData]="dataTableExamsDoctor"
+    [nzFrontPagination]="false"
+  >
+    <thead>
+      <tr>
+        <th>Exame</th>
+        <th>Paciente</th>
+        <th>Idade</th>
+        <th [nzSortFn]="true">Data de upload</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of dataTableExamsDoctor">
+        <th>{{ row.documentTitle }}</th>
+        <td>
+          {{ row.patient.name }}
+          <a
+            nz-button
+            nzType="link"
+            nz-tooltip
+            nzTooltipTitle="Sobre o paciente"
+            (click)="aboutPatient(row)"
+            ><span nz-icon nzType="file-search" nzTheme="outline"></span
+          ></a>
+        </td>
+        <td>{{ calculateAge(row.patient.dateOfBirth) }}</td>
+        <td>{{ formatDate(row.createdAt) }}</td>
+        <td>
+          <a
+            nz-button
+            nzType="link"
+            nz-tooltip
+            nzTooltipTitle="Ver o PDF"
+            (click)="openExam(row)"
+            ><span nz-icon nzType="file-pdf" nzTheme="outline"></span
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<div class="exams-patient" *ngIf="userLogged === 'patient'">
+  <nz-table
+    class="exams-patient-table"
+    [nzData]="dataTableExamPatient"
+    [nzFrontPagination]="false"
+  >
+    <thead>
+      <tr>
+        <th>Exame</th>
+        <th [nzSortFn]="true">Data de upload</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let row of dataTableExamPatient">
+        <td>{{ row.documentTitle }}</td>
+        <td>{{ formatDate(row.createdAt) }}</td>
+        <td>
+          <a
+            nz-button
+            nzType="link"
+            nz-tooltip
+            nzTooltipTitle="Ver o PDF"
+            (click)="openExam(row)"
+            ><span nz-icon nzType="file-pdf" nzTheme="outline"></span
+          ></a>
+          <a
+            nz-button
+            nzType="link"
+            nz-tooltip
+            nzTooltipTitle="Compartilhar com médicos"
+            (click)="shareExam(row)"
+            ><span nz-icon nzType="share-alt" nzTheme="outline"></span
+          ></a>
+          <a
+            nz-button
+            nzType="link"
+            nz-tooltip
+            nzTooltipTitle="Lista de acessos"
+            nz-popover
+            nzPopoverTrigger="click"
+            nzPopoverPlacement="bottom"
+            nzPopoverTitle="O exame pode ser acessado por:"
+            [nzPopoverContent]="sharedBy"
+            ><span nz-icon nzType="user-switch" nzTheme="outline"></span
+          ></a>
+
+          <ng-template class="exams-patient-table-sharedBy" #sharedBy>
+            <div
+              class="exams-patient-table-sharedBy-item"
+              *ngFor="let whoCanAccess of formatArray(row.sharedBy)"
+            >
+              <p>
+                {{ whoCanAccess.label }}
+              </p>
+              <button
+                nz-button
+                nzType="text"
+                (click)="unsharedExam(whoCanAccess.label, row.id)"
+              >
+                <img src="assets/png/unsharedIcon.png" width="16" />
+              </button>
+            </div>
+            <p *ngIf="!formatArray(row.sharedBy).length">
+              <span nz-icon nzType="eye-invisible" nzTheme="outline"></span>
+              Ninguém por enquanto
+            </p>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<div class="table-pagination">
+  <nz-pagination
+    (nzPageIndexChange)="onCurrentPageDataChange($event)"
+    [nzTotal]="totalItemsTable"
+    [nzPageSize]="limitPerPage"
+    [(nzPageIndex)]="indexPageTable"
+  ></nz-pagination>
+</div>

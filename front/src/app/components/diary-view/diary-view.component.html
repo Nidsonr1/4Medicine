@@ -1,0 +1,74 @@
+<div class="week" *ngFor="let date of datesOfTheWeek">
+  <div
+    class="week-day"
+    [ngClass]="{
+      destakCurrentDay:
+        checkCurrentDate(date) && diaryViewComponentConfig.showCurrentDate,
+      destakWeekend: checkWeekend(date) && diaryViewComponentConfig.showWeekend
+    }"
+  >
+    <div class="week-day-header">
+      <div class="week-day-header-content-date">
+        <h3>{{ formarDate(date) }}</h3>
+        <p>{{ formatDay(date) }}</p>
+      </div>
+    </div>
+    <div class="week-day-appointments">
+      <div
+        *ngFor="let appointment of diaryViewComponentConfig.appointments"
+        class="week-day-appointments-content"
+        [ngClass]="{
+          'no-week-day-appointments-item': !putAppointmentsInDate(
+            date,
+            appointment
+          ),
+        }"
+      >
+        <div
+          *ngIf="putAppointmentsInDate(date, appointment)"
+          class="week-day-appointments-item"
+        >
+          <h3>{{ appointment.title }}</h3>
+          <p *ngIf="appointment.link">
+            Acesse a
+            <a [href]="appointment.link">
+              chamada de vídeo
+              <span nz-icon nzType="video-camera" nzTheme="outline"></span
+            ></a>
+            entre
+            <span class="destakText">
+              {{ formatHour(appointment.start_date!) }} e
+              {{ formatHour(appointment.end_date!) }}</span
+            >
+          </p>
+          <p *ngIf="!appointment.link">
+            <span class="destakText">Horário: </span>
+            Esteja lá entre
+            <span class="destakText"
+              >{{ formatHour(appointment.start_date!) }} e
+              {{ formatHour(appointment.end_date!) }}</span
+            >
+          </p>
+          <p>
+            {{ appointment.description }}
+          </p>
+        </div>
+
+        <div *ngIf="appointment.action">
+          <a
+            nz-button
+            nzType="link"
+            nz-tooltip
+            [nzTooltipTitle]="appointment.action.tooltip"
+            (click)="appointment.action.function!()"
+            ><span
+              nz-icon
+              [nzType]="appointment.action.icon"
+              nzTheme="outline"
+            ></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

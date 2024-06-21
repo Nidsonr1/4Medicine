@@ -1,0 +1,122 @@
+.switch-login {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.login-doctor {
+  height: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+
+  &-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 90%;
+    }
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+
+    &-hello {
+      margin-bottom: 8px;
+    }
+
+    &-footer {
+      button {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+
+.login-patient {
+  height: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+
+  &-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 90%;
+    }
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+
+    &-hello {
+      margin-bottom: 8px;
+    }
+
+    &-footer {
+      button {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+
+// Responsive design for mobile
+@media (max-width: 768px) {
+  .login-doctor {
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+
+    &-image {
+      display: none;
+    }
+
+    &-form {
+      &-hello {
+        margin-bottom: 8px;
+      }
+
+      &-footer {
+        button {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+
+  .login-patient {
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+
+    &-image {
+      display: none;
+    }
+
+    &-form {
+      &-hello {
+        margin-bottom: 8px;
+      }
+
+      &-footer {
+        button {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+}

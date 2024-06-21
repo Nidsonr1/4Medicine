@@ -1,0 +1,71 @@
+<div class="diary-header">
+  <div class="diary-header-title">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="circle"
+      routerLink="/inicio"
+      nz-tooltip
+      nzTooltipPlacement="bottom"
+      nzTooltipTitle="Voltar"
+    >
+      <span nz-icon nzType="caret-left" nzTheme="outline"></span>
+    </button>
+    <h3>Agenda de consultas</h3>
+  </div>
+  <div *ngIf="userLogged === 'doctor'" class="diary-header-actions">
+    <button nz-button nzType="primary" (click)="newAppointment()">
+      <span nz-icon nzType="carry-out" nzTheme="outline"></span>
+      Nova consulta
+    </button>
+  </div>
+</div>
+
+<div class="diary-calendar">
+  <div class="diary-calendar-header">
+    <a nz-button nzType="link" (click)="changeMonth('prev')">
+      <span nz-icon nzType="double-left" nzTheme="outline"></span>
+    </a>
+
+    <h2>
+      {{ selectedMonth }}
+    </h2>
+
+    <a nz-button nzType="link" (click)="changeMonth('next')">
+      <span nz-icon nzType="double-right" nzTheme="outline"></span>
+    </a>
+  </div>
+
+  <a
+    *ngIf="!verifyIfIsToday()"
+    nz-button
+    nzType="link"
+    (click)="changeMonth('current')"
+  >
+    Voltar a data atual
+  </a>
+
+  <nz-calendar
+    [(ngModel)]="selectedDay"
+    (nzSelectChange)="chengesInCalendar($event)"
+  >
+    <div
+      class="diary-calendar-day"
+      *nzDateCell="let date"
+      [ngSwitch]="date.getDate()"
+    >
+      <div
+        class="diary-calendar-day-appoitment"
+        *ngFor="let appointment of formatCalendarDay(date)"
+      >
+        <nz-badge nzColor="#57cc99" [title]="appointment.title">
+          {{ appointment.start_hour }} {{ appointment.title }}
+        </nz-badge>
+      </div>
+    </div>
+  </nz-calendar>
+</div>
+
+<div class="diary-footer">
+  <footer></footer>
+</div>

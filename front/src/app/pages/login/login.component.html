@@ -1,0 +1,138 @@
+<div class="switch-login">
+  <p>Olá, quem é você?</p>
+  <nz-switch
+    (click)="onLoginTypeChange()"
+    nzCheckedChildren="Médico"
+    nzUnCheckedChildren="Paciente"
+  ></nz-switch>
+</div>
+
+<div *ngIf="loginType === 'doctor'" class="login-doctor">
+  <div class="login-doctor-image">
+    <img src="assets/svg/doctor.svg" alt="Doctor" />
+  </div>
+
+  <form
+    nz-form
+    class="login-doctor-form"
+    [formGroup]="validateFormDoctor"
+    (ngSubmit)="loginDoctor()"
+  >
+    <div class="login-doctor-form-hello">
+      <h1>Bem vindo(a)</h1>
+      <p>Preencha os campos abaixo com sua informações</p>
+    </div>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Por favor, insira o seu CRM corretamente!">
+        <nz-input-group nzPrefixIcon="idcard">
+          <input
+            nz-input
+            formControlName="crm"
+            mask="UU00000/00"
+            [dropSpecialCharacters]="false"
+            placeholder="CRM - Duas primeiras letras maiúsculas"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Por favor, insira a sua senha!">
+        <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+          <input
+            nz-input
+            [type]="passwordVisible ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Senha"
+          />
+        </nz-input-group>
+        <ng-template #suffixTemplate>
+          <span
+            nz-icon
+            [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            (click)="passwordVisible = !passwordVisible"
+          ></span>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="login-doctor-form-footer">
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="!validateFormDoctor.valid"
+        nzBlock
+      >
+        Entrar
+      </button>
+      Ou
+      <a routerLink="/cadastro">cadastre-se agora</a>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="loginType === 'patient'" class="login-patient">
+  <form
+    nz-form
+    class="login-patient-form"
+    [formGroup]="validateFormPatient"
+    (ngSubmit)="loginPatient()"
+  >
+    <div class="login-patient-form-hello">
+      <h1>Bem vindo(a)</h1>
+      <p>Preencha os campos abaixo com sua informações</p>
+    </div>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Por favor, insira o seu cpf corretamente!">
+        <nz-input-group nzPrefixIcon="idcard">
+          <input
+            nz-input
+            formControlName="cpf"
+            placeholder="CPF"
+            mask="000.000.000-00"
+            [dropSpecialCharacters]="false"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Por favor, insira a sua senha!">
+        <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+          <input
+            nz-input
+            [type]="passwordVisible ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Senha"
+          />
+        </nz-input-group>
+        <ng-template #suffixTemplate>
+          <span
+            nz-icon
+            [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            (click)="passwordVisible = !passwordVisible"
+          ></span>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="login-patient-form-footer">
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="!validateFormPatient.valid"
+        nzBlock
+      >
+        Entrar
+      </button>
+      Ou
+      <a routerLink="/cadastro">cadastre-se agora</a>
+    </div>
+  </form>
+
+  <div class="login-patient-image">
+    <img src="assets/svg/familyHospital.svg" alt="Patient" />
+  </div>
+</div>

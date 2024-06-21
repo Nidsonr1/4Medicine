@@ -1,0 +1,54 @@
+<div class="show-just-appointments">
+  <div
+    class="show-just-appointments-appointment"
+    *ngFor="let appoitment of dailyViewConfirg.appointmentsOfTheDay"
+  >
+    <div class="show-just-appointments-appointment-time">
+      <p>
+        {{ formatHour(appoitment.start_date) }}
+        <span nz-icon nzType="swap-right" nzTheme="outline"></span>
+        {{ formatHour(appoitment.end_date) }}
+      </p>
+    </div>
+    <div class="show-just-appointments-appointment-about">
+      <div class="show-just-appointments-appointment-about-title">
+        <h3>{{ appoitment.title }}</h3>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          [disabled]="!appoitment.link"
+          nz-popconfirm
+          nzPopconfirmTitle="Desenja ser redirecionado para a chamada?"
+          nzPopconfirmPlacement="bottom"
+          (nzOnConfirm)="redictToLink(appoitment.link)"
+        >
+          <span nz-icon nzType="video-camera"></span>
+        </button>
+      </div>
+      <div class="show-just-appointments-appointment-about-description">
+        <p>{{ appoitment.description }}</p>
+      </div>
+      <div class="show-just-appointments-appointment-about-involved">
+        <p *ngIf="appoitment.aboutPatient">
+          <span>Paciente:</span> {{ appoitment.aboutPatient.name }}
+        </p>
+        <p *ngIf="appoitment.aboutDoctor">
+          <span>Médico:</span> {{ appoitment.aboutDoctor.name }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="!dailyViewConfirg.appointmentsOfTheDay.length"
+  class="no-appointments"
+>
+  <div class="no-appointments-icon">
+    <span nz-icon nzType="calendar" nzTheme="outline"></span>
+  </div>
+  <div class="no-appointments-text">
+    <h4>Não há consultas agendadas para esse dia</h4>
+  </div>
+</div>

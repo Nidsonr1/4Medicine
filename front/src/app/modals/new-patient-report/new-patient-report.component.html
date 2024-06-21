@@ -1,0 +1,148 @@
+<div class="modal">
+  <form nz-form [formGroup]="validateFormNewReport" class="modal-form">
+    <p>Preencha os campos abaixo atentamente:</p>
+    <div class="modal-form-patient">
+      <div class="modal-form-patient-search">
+        <p>
+          <span class="required">*</span> Paciente:
+          <span
+            *ngIf="validateFormNewReport.value.patientId"
+            class="sucess-icon"
+            nz-icon
+            nzType="check-circle"
+            nzTheme="fill"
+          ></span>
+          <span
+            *ngIf="!validateFormNewReport.value.patientId && resultPatients"
+            class="error-icon"
+            nz-icon
+            nzType="close-circle"
+            nzTheme="fill"
+          ></span>
+        </p>
+
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+          <input
+            nz-input
+            type="text"
+            id="patientName"
+            formControlName="patientName"
+            placeholder="Informe o nome do paciente"
+            [(ngModel)]="validateFormNewReport.value.patientName"
+          />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button
+            nz-button
+            nzType="primary"
+            nzSearch
+            [disabled]="!validateFormNewReport.value.patientName"
+            (click)="searchPatients(validateFormNewReport.value.patientName)"
+          >
+            <span nz-icon nzType="search"></span>
+          </button>
+        </ng-template>
+      </div>
+
+      <div class="modal-form-patient-result" *ngIf="resultPatients">
+        <div
+          *ngIf="resultPatients.length"
+          class="modal-form-patient-result-with-data"
+        >
+          <nz-alert
+            nzShowIcon
+            nzType="warning"
+            nzMessage="Atenção no CPF para pacientes com o mesmo nome!"
+            nzCloseable
+          ></nz-alert>
+
+          <nz-form-item>
+            <nz-radio-group id="patientId" formControlName="patientId">
+              <label
+                nz-radio
+                [nzValue]="patient.id"
+                *ngFor="let patient of resultPatients"
+              >
+                {{ patient.name }} - <b>{{ patient.cpf }}</b></label
+              >
+            </nz-radio-group>
+          </nz-form-item>
+        </div>
+
+        <div
+          *ngIf="!resultPatients.length"
+          class="modal-form-patient-result-without-data"
+        >
+          <span nz-icon nzType="robot" nzTheme="outline"></span>
+          <p>Esse usuário não existe</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-form-pdf">
+      <p>
+        <span class="required">*</span> Laudo em pdf:
+        <span
+          *ngIf="selectedPdfFileList.length"
+          class="sucess-icon"
+          nz-icon
+          nzType="check-circle"
+          nzTheme="fill"
+        ></span>
+        <span
+          *ngIf="!selectedPdfFileList.length && this.firtsUploadPdf"
+          class="error-icon"
+          nz-icon
+          nzType="close-circle"
+          nzTheme="fill"
+        ></span>
+      </p>
+
+      <nz-upload
+        nzType="drag"
+        nzFileType="application/pdf, .pdf, .PDF"
+        [nzBeforeUpload]="beforeUploadPdf"
+        [(nzFileList)]="selectedPdfFileList"
+      >
+        <p class="ant-upload-drag-icon">
+          <span nz-icon nzType="inbox"></span>
+        </p>
+        <p class="ant-upload-text">
+          Clique ou arraste o arquivo para esta área para fazer upload
+        </p>
+        <p class="ant-upload-hint">Suporte para um único upload.</p>
+      </nz-upload>
+    </div>
+
+    <div class="modal-form-document-title" *ngIf="selectedPdfFileList.length">
+      <nz-form-item>
+        <nz-form-label nzFor="documentTitle" nzRequired
+          >Título do documento
+        </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input
+            nz-input
+            type="text"
+            id="documentTitle"
+            formControlName="documentTitle"
+            placeholder="Dê um nome a esse laudo"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div class="modal-form-footer">
+      <button nz-button nzType="default" (click)="closeModal()">
+        Cancelar
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="sendNewReport()"
+        [disabled]="!validateFormNewReport.valid || !selectedPdfFileList.length"
+      >
+        Enviar laudo
+      </button>
+    </div>
+  </form>
+</div>

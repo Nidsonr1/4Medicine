@@ -1,0 +1,53 @@
+<div class="home">
+  <div class="home-header">
+    <img src="assets/svg/4medicineLogo.svg" alt="Logo" class="home-logo" />
+    <nz-avatar
+      [nzSize]="50"
+      [nzText]="formatNameUser(userLogged.name, '2-letters')"
+      style="color: #ffffff; background-color: #57cc99"
+      nz-popover
+      nzPopoverTrigger="click"
+      nzPopoverPlacement="bottomRight"
+      [nzPopoverTitle]="formatNameUser(userLogged.name, '2-names')"
+      [nzPopoverContent]="userPopOver"
+    ></nz-avatar>
+
+    <ng-template #userPopOver>
+      <div class="home-header-user-popover">
+        <button nz-button nzType="text" (click)="openModalEditUser(userLogged)">
+          <span nz-icon nzType="edit" nzTheme="outline"></span> Editar perfil
+        </button>
+        <button nz-button nzType="text" (click)="logout()">
+          <span nz-icon nzType="logout" nzTheme="outline"></span> Sair
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="home-content">
+    <div class="home-content-menu">
+      <div class="home-content-menu-button" routerLink="/agenda">
+        <img src="assets/svg/diary.svg" alt="Calendário de consultas" />
+        <p>Agenda de consultas</p>
+      </div>
+      <div class="home-content-menu-button" routerLink="/laudos">
+        <img src="assets/svg/lab.svg" alt="Laudos médicos" />
+        <p>Laudos médicos</p>
+      </div>
+      <div class="home-content-menu-button" routerLink="/exames">
+        <img src="assets/svg/exam.svg" alt="Exames" />
+        <p>Exames</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="home-content-diary-preview">
+        <div class="home-content-diary-preview-component">
+          <app-diary-view
+            [diaryViewComponentConfig]="diaryViewComponentConfig"
+          ></app-diary-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
