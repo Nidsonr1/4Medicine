@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 const envSchema = z.object({
 	NODE_ENV: z.enum(['dev', 'homolog', 'production']).default('dev'),
-	API_PORT: z.coerce.number(),
+	API_PORT: z.coerce.number() || 3333,
 	// DB_USERNAME: z.coerce.string(),
 	// DB_PASSWORD: z.coerce.string(),
 	// DB_DATABASE: z.coerce.string(),
