@@ -20,7 +20,7 @@ export async function EnsureAuthenticateDoctor(
 		}
 
 		const [, token] = authHeader.split(' ');
-		const { sub } = verify(token, env.PATIENTKEY) as IPayload;
+		const { sub } = verify(token, '345066e416e13e7d2dc19de4632cb996') as IPayload;
 		
 		request.doctorId = sub;
 
