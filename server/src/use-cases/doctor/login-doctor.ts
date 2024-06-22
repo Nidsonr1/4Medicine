@@ -28,7 +28,7 @@ export class LoginDoctor {
 			throw new InvalidCredentials();
 		}
 
-		const token = sign({ CRM }, env.PATIENTKEY, {
+		const token = sign({ CRM }, '345066e416e13e7d2dc19de4632cb996', {
 			subject: doctor.id,
 			expiresIn: '1d'
 		});

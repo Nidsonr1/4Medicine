@@ -27,7 +27,7 @@ export class LoginPatient {
 			throw new InvalidCredentials();
 		}
 
-		const token = sign({ cpf }, env.PATIENTKEY, {
+		const token = sign({ cpf }, '345066e416e13e7d2dc19de4632cb996', {
 			subject: patient.id,
 			expiresIn: '1d'
 		});

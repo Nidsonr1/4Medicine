@@ -26,7 +26,7 @@ export async function EnsureAuthenticatePatient(
 			console.log('Deu erro aqui no token');
 		}
 		
-		const { sub } = verify(token, env.PATIENTKEY) as IPayload;
+		const { sub } = verify(token, '345066e416e13e7d2dc19de4632cb996') as IPayload;
 		request.patientId = sub;
 
 		return next();
