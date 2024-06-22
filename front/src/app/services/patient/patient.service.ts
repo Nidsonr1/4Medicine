@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { baseURL } from '../test';
 
 export namespace Patient {
   export namespace Send {
@@ -169,8 +170,9 @@ export namespace Patient {
   providedIn: 'root',
 })
 export class PatientService {
-  private baseUrl = 'http://localhost:3333';
-  private baseUrlPatient = 'http://localhost:3333/patient';
+
+  // private baseUrl = 'http://localhost:3333';
+  private baseUrlPatient = `${baseURL}/patient`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
