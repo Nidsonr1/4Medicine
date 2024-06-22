@@ -7,11 +7,11 @@ const envSchema = z.object({
 	// DB_USERNAME: z.coerce.string(),
 	// DB_PASSWORD: z.coerce.string(),
 	// DB_DATABASE: z.coerce.string(),
-	DB_PORT: z.coerce.number() || 3333,
+	// DB_PORT: z.coerce.number() || 3333,
 	PATIENTKEY: z.string(),
-	DOCTORKEY: z.string(),
-	DATABASE_URL: z.string(),
-	ENABLED_CORS: z.coerce.string()
+	// DOCTORKEY: z.string(),
+	// DATABASE_URL: z.string(),
+	// ENABLED_CORS: z.coerce.string()
 });
 
 const _env = envSchema.safeParse(process.env);
