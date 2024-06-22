@@ -3,12 +3,12 @@ import { z } from 'zod';
 
 const envSchema = z.object({
 	NODE_ENV: z.enum(['dev', 'homolog', 'production']).default('dev'),
-	API_PORT: z.coerce.number() || 3333,
-	// DB_USERNAME: z.coerce.string(),
-	// DB_PASSWORD: z.coerce.string(),
-	// DB_DATABASE: z.coerce.string(),
-	// DB_PORT: z.coerce.number() || 3333,
-	PATIENTKEY: z.string(),
+	// API_PORT: z.coerce.number() || 3333,
+	// // DB_USERNAME: z.coerce.string(),
+	// // DB_PASSWORD: z.coerce.string(),
+	// // DB_DATABASE: z.coerce.string(),
+	// // DB_PORT: z.coerce.number() || 3333,
+	// PATIENTKEY: z.string(),
 	// DOCTORKEY: z.string(),
 	// DATABASE_URL: z.string(),
 	// ENABLED_CORS: z.coerce.string()
@@ -16,10 +16,10 @@ const envSchema = z.object({
 
 const _env = envSchema.safeParse(process.env);
 
-// if (_env.success === false) {
-// 	console.error('❎ - Invalid environment variables', _env.error.format());
+if (_env.success === false) {
+	console.error('❎ - Invalid environment variables', _env.error.format());
   
-// 	throw new Error('invalid environment variables');
-// }
+	throw new Error('invalid environment variables');
+}
 
 export const env = _env.data;
